@@ -24,11 +24,21 @@ Never `#000`/`#fff`. All neutrals tinted warm (hue ~70-80).
 
 ## Typography
 
-- Display: **Fraunces** (variable, optical sizing). Headlines, 400-560 weight.
-  Soft, warm, characterful serif. Italic used for accented words.
-- Body: **Hanken Grotesk**, 400/500/600. Clean grotesk, 16-18px, line-height 1.6.
-- Mono: **JetBrains Mono**, 400/500. Keyboard keys, code, license keys.
-- Body line length capped ~68ch. Scale steps ≥1.25 ratio.
+Three families, each with one job. They work together because their roles
+never overlap. Rule of thumb: Fraunces speaks for ultrspeak, Hanken speaks
+for the user, mono is for the machine.
+
+- **Fraunces** (display serif) — the brand's voice. Reserved for the hero
+  headline, section headlines, and page titles. Optical sizing on, weight
+  ~460, italic for accent words. Never used below ~2.4rem, never on UI chrome.
+- **Hanken Grotesk** (sans) — everything human: body copy, navigation,
+  buttons, UI headings (card titles, plan names, step labels via weight 600),
+  prices, and the dictated-text examples (the user's own words).
+- **JetBrains Mono** (mono) — system and technical labels only: keyboard
+  keys, window-chrome labels, status indicators, feature index numbers, the
+  Prompt-mode example. Never full sentences of prose.
+
+Body line length capped ~68ch. Scale steps ≥1.25 ratio.
 
 ## Elevation
 

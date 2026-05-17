@@ -1,0 +1,44 @@
+---
+const links = [
+  { label: "Features", href: "/#features" },
+  { label: "How it works", href: "/#how" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
+];
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line/70 bg-ink/80 backdrop-blur-md"
+>
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+  >
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="flex items-end gap-[2px] h-4" aria-hidden="true">
+        <span class="wave-bar w-[2.5px] h-2/5 rounded-full bg-amber" style="animation-delay:-0.1s"></span>
+        <span class="wave-bar w-[2.5px] h-full rounded-full bg-amber" style="animation-delay:-0.4s"></span>
+        <span class="wave-bar w-[2.5px] h-3/5 rounded-full bg-amber" style="animation-delay:-0.7s"></span>
+      </span>
+      <span class="text-lg font-semibold tracking-tight">ultrspeak</span>
+    </a>
+
+    <ul class="hidden items-center gap-8 text-sm text-muted md:flex">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="link-amber transition-colors hover:text-paper">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="/#pricing"
+      class="rounded-full bg-paper px-5 py-2 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
+    >
+      Get ultrspeak
+    </a>
+  </nav>
+</header>

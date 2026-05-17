@@ -1,0 +1,117 @@
+---
+// Lemon Squeezy checkout links.
+// Replace STORE + the buy IDs with your real product variants from
+// app.lemonsqueezy.com → Products. The `lemonsqueezy-button` class
+// triggers the hosted checkout overlay loaded in Base.astro.
+const LS_STORE = "https://ultrspeak.lemonsqueezy.com/buy";
+
+const plans = [
+  {
+    name: "Free",
+    price: "$0",
+    cadence: "forever",
+    blurb: "Try dictation with a daily limit.",
+    cta: "Download free",
+    href: "/#download",
+    featured: false,
+    perks: [
+      "On-device transcription",
+      "Up to 2,000 words / day",
+      "English & Chinese",
+      "Global shortcut",
+    ],
+  },
+  {
+    name: "Pro",
+    price: "$8",
+    cadence: "per month, billed yearly",
+    blurb: "Unlimited dictation for daily drivers.",
+    cta: "Get Pro",
+    href: `${LS_STORE}/PRO-YEARLY-ID`,
+    featured: true,
+    perks: [
+      "Everything in Free",
+      "Unlimited dictation",
+      "Custom vocabulary",
+      "Searchable history",
+      "Priority model updates",
+    ],
+  },
+  {
+    name: "Lifetime",
+    price: "$149",
+    cadence: "one-time payment",
+    blurb: "Pay once. Yours forever.",
+    cta: "Buy Lifetime",
+    href: `${LS_STORE}/LIFETIME-ID`,
+    featured: false,
+    perks: [
+      "Everything in Pro",
+      "All future updates",
+      "Use on up to 3 Macs",
+      "No subscription, ever",
+    ],
+  },
+];
+---
+
+<section id="pricing" class="mx-auto max-w-6xl px-6 py-28">
+  <div class="reveal mb-16 max-w-2xl">
+    <p class="mb-4 text-xs uppercase tracking-[0.2em] text-amber">Pricing</p>
+    <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.02]">
+      Honest pricing.
+      <span class="italic text-amber">No lock-in.</span>
+    </h2>
+    <p class="mt-4 text-muted">
+      Buy a license key, paste it into the app, done. 14-day refund, no
+      questions asked.
+    </p>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-3">
+    {
+      plans.map((p, i) => (
+        <article
+          class={`reveal relative flex flex-col rounded-2xl border p-8 ${
+            p.featured
+              ? "border-amber bg-surface"
+              : "border-line bg-surface"
+          }`}
+          style={`transition-delay:${i * 90}ms`}
+        >
+          {p.featured && (
+            <span class="absolute -top-3 left-8 rounded-full bg-amber px-3 py-1 text-xs font-semibold text-ink">
+              Most popular
+            </span>
+          )}
+          <h3 class="font-display text-3xl text-paper">{p.name}</h3>
+          <p class="mt-1 text-sm text-muted">{p.blurb}</p>
+          <div class="mt-6 flex items-baseline gap-2">
+            <span class="font-display text-5xl text-paper">{p.price}</span>
+          </div>
+          <p class="mt-1 text-xs text-muted">{p.cadence}</p>
+
+          <a
+            href={p.href}
+            class={`${p.featured || p.name !== "Free" ? "lemonsqueezy-button " : ""}mt-7 rounded-full px-6 py-3 text-center text-sm font-semibold transition-transform hover:-translate-y-0.5 ${
+              p.featured
+                ? "bg-amber text-ink"
+                : "border border-line text-paper hover:border-muted"
+            }`}
+          >
+            {p.cta}
+          </a>
+
+          <ul class="mt-8 space-y-3 border-t border-line pt-6 text-sm">
+            {p.perks.map((perk) => (
+              <li class="flex items-start gap-3 text-muted">
+                <span class="mt-0.5 text-amber">→</span>
+                <span>{perk}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</section>

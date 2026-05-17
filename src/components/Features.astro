@@ -1,0 +1,61 @@
+---
+const features = [
+  {
+    n: "01",
+    title: "Fully on-device",
+    body: "Transcription runs locally with on-device models. No cloud, no account required, works on a plane. Your voice never leaves your Mac.",
+  },
+  {
+    n: "02",
+    title: "Hold-to-talk, anywhere",
+    body: "One global shortcut works in any text field — Slack, Mail, your editor, a browser form. The text lands exactly where your cursor is.",
+  },
+  {
+    n: "03",
+    title: "Knows your words",
+    body: "Teach ultrspeak names, jargon, and product terms once. Your custom vocabulary makes transcripts land right the first time.",
+  },
+  {
+    n: "04",
+    title: "English & Chinese",
+    body: "Dedicated routing for Mandarin dictation alongside English, with automatic fallback so mixed-language speech stays accurate.",
+  },
+  {
+    n: "05",
+    title: "Smart formatting",
+    body: "Punctuation, capitalization, and line breaks are handled for you. Speak a list and get a list — not a run-on sentence.",
+  },
+  {
+    n: "06",
+    title: "Searchable history",
+    body: "Every dictation is saved locally so you can find, copy, or re-use anything you've said. Clear it any time.",
+  },
+];
+---
+
+<section id="features" class="mx-auto max-w-6xl px-6 py-28">
+  <div class="reveal mb-16 max-w-2xl">
+    <p class="mb-4 text-xs uppercase tracking-[0.2em] text-amber">
+      Why ultrspeak
+    </p>
+    <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.02]">
+      Built to feel like
+      <span class="italic text-amber">thinking out loud.</span>
+    </h2>
+  </div>
+
+  <div class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+    {
+      features.map((f, i) => (
+        <article
+          class="reveal group bg-surface p-8 transition-colors hover:bg-surface-2"
+          style={`transition-delay:${(i % 3) * 80}ms`}
+        >
+          <span class="font-mono text-xs text-amber-dim">{f.n}</span>
+          <h3 class="mt-4 font-display text-2xl text-paper">{f.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{f.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

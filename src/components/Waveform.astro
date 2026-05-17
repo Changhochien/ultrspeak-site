@@ -1,0 +1,22 @@
+---
+interface Props {
+  bars?: number;
+  class?: string;
+}
+const { bars = 48, class: className = "" } = Astro.props;
+const heights = Array.from({ length: bars }, (_, i) => {
+  const t = i / bars;
+  return 0.2 + 0.8 * Math.abs(Math.sin(t * Math.PI * 3.2));
+});
+---
+
+<div class={`flex items-end gap-[3px] h-full ${className}`} aria-hidden="true">
+  {
+    heights.map((h, i) => (
+      <span
+        class="wave-bar w-[3px] rounded-full bg-amber"
+        style={`height:${Math.round(h * 100)}%;animation-delay:${(i % 12) * -0.09}s;opacity:${0.35 + h * 0.65}`}
+      />
+    ))
+  }
+</div>

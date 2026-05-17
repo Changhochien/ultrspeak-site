@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const steps = [
+  "Check your email — your license key was sent to the address you used at checkout.",
+  "Open ultrspeak and go to Settings → License.",
+  "Paste your key and click Activate. Pro features unlock right away.",
+];
+---
+
+<Base
+  title="Thanks for buying ultrspeak"
+  description="Your ultrspeak purchase is complete. Activate your license key to unlock Pro."
+>
+  <Nav />
+  <main class="mx-auto max-w-2xl px-6 py-28 text-center">
+    <p class="mb-4 text-xs uppercase tracking-[0.2em] text-amber">
+      Purchase complete
+    </p>
+    <h1 class="font-display text-[clamp(2.8rem,7vw,5rem)] leading-[1]">
+      Welcome to <span class="italic text-amber">ultrspeak.</span>
+    </h1>
+    <p class="mx-auto mt-6 max-w-md text-muted">
+      Your payment went through. Here's how to get talking in under a minute.
+    </p>
+
+    <ol class="mt-12 space-y-px overflow-hidden rounded-2xl border border-line bg-line text-left">
+      {
+        steps.map((s, i) => (
+          <li class="flex items-start gap-4 bg-surface p-6">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-amber font-display text-amber">
+              {i + 1}
+            </span>
+            <p class="text-sm leading-relaxed text-paper">{s}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="mt-10 rounded-2xl border border-line bg-surface p-6">
+      <p class="font-mono text-xs text-muted">
+        Lost your key? Email
+        <a href="mailto:hello@ultrspeak.com" class="link-amber text-amber"
+          >hello@ultrspeak.com</a
+        >
+        from your purchase address and we'll resend it.
+      </p>
+    </div>
+
+    <a
+      href="/#download"
+      class="mt-10 inline-block rounded-full bg-amber px-8 py-4 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
+    >
+      Download the app
+    </a>
+  </main>
+  <Footer />
+</Base>

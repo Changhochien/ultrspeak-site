@@ -1,0 +1,50 @@
+---
+// Presents an app screenshot with depth. The screenshot is expected to
+// already include the OS window chrome, so this only adds rounding,
+// a hairline ring, and a soft shadow. If `src` is missing or fails to
+// load, a clean placeholder is shown in its place.
+interface Props {
+  src?: string;
+  alt?: string;
+  ratio?: string;
+  class?: string;
+}
+const {
+  src,
+  alt = "ultrspeak app",
+  ratio = "2900 / 1370",
+  class: cls = "",
+} = Astro.props;
+---
+
+<div
+  class={`overflow-hidden rounded-2xl bg-card shadow-lift ring-1 ring-line ${cls}`}
+>
+  <div class="relative" style={`aspect-ratio:${ratio}`}>
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-paper"
+    >
+      <span class="flex items-end gap-1 h-7" aria-hidden="true">
+        <span class="wave-bar w-1 h-2/5 rounded-full bg-amber"></span>
+        <span
+          class="wave-bar w-1 h-full rounded-full bg-amber"
+          style="animation-delay:-0.4s"></span>
+        <span
+          class="wave-bar w-1 h-3/5 rounded-full bg-amber"
+          style="animation-delay:-0.7s"></span>
+      </span>
+      <span class="font-mono text-xs text-ink2">App screenshot</span>
+    </div>
+    {
+      src && (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          class="absolute inset-0 z-10 h-full w-full object-cover object-top"
+          onerror="this.remove()"
+        />
+      )
+    }
+  </div>
+</div>

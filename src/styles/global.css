@@ -11,7 +11,7 @@
   --color-amber-soft: oklch(0.93 0.06 80);
   --color-amber-ink: oklch(0.56 0.13 60);
 
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -39,26 +39,15 @@ body {
   overflow-x: hidden;
 }
 
-/* Subtle grain */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 ::selection {
   background: var(--color-amber);
   color: var(--color-ink-strong);
 }
 
 .font-display {
-  font-optical-sizing: auto;
-  letter-spacing: -0.018em;
-  font-weight: 460;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 /* --- Animations --- */
@@ -131,16 +120,6 @@ body::before {
 }
 .link-amber:hover::after {
   width: 100%;
-}
-
-/* Marker highlight behind a word */
-.marker {
-  background: linear-gradient(
-    to bottom,
-    transparent 58%,
-    var(--color-amber-soft) 58%
-  );
-  padding: 0 0.04em;
 }
 
 /* Mode demo: radio-driven tab content (via :has) */

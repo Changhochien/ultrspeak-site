@@ -6,14 +6,14 @@ brand
 
 ## Product Purpose
 
-ultrspeak is a macOS voice dictation app. You hold a keyboard shortcut, speak,
-and clean formatted text appears wherever your cursor is. Transcription runs
-fully on-device, so it is private and works offline. This site sells the app
-directly via Lemon Squeezy license keys.
+ultrspeak is a voice dictation app for Mac and Windows. You hold a keyboard
+shortcut, speak, and clean formatted text appears wherever your cursor is.
+Transcription runs fully on-device, so it is private and works offline. This
+site sells the app directly via Lemon Squeezy license keys.
 
 ## Users
 
-Mac power users, writers, developers, and knowledge workers who type a lot and
+Mac and Windows power users, writers, developers, and knowledge workers who type a lot and
 want to move faster. They care about speed, privacy (on-device, no cloud), and
 a tool that feels native and well-crafted. They are comparison shoppers who
 have likely seen superwhisper and typeless.

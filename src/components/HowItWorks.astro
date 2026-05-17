@@ -1,52 +1,44 @@
 ---
-import Waveform from "./Waveform.astro";
-
 const steps = [
   {
     n: "1",
     title: "Press your shortcut",
-    body: "A subtle indicator appears. ultrspeak is listening — from any app, without switching windows.",
+    body: "A subtle indicator appears. ultrspeak is listening, from any app, without switching windows.",
   },
   {
     n: "2",
     title: "Speak naturally",
-    body: "Talk the way you think. Pauses, corrections, and asides are all handled. No robot voice required.",
+    body: "Talk the way you think. Pauses, corrections, and asides are all handled for you.",
   },
   {
     n: "3",
-    title: "Release — it's typed",
+    title: "Release, it's typed",
     body: "Clean, punctuated text appears instantly at your cursor. Keep working without breaking flow.",
   },
 ];
 ---
 
-<section id="how" class="border-y border-line bg-surface">
-  <div class="mx-auto max-w-6xl px-6 py-28">
-    <div class="reveal mb-16 flex flex-wrap items-end justify-between gap-6">
-      <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.02]">
-        Three seconds<br />
-        <span class="italic text-amber">start to finish.</span>
-      </h2>
-      <div class="h-12 w-44">
-        <Waveform bars={28} />
-      </div>
-    </div>
-
-    <ol class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
-      {
-        steps.map((s, i) => (
-          <li
-            class="reveal bg-ink p-8"
-            style={`transition-delay:${i * 110}ms`}
-          >
-            <span class="flex h-11 w-11 items-center justify-center rounded-full border border-amber font-display text-xl text-amber">
-              {s.n}
-            </span>
-            <h3 class="mt-6 font-display text-2xl text-paper">{s.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-muted">{s.body}</p>
-          </li>
-        ))
-      }
-    </ol>
+<section id="how" class="mx-auto max-w-6xl px-6 py-28">
+  <div class="reveal mb-16 max-w-2xl">
+    <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
+      Three seconds, <span class="italic">start to finish.</span>
+    </h2>
   </div>
+
+  <ol class="grid gap-5 md:grid-cols-3">
+    {
+      steps.map((s, i) => (
+        <li
+          class="reveal relative rounded-3xl border border-line bg-card p-8 shadow-card"
+          style={`transition-delay:${i * 110}ms`}
+        >
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-amber font-display text-xl text-ink-strong">
+            {s.n}
+          </span>
+          <h3 class="mt-6 font-display text-2xl text-ink-strong">{s.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-ink2">{s.body}</p>
+        </li>
+      ))
+    }
+  </ol>
 </section>

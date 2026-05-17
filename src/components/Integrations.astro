@@ -1,0 +1,69 @@
+---
+const rows = [
+  ["Slack", "Mail", "Notes", "Cursor", "VS Code", "Notion"],
+  ["Messages", "Safari", "Chrome", "Obsidian", "Linear"],
+  ["Gmail", "Figma", "Terminal", "Docs", "Discord"],
+];
+---
+
+<section class="border-y border-line bg-card">
+  <div class="mx-auto max-w-6xl px-6 py-28">
+    <div class="reveal mx-auto mb-14 max-w-2xl text-center">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
+        Works everywhere
+      </p>
+      <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
+        If you can type in it, you can
+        <span class="italic">talk to it.</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-md text-ink2">
+        ultrspeak sits one keystroke away in every app. No integrations to set
+        up, no plugins, no copy and paste.
+      </p>
+    </div>
+
+    <!-- Keyboard -->
+    <div
+      class="reveal mx-auto max-w-2xl rounded-[1.75rem] border border-line bg-paper p-5 shadow-lift sm:p-7"
+    >
+      <div class="space-y-2.5">
+        {
+          rows.map((row, i) => (
+            <div
+              class="flex justify-center gap-2.5"
+              style={`padding-left:${i * 1.6}rem;padding-right:${i * 0.4}rem`}
+            >
+              {row.map((app) => (
+                <span
+                  class="flex h-16 flex-1 items-center justify-center rounded-xl border border-line bg-card text-xs font-medium text-ink2 shadow-sm transition-all hover:-translate-y-0.5 hover:border-amber hover:text-ink-strong sm:text-sm"
+                >
+                  {app}
+                </span>
+              ))}
+            </div>
+          ))
+        }
+        <!-- Spacebar row -->
+        <div class="flex justify-center gap-2.5 pt-1">
+          <span
+            class="flex h-16 w-20 items-center justify-center rounded-xl border border-line bg-card font-mono text-sm text-ink2 shadow-sm"
+            >⌥</span
+          >
+          <span
+            class="flex h-16 grow items-center justify-center gap-3 rounded-xl bg-amber font-semibold text-ink-strong shadow-[0_6px_20px_-6px_oklch(0.785_0.15_72/0.7)]"
+          >
+            <span
+              class="flex items-end gap-[3px] h-4"
+              aria-hidden="true"
+            >
+              <span class="wave-bar w-[3px] h-2/5 rounded-full bg-ink-strong"></span>
+              <span class="wave-bar w-[3px] h-full rounded-full bg-ink-strong" style="animation-delay:-0.4s"></span>
+              <span class="wave-bar w-[3px] h-3/5 rounded-full bg-ink-strong" style="animation-delay:-0.7s"></span>
+            </span>
+            Hold Space to dictate
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

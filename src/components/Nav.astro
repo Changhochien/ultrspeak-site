@@ -1,32 +1,35 @@
 ---
 const links = [
   { label: "Features", href: "/#features" },
+  { label: "Modes", href: "/#modes" },
   { label: "How it works", href: "/#how" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "FAQ", href: "/#faq" },
 ];
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-line/70 bg-ink/80 backdrop-blur-md"
+  class="sticky top-0 z-50 border-b border-line/80 bg-paper/85 backdrop-blur-xl"
 >
-  <nav
-    class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
-  >
-    <a href="/" class="flex items-center gap-2.5 group">
-      <span class="flex items-end gap-[2px] h-4" aria-hidden="true">
-        <span class="wave-bar w-[2.5px] h-2/5 rounded-full bg-amber" style="animation-delay:-0.1s"></span>
-        <span class="wave-bar w-[2.5px] h-full rounded-full bg-amber" style="animation-delay:-0.4s"></span>
-        <span class="wave-bar w-[2.5px] h-3/5 rounded-full bg-amber" style="animation-delay:-0.7s"></span>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="flex items-end gap-[2.5px] h-4" aria-hidden="true">
+        <span class="wave-bar w-[3px] h-2/5 rounded-full bg-amber" style="animation-delay:-0.1s"></span>
+        <span class="wave-bar w-[3px] h-full rounded-full bg-amber" style="animation-delay:-0.45s"></span>
+        <span class="wave-bar w-[3px] h-3/5 rounded-full bg-amber" style="animation-delay:-0.8s"></span>
       </span>
-      <span class="text-lg font-semibold tracking-tight">ultrspeak</span>
+      <span class="text-lg font-semibold tracking-tight text-ink-strong"
+        >ultrspeak</span
+      >
     </a>
 
-    <ul class="hidden items-center gap-8 text-sm text-muted md:flex">
+    <ul class="hidden items-center gap-9 text-sm text-ink2 md:flex">
       {
         links.map((l) => (
           <li>
-            <a href={l.href} class="link-amber transition-colors hover:text-paper">
+            <a
+              href={l.href}
+              class="link-amber transition-colors hover:text-ink-strong"
+            >
               {l.label}
             </a>
           </li>
@@ -36,7 +39,7 @@ const links = [
 
     <a
       href="/#pricing"
-      class="rounded-full bg-paper px-5 py-2 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
+      class="rounded-full bg-amber px-5 py-2 text-sm font-semibold text-ink-strong shadow-[0_2px_10px_-2px_oklch(0.785_0.15_72/0.55)] transition-transform hover:-translate-y-0.5"
     >
       Get ultrspeak
     </a>

@@ -3,84 +3,97 @@ import Waveform from "./Waveform.astro";
 ---
 
 <section class="relative overflow-hidden">
-  <!-- Ambient amber glow -->
+  <!-- Soft amber wash -->
   <div
-    class="amber-glow pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full blur-[140px]"
-    style="background:radial-gradient(closest-side,rgba(255,176,0,0.22),transparent)"
+    class="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full blur-[150px]"
+    style="background:radial-gradient(closest-side,oklch(0.785 0.15 72/0.28),transparent)"
     aria-hidden="true"
   >
   </div>
 
-  <div class="mx-auto max-w-6xl px-6 pb-24 pt-20 md:pt-28">
+  <div class="relative mx-auto max-w-3xl px-6 pb-20 pt-20 text-center md:pt-28">
     <p
-      class="rise mb-7 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs tracking-wide text-muted"
-      style="animation-delay:0.05s"
+      class="rise mb-8 inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs font-medium tracking-wide text-ink2 shadow-card"
+      style="animation-delay:0.04s"
     >
       <span class="h-1.5 w-1.5 rounded-full bg-amber"></span>
-      Voice dictation for macOS — runs fully on-device
+      On-device voice dictation for macOS
     </p>
 
     <h1
-      class="rise font-display text-[clamp(3.2rem,9vw,7.5rem)] leading-[0.95]"
-      style="animation-delay:0.12s"
+      class="rise font-display text-[clamp(3rem,8.5vw,6.4rem)] leading-[0.97] text-ink-strong"
+      style="animation-delay:0.1s"
     >
-      Speak.<br />
-      It's <span class="italic text-amber">already written.</span>
+      Speak. It's
+      <span class="italic"><span class="marker">already written.</span></span>
     </h1>
 
     <p
-      class="rise mt-8 max-w-xl text-lg leading-relaxed text-muted"
-      style="animation-delay:0.22s"
+      class="rise mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink2"
+      style="animation-delay:0.2s"
     >
-      ultrspeak turns your voice into clean, formatted text anywhere on your
-      Mac. Hold a key, talk, release. It's roughly three times faster than
-      typing — and nothing ever leaves your machine.
+      Hold one key, talk, and clean formatted text lands wherever your cursor
+      is. Roughly three times faster than typing, fully private, and it works
+      offline.
     </p>
 
     <div
-      class="rise mt-10 flex flex-wrap items-center gap-4"
-      style="animation-delay:0.32s"
+      class="rise mt-9 flex flex-wrap items-center justify-center gap-3.5"
+      style="animation-delay:0.3s"
     >
       <a
         href="#pricing"
-        class="rounded-full bg-amber px-7 py-3.5 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
+        class="rounded-full bg-amber px-7 py-3.5 text-sm font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)] transition-transform hover:-translate-y-0.5"
       >
         Download for Mac
       </a>
       <a
-        href="#pricing"
-        class="link-amber rounded-full border border-line px-7 py-3.5 text-sm font-semibold text-paper transition-colors hover:border-muted"
+        href="#modes"
+        class="rounded-full border border-line bg-card px-7 py-3.5 text-sm font-semibold text-ink-strong transition-colors hover:border-ink2"
       >
-        See pricing
+        See it work
       </a>
-      <span class="flex items-center gap-2 text-sm text-muted">
-        Press
-        <kbd
-          class="rounded-md border border-line bg-surface px-2 py-1 font-mono text-xs text-paper"
-          >⌥ Space</kbd
-        >
-        to talk
-      </span>
     </div>
+    <p
+      class="rise mt-5 flex items-center justify-center gap-2 text-sm text-ink2"
+      style="animation-delay:0.36s"
+    >
+      Free to try. Press
+      <kbd
+        class="rounded-md border border-line bg-card px-2 py-0.5 font-mono text-xs text-ink-strong shadow-sm"
+        >⌥ Space</kbd
+      >
+      to dictate.
+    </p>
+  </div>
 
-    <!-- Live capture mock -->
+  <!-- Live capture mock -->
+  <div
+    class="rise relative mx-auto -mb-20 max-w-3xl px-6"
+    style="animation-delay:0.46s"
+  >
     <div
-      class="rise mt-16 overflow-hidden rounded-2xl border border-line bg-surface"
-      style="animation-delay:0.42s"
+      class="overflow-hidden rounded-2xl border border-line bg-card shadow-lift"
     >
       <div class="flex items-center gap-2 border-b border-line px-5 py-3">
-        <span class="h-3 w-3 rounded-full bg-line"></span>
-        <span class="h-3 w-3 rounded-full bg-line"></span>
-        <span class="h-3 w-3 rounded-full bg-line"></span>
-        <span class="ml-3 font-mono text-xs text-muted">listening…</span>
+        <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-line"></span>
+        <span class="ml-3 font-mono text-xs text-ink2">Slack — #finance</span>
+        <span
+          class="ml-auto flex items-center gap-1.5 rounded-full bg-amber-soft px-2.5 py-1 font-mono text-[11px] text-amber-ink"
+        >
+          <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-amber"></span>
+          listening
+        </span>
       </div>
-      <div class="grid items-center gap-8 p-8 md:grid-cols-[1fr_auto]">
-        <p class="font-display text-2xl leading-snug text-paper md:text-3xl">
-          “Send the Q3 numbers to the finance channel and flag anything
-          <span class="italic text-amber">over budget</span>.”
+      <div class="grid items-center gap-6 p-7 sm:grid-cols-[1fr_auto] sm:p-9">
+        <p class="text-left font-display text-2xl leading-snug text-ink-strong md:text-[1.7rem]">
+          Send the Q3 numbers to the finance channel and
+          <span class="text-amber-ink italic">flag anything over budget.</span>
         </p>
-        <div class="h-20 w-full md:w-64">
-          <Waveform bars={40} />
+        <div class="h-16 w-full sm:h-20 sm:w-56">
+          <Waveform bars={38} />
         </div>
       </div>
     </div>

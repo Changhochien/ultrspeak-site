@@ -13,7 +13,7 @@ const sections = [
     p: "Your dictation history is stored locally on your device so you can search and reuse it. You can clear it at any time from the app. We have no access to it.",
   },
   {
-    h: "Purchases & licensing",
+    h: "Purchases and licensing",
     p: "Payments and license keys are handled by Lemon Squeezy, our merchant of record. They process your billing details under their own privacy policy. We only receive your email address and license status to provide support.",
   },
   {
@@ -30,17 +30,17 @@ const sections = [
 <Base title="Privacy — ultrspeak" description="How ultrspeak handles your data.">
   <Nav />
   <main class="mx-auto max-w-2xl px-6 py-28">
-    <h1 class="font-display text-[clamp(2.8rem,7vw,5rem)] leading-[1]">
+    <h1 class="font-display text-[clamp(2.8rem,7vw,4.8rem)] leading-[1.02] text-ink-strong">
       Privacy
     </h1>
-    <p class="mt-4 text-sm text-muted">Last updated: {new Date().getFullYear()}</p>
+    <p class="mt-4 text-sm text-ink2">Last updated: {new Date().getFullYear()}</p>
 
-    <div class="mt-14 space-y-10">
+    <div class="mt-14 space-y-8">
       {
         sections.map((s) => (
-          <section>
-            <h2 class="font-display text-2xl text-amber">{s.h}</h2>
-            <p class="mt-2 text-sm leading-relaxed text-muted">{s.p}</p>
+          <section class="rounded-2xl border border-line bg-card p-7 shadow-card">
+            <h2 class="font-display text-2xl text-ink-strong">{s.h}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-ink2">{s.p}</p>
           </section>
         ))
       }

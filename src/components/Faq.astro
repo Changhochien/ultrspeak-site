@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "Can I get a refund?",
-    a: "Yes — 14 days, no questions asked. Email us and we'll process it. Checkout and refunds are handled securely through Lemon Squeezy.",
+    a: "Yes, 14 days, no questions asked. Email us and we'll process it. Checkout and refunds are handled securely through Lemon Squeezy.",
   },
   {
     q: "Is it on the Mac App Store?",
@@ -27,26 +27,25 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="border-t border-line bg-surface">
+<section id="faq" class="border-t border-line bg-card">
   <div class="mx-auto max-w-3xl px-6 py-28">
     <h2
-      class="reveal mb-14 font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.02]"
+      class="reveal mb-12 font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong"
     >
-      Questions,
-      <span class="italic text-amber">answered.</span>
+      Questions, <span class="italic">answered.</span>
     </h2>
 
     <div class="divide-y divide-line border-y border-line">
       {
         faqs.map((f) => (
           <details class="reveal group">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-6 text-lg text-paper">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-medium text-ink-strong">
               {f.q}
-              <span class="font-display text-2xl text-amber transition-transform group-open:rotate-45">
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-soft font-display text-xl text-amber-ink transition-transform group-open:rotate-45">
                 +
               </span>
             </summary>
-            <p class="pb-6 text-sm leading-relaxed text-muted">{f.a}</p>
+            <p class="pb-6 text-sm leading-relaxed text-ink2">{f.a}</p>
           </details>
         ))
       }

@@ -1,0 +1,108 @@
+---
+import Waveform from "./Waveform.astro";
+
+const modes = [
+  { id: "formal", label: "Formal", default: true },
+  { id: "casual", label: "Casual", default: false },
+  { id: "email", label: "Email", default: false },
+  { id: "code", label: "Prompt", default: false },
+];
+
+const said =
+  "um so can you send me last quarter's report whenever you get a sec, thanks";
+---
+
+<section id="modes" class="mx-auto max-w-6xl px-6 py-28">
+  <div class="reveal mx-auto mb-14 max-w-2xl text-center">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
+      Modes
+    </p>
+    <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
+      One voice. Every <span class="italic">register.</span>
+    </h2>
+    <p class="mx-auto mt-4 max-w-md text-ink2">
+      Pick a mode and ultrspeak shapes the same rambling thought into the tone
+      the moment calls for.
+    </p>
+  </div>
+
+  <div class="mode-demo reveal">
+    {modes.map((m) => (
+      <input
+        type="radio"
+        name="mode"
+        id={`mode-${m.id}`}
+        class="mode-input"
+        checked={m.default}
+      />
+    ))}
+
+    <div class="mb-8 flex flex-wrap justify-center gap-2">
+      {modes.map((m) => (
+        <label
+          for={`mode-${m.id}`}
+          class="mode-tab cursor-pointer rounded-full border border-line bg-card px-5 py-2 text-sm font-medium text-ink2 transition-colors hover:text-ink-strong"
+        >
+          {m.label}
+        </label>
+      ))}
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-[1fr_auto_1fr] md:items-stretch">
+      <!-- What you said -->
+      <div class="flex flex-col rounded-2xl border border-line bg-paper p-7">
+        <span class="font-mono text-xs uppercase tracking-wider text-ink2"
+          >You said</span
+        >
+        <p class="mt-4 grow text-lg leading-relaxed text-ink2">{said}</p>
+        <div class="mt-5 h-10 w-40"><Waveform bars={26} /></div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="flex items-center justify-center">
+        <span
+          class="flex h-10 w-10 rotate-90 items-center justify-center rounded-full bg-amber text-ink-strong md:rotate-0"
+          >→</span
+        >
+      </div>
+
+      <!-- ultrspeak writes -->
+      <div class="mode-stage flex flex-col rounded-2xl border border-line bg-card p-7 shadow-card">
+        <span class="font-mono text-xs uppercase tracking-wider text-amber-ink"
+          >ultrspeak writes</span
+        >
+
+        <div class="mode-panel panel-formal mt-4 grow">
+          <p class="font-display text-xl leading-snug text-ink-strong">
+            Could you please send me last quarter's report when you have a
+            moment? Thank you.
+          </p>
+        </div>
+        <div class="mode-panel panel-casual mt-4 grow">
+          <p class="font-display text-xl leading-snug text-ink-strong">
+            hey, could you send over last quarter's report when you get a sec?
+            thanks!
+          </p>
+        </div>
+        <div class="mode-panel panel-email mt-4 grow">
+          <p class="font-mono text-xs text-ink2">Subject: Last quarter's report</p>
+          <p class="mt-3 font-display text-lg leading-snug text-ink-strong">
+            Hi,<br />
+            When you have a moment, could you send me last quarter's report?
+            No rush. Thanks for your help.
+          </p>
+        </div>
+        <div class="mode-panel panel-code mt-4 grow">
+          <p class="font-mono text-sm leading-relaxed text-ink-strong">
+            Pull last quarter's report and summarize the key metrics, flagging
+            anything that moved more than 10%.
+          </p>
+        </div>
+
+        <span class="mt-5 text-xs text-ink2"
+          >Punctuation, capitalization, and tone, handled.</span
+        >
+      </div>
+    </div>
+  </div>
+</section>

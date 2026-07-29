@@ -128,14 +128,11 @@ const homepagePositioning = new Map([
         "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
       title: "Your words,",
       titleAccent: "ready at the cursor.",
-      language: "English or Mandarin Chinese",
-      free: "Free",
-      weekly: "a week",
-      annual: "a year",
       pricingAllowance: "Up to 8,000 words per week",
-      formerAllowance: /2,000|\b(?:a|per) day\b/iu,
-      qualification:
-        "Free on Mac and Windows for up to 8,000 words a week. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
+      pricingLanguage: "English & Chinese",
+      pricingAnnual: "USD / year",
+      formerAllowance:
+        /2,000|\b8,000\s+words?\s+(?:a|per|each|every)\s+day\b/iu,
     },
   ],
   [
@@ -146,14 +143,11 @@ const homepagePositioning = new Map([
         "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
       title: "用說的，",
       titleAccent: "寫得更清楚。",
-      language: "英文或華語",
-      free: "免費",
-      weekly: "每週",
-      annual: "年費",
       pricingAllowance: "每週可免費輸入 8,000 字詞",
-      formerAllowance: /2,000|每天|每日|每周/u,
-      qualification:
-        "Mac 與 Windows 皆可免費使用，每週可免費輸入 8,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
+      pricingLanguage: "英文與中文",
+      pricingAnnual: "美元／年",
+      formerAllowance:
+        /2,000|(?:每天|每日)(?:可免費輸入)?\s*8,000\s*字詞|8,000\s*字詞(?:\/|／|每)(?:天|日)|每周可免費輸入\s*8,000/u,
     },
   ],
   [
@@ -164,14 +158,11 @@ const homepagePositioning = new Map([
         "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
       title: "直接说，",
       titleAccent: "写得更清楚。",
-      language: "英语或普通话",
-      free: "免费",
-      weekly: "每周",
-      annual: "年费",
       pricingAllowance: "每周可免费输入 8,000 字词",
-      formerAllowance: /2,000|每天|每日|每週/u,
-      qualification:
-        "Mac 与 Windows 均可免费使用，每周可免费输入 8,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
+      pricingLanguage: "英文与中文",
+      pricingAnnual: "美元／年",
+      formerAllowance:
+        /2,000|(?:每天|每日)(?:可免费输入)?\s*8,000\s*字词|8,000\s*字词(?:\/|／|每)(?:天|日)|每週可免費輸入\s*8,000/u,
     },
   ],
   [
@@ -182,14 +173,11 @@ const homepagePositioning = new Map([
         "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
       title: "話すだけで、",
       titleAccent: "伝わる文章に。",
-      language: "英語・中国語（普通話）",
-      free: "無料",
-      weekly: "週8,000語まで",
-      annual: "年額",
       pricingAllowance: "週8,000語まで無料",
-      formerAllowance: /2,000|1日|日あたり/u,
-      qualification:
-        "Mac・Windows で週8,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
+      pricingLanguage: "英語・中国語",
+      pricingAnnual: "USD／年",
+      formerAllowance:
+        /2,000|(?:1日|日あたり|毎日)\s*8,000語|8,000語(?:\/|／)?(?:1日|日あたり|毎日)/u,
     },
   ],
 ]);
@@ -270,6 +258,9 @@ for (const [path, expected] of homepagePositioning) {
       /<section\b(?=[^>]*\bdata-home-hero(?:\s|=|>))[^>]*>([\s\S]*?)<\/section>/iu,
     )?.[1] ?? "";
   const heroText = visibleText(heroHtml);
+  const normalizedHeroText = heroText
+    .normalize("NFKC")
+    .replace(/[\s,，]/gu, "");
   assert(heroText, `${path} lacks the rendered home hero`);
   assert(heroText.includes("Mac"), `${path} lacks the Mac platform disclosure`);
   assert(heroText.includes("Windows"), `${path} lacks the Windows platform disclosure`);
@@ -279,18 +270,29 @@ for (const [path, expected] of homepagePositioning) {
     `${path} lacks visible hero accent "${expected.titleAccent}"`,
   );
   assert(
-    heroText.includes(expected.language),
-    `${path} lacks above-the-fold language disclosure "${expected.language}"`,
+    !/\bdata-home-hero-qualification(?:\s|=|>)/iu.test(heroHtml),
+    `${path} renders a hero qualification marker`,
   );
-  assert(heroText.includes(expected.free), `${path} does not identify the free tier`);
-  assert(heroText.includes("8,000"), `${path} lacks the free-tier allowance`);
-  assert(heroText.includes(expected.weekly), `${path} does not identify the weekly allowance`);
-  assert(heroText.includes("US$19.49"), `${path} lacks the Pro price`);
-  assert(heroText.includes(expected.annual), `${path} does not identify annual billing`);
+  assert(
+    !/<kbd\b/iu.test(heroHtml),
+    `${path} renders a keyboard key in the hero`,
+  );
+  assert(
+    !/8000|eightthousand|八千/iu.test(normalizedHeroText),
+    `${path} renders the Free allowance in the hero`,
+  );
+  assert(
+    !/(?:USD|US\$|\$)19\.49|19\.49(?:USD|美元)/iu.test(normalizedHeroText),
+    `${path} renders the Pro price in the hero`,
+  );
+  assert(
+    !/⌥\s*Space|Alt\s*\+\s*Space/iu.test(heroText),
+    `${path} renders the removed shortcut in the hero`,
+  );
 
-  const qualificationMarkers = [
+  const heroBodyMarkers = [
     ...heroHtml.matchAll(
-      /<p\b(?=[^>]*\bdata-home-hero-qualification(?:\s|=|>))[^>]*>/giu,
+      /<p\b(?=[^>]*\bdata-home-hero-body(?:\s|=|>))[^>]*>/giu,
     ),
   ];
   const actionMarkers = [
@@ -299,38 +301,48 @@ for (const [path, expected] of homepagePositioning) {
     ),
   ];
   assert(
-    qualificationMarkers.length === 1,
-    `${path} must render exactly one hero qualification marker`,
+    heroBodyMarkers.length === 1,
+    `${path} must render exactly one hero body marker`,
   );
   assert(
     actionMarkers.length === 1,
     `${path} must render exactly one hero action marker`,
   );
   assert(
-    qualificationMarkers[0].index < actionMarkers[0].index,
-    `${path} places hero actions before the qualification`,
+    /<\/p>\s*<div\b(?=[^>]*\bdata-home-hero-actions(?:\s|=|>))/iu.test(
+      heroHtml,
+    ),
+    `${path} hero actions must immediately follow the hero body`,
   );
   const actionsHtml =
     heroHtml.match(
       /<div\b(?=[^>]*\bdata-home-hero-actions(?:\s|=|>))[^>]*>([\s\S]*?)<\/div>/iu,
     )?.[1] ?? "";
-  assert(
-    actionsHtml.includes('href="#download"'),
-    `${path} hero actions lack the download destination`,
+  const actionLinks = [...actionsHtml.matchAll(/<a\b[^>]*>/giu)].map(
+    (match) => match[0],
   );
   assert(
-    actionsHtml.includes('href="#modes"'),
-    `${path} hero actions lack the modes destination`,
+    actionLinks.length === 2,
+    `${path} must render exactly two hero action links`,
   );
-
-  const qualificationHtml =
-    html.match(
-      /<p\b(?=[^>]*\bdata-home-hero-qualification(?:\s|=|>))[^>]*>([\s\S]*?)<\/p>/iu,
-    )?.[1] ?? "";
-  const qualificationText = visibleText(qualificationHtml);
   assert(
-    qualificationText === expected.qualification,
-    `${path} has unexpected hero qualification "${qualificationText}"`,
+    actionLinks[0]?.includes('href="#download"') &&
+      actionLinks[1]?.includes('href="#modes"'),
+    `${path} hero actions have unexpected order or destinations`,
+  );
+  for (const actionLink of actionLinks) {
+    assert(
+      /\bmin-h-14\b/u.test(actionLink) &&
+        /\bsm:min-h-16\b/u.test(actionLink) &&
+        /\bw-full\b/u.test(actionLink) &&
+        /\bfocus-visible:outline-2\b/u.test(actionLink),
+      `${path} hero actions lost equal accessible sizing or focus treatment`,
+    );
+  }
+  assert(
+    /\bgrid-cols-1\b/u.test(actionMarkers[0][0]) &&
+      actionMarkers[0][0].includes("sm:grid-cols-[12rem_12rem]"),
+    `${path} hero actions lost stacked mobile or equal desktop geometry`,
   );
 
   const pricingHtml =
@@ -347,9 +359,23 @@ for (const [path, expected] of homepagePositioning) {
     freePricingText.includes(expected.pricingAllowance),
     `${path} lacks Free pricing allowance "${expected.pricingAllowance}"`,
   );
+  assert(
+    freePricingText.includes(expected.pricingLanguage),
+    `${path} lacks supported languages in Free pricing`,
+  );
+  const proPricingHtml =
+    pricingHtml.match(
+      /<article\b(?=[^>]*\bdata-pricing-plan="pro")[^>]*>([\s\S]*?)<\/article>/iu,
+    )?.[1] ?? "";
+  const proPricingText = visibleText(proPricingHtml);
+  assert(
+    proPricingText.includes("$19.49") &&
+      proPricingText.includes(expected.pricingAnnual),
+    `${path} lacks the annual Pro price in pricing`,
+  );
   const pageText = visibleText(html);
   assert(
-    !expected.formerAllowance.test(`${qualificationText} ${freePricingText}`),
+    !expected.formerAllowance.test(pageText),
     `${path} contains the former daily free-tier allowance`,
   );
   assert(

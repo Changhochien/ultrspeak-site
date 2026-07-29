@@ -36,6 +36,11 @@ context:
 
 </frozen-after-approval>
 
+> **Superseded hero-qualification constraint (2026-07-30):** The approved
+> `spec-remove-hero-qualification.md` decision removes the Free allowance from
+> the hero. The 8,000-word weekly allowance remains authoritative in the Free
+> pricing card and product documentation.
+
 ## Code Map
 
 - `src/i18n/ui.ts` -- localized hero qualification and Free pricing-card source.

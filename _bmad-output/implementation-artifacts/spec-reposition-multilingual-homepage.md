@@ -44,6 +44,12 @@ context:
 > historical 2,000-word daily allowance constraint. The authoritative
 > ultrspeak Free tier is now 8,000 words per week.
 
+> **Superseded hero-qualification constraint (2026-07-30):** The approved
+> `spec-remove-hero-qualification.md` decision removes the hero qualification
+> and its above-the-fold quota, recognition-language, shortcut, and Pro-price
+> disclosures. The localized metadata, hero message, supporting-section claims,
+> and shared four-locale component architecture remain authoritative.
+
 ## Code Map
 
 - `src/i18n/ui.ts` -- typed source of localized metadata, hero, trial disclosure, and footer CTA copy.

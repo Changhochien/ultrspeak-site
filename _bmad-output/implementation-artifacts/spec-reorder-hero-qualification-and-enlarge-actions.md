@@ -37,6 +37,11 @@ context:
 
 </frozen-after-approval>
 
+> **Superseded hero-qualification constraint (2026-07-30):** The approved
+> `spec-remove-hero-qualification.md` decision removes the qualification block
+> entirely. This spec's enlarged, equal-sized action geometry, destinations,
+> focus treatment, and responsive layout remain authoritative.
+
 ## Code Map
 
 - `src/components/Hero.astro` -- owns hero content order, animation sequence, CTA geometry, and anchor destinations.

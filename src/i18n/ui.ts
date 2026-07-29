@@ -39,10 +39,6 @@ export const en = {
     body: "Hold one key and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
     download: "Download",
     seeItWork: "See it work",
-    trialBefore:
-      "Free on Mac and Windows for up to 8,000 words a week. Hold",
-    trialAfter:
-      "to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
     imageAlt: "ultrspeak app, Home screen",
   },
   modes: {
@@ -393,10 +389,6 @@ export const zhTW: Translation = {
     body: "按住一個鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
     download: "下載",
     seeItWork: "看看如何運作",
-    trialBefore:
-      "Mac 與 Windows 皆可免費使用，每週可免費輸入 8,000 字詞。按住",
-    trialAfter:
-      "即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
     imageAlt: "ultrspeak 應用程式主畫面",
   },
   modes: {
@@ -678,10 +670,6 @@ export const zhCN: Translation = {
     body: "按住一个键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
     download: "下载",
     seeItWork: "看看如何工作",
-    trialBefore:
-      "Mac 与 Windows 均可免费使用，每周可免费输入 8,000 字词。按住",
-    trialAfter:
-      "即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
     imageAlt: "ultrspeak 应用程序主界面",
   },
   modes: {
@@ -862,9 +850,6 @@ export const ja: Translation = {
     body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
     download: "ダウンロード",
     seeItWork: "動作を見る",
-    trialBefore: "Mac・Windows で週8,000語まで無料。",
-    trialAfter:
-      "を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
     imageAlt: "ultrspeak アプリのホーム画面",
   },
   modes: {

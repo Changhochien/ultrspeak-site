@@ -27,7 +27,7 @@ function manifestKey(platform: Platform): string {
 }
 
 function releasePrefix(platform: Platform): string {
-  return `downloads/${platform}/${RELEASE_CHANNEL}/releases/`;
+  return `${platform}/${RELEASE_CHANNEL}/releases/`;
 }
 
 function isSafeVersion(value: string): boolean {

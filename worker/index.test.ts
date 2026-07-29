@@ -19,8 +19,7 @@ describe("release manifest validation", () => {
       parseReleaseManifest(
         {
           version: "0.1.0",
-          objectKey:
-            "downloads/macos/stable/releases/Ultrspeak-0.1.0-universal.dmg",
+          objectKey: "macos/stable/releases/Ultrspeak-0.1.0-universal.dmg",
           fileName: "Ultrspeak-0.1.0-universal.dmg",
           contentType: "application/x-apple-diskimage",
           sha256:
@@ -30,8 +29,7 @@ describe("release manifest validation", () => {
       ),
     ).toEqual({
       version: "0.1.0",
-      objectKey:
-        "downloads/macos/stable/releases/Ultrspeak-0.1.0-universal.dmg",
+      objectKey: "macos/stable/releases/Ultrspeak-0.1.0-universal.dmg",
       fileName: "Ultrspeak-0.1.0-universal.dmg",
       contentType: "application/x-apple-diskimage",
       sha256:
@@ -49,8 +47,7 @@ describe("release manifest validation", () => {
       parseReleaseManifest(
         {
           ...base,
-          objectKey:
-            "downloads/windows/stable/releases/Ultrspeak-0.1.0.dmg",
+          objectKey: "windows/stable/releases/Ultrspeak-0.1.0.dmg",
         },
         "macos",
       ),
@@ -59,7 +56,7 @@ describe("release manifest validation", () => {
       parseReleaseManifest(
         {
           ...base,
-          objectKey: "downloads/macos/stable/releases/../private.key",
+          objectKey: "macos/stable/releases/../private.key",
         },
         "macos",
       ),

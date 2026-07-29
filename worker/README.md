@@ -19,13 +19,17 @@ downloads/
   macos/
     stable/
       latest.json
-      releases/
-        Ultrspeak-0.1.0-universal.dmg
   windows/
     stable/
       latest.json
-      releases/
-        Ultrspeak-0.1.0-x64-setup.exe
+macos/
+  stable/
+    releases/
+      Ultrwispr-0.1.0-1.dmg
+windows/
+  stable/
+    releases/
+      Ultrwispr-0.1.0-x64-setup.exe
 ```
 
 Example `latest.json`:
@@ -33,20 +37,21 @@ Example `latest.json`:
 ```json
 {
   "version": "0.1.0",
-  "objectKey": "downloads/macos/stable/releases/Ultrspeak-0.1.0-universal.dmg",
-  "fileName": "Ultrspeak-0.1.0-universal.dmg",
+  "objectKey": "macos/stable/releases/Ultrwispr-0.1.0-1.dmg",
+  "fileName": "Ultrwispr-0.1.0-1.dmg",
   "contentType": "application/x-apple-diskimage",
   "sha256": "64-lowercase-hex-characters"
 }
 ```
 
-Upload the signed and notarized installer first. Upload `latest.json` last so a
-partially published release never becomes visible:
+The macOS release workflow already uploads the signed and notarized installer
+to the Sparkle release prefix. It then uploads `latest.json` last so a partially
+published release never becomes visible:
 
 ```sh
 npx wrangler r2 object put \
-  ultrwispr-updates/downloads/macos/stable/releases/Ultrspeak-0.1.0-universal.dmg \
-  --file /absolute/path/Ultrspeak-0.1.0-universal.dmg \
+  ultrwispr-updates/macos/stable/releases/Ultrwispr-0.1.0-1.dmg \
+  --file /absolute/path/Ultrwispr-0.1.0-1.dmg \
   --content-type application/x-apple-diskimage
 
 npx wrangler r2 object put \

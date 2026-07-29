@@ -4,26 +4,27 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 const steps = [
-  "Check your email. Your license key was sent to the address you used at checkout.",
-  "Open ultrspeak and go to Settings, then License.",
-  "Paste your key and click Activate. Pro features unlock right away.",
+  "Return to ultrspeak and open Settings, then Account.",
+  "Sign in with the same account you used at checkout.",
+  "Refresh your account status if Pro does not appear immediately.",
 ];
 ---
 
 <Base
-  title="Thanks for buying ultrspeak"
-  description="Your ultrspeak purchase is complete. Activate your license key to unlock Pro."
+  title="Checkout complete — ultrspeak"
+  description="Return to ultrspeak to use your Pro subscription."
 >
   <Nav />
   <main class="mx-auto max-w-2xl px-6 py-20 text-center md:py-28">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
-      Purchase complete
+      Checkout complete
     </p>
     <h1 class="font-display text-[clamp(2.8rem,7vw,4.8rem)] leading-[1.02] text-ink-strong">
       Welcome to ultrspeak.
     </h1>
     <p class="mx-auto mt-5 max-w-md text-ink2">
-      Your payment went through. Here's how to get talking in under a minute.
+      We are confirming your subscription. Your Pro access is attached to your
+      ultrspeak account automatically.
     </p>
 
     <ol class="mt-12 space-y-4 text-left">
@@ -41,11 +42,11 @@ const steps = [
 
     <div class="mt-8 rounded-2xl border border-line bg-amber-soft/40 p-6">
       <p class="text-sm leading-relaxed text-ink2">
-        Lost your key? Email
+        Need help? Email
         <a href="mailto:hello@ultrspeak.com" class="link-amber text-amber-ink"
           >hello@ultrspeak.com</a
         >
-        from your purchase address and we'll resend it.
+        from the address on your account and we'll take a look.
       </p>
     </div>
 

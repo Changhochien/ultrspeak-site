@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
-const updated = "May 18, 2026";
+const updated = "July 29, 2026";
 
 const sections = [
   {
@@ -19,10 +19,10 @@ const sections = [
     ],
   },
   {
-    h: "Purchases and licensing",
+    h: "Accounts and purchases",
     p: [
-      "Payments and license keys are handled by Lemon Squeezy, our merchant of record. They process your billing details under their own privacy policy, and we never see your full payment information.",
-      "From Lemon Squeezy we receive only your email address and the status of your license. We use this to deliver your license key, to verify it inside the app, and to answer support requests.",
+      "Payments are processed by Stripe through Stripe-hosted checkout. Stripe processes your payment details under its own privacy policy; we do not receive your full card number.",
+      "We store the account, subscription, entitlement, and billing status information needed to provide Pro access, prevent abuse, manage refunds, and answer support requests.",
     ],
   },
   {

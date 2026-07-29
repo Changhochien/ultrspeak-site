@@ -194,6 +194,7 @@ export const en = {
     contact: "Contact",
     privacy: "Privacy",
     terms: "Terms",
+    copyright: "© {year} ultrspeak. All rights reserved.",
   },
   contact: {
     heading: "Contact",
@@ -525,6 +526,7 @@ export const zhTW: Translation = {
     contact: "聯絡我們",
     privacy: "隱私權",
     terms: "條款",
+    copyright: "© {year} ultrspeak。保留一切權利。",
   },
   contact: {
     heading: "聯絡我們",
@@ -762,6 +764,7 @@ export const zhCN: Translation = {
     contact: "联系我们",
     privacy: "隐私",
     terms: "条款",
+    copyright: "© {year} ultrspeak。保留所有权利。",
   },
   contact: {
     heading: "联系我们",
@@ -943,6 +946,7 @@ export const ja: Translation = {
     contact: "お問い合わせ",
     privacy: "プライバシー",
     terms: "利用規約",
+    copyright: "© {year} ultrspeak. すべての権利を保有します。",
   },
   contact: {
     heading: "お問い合わせ",

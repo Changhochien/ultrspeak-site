@@ -104,17 +104,44 @@ for (const path of [
   assert(html.includes("contact-draft-fallback"), `${path} lacks the copyable draft fallback`);
 }
 
-const homeCopy = new Map([
+const privacyHeadlines = new Map([
   ["dist/index.html", "It never leaves your computer"],
   ["dist/zh-tw/index.html", "聲音不會離開你的電腦"],
   ["dist/zh-cn/index.html", "声音不会离开你的电脑"],
   ["dist/ja/index.html", "声はコンピューターの外へ出ません"],
 ]);
 
-for (const [path, expected] of homeCopy) {
+for (const [path, expected] of privacyHeadlines) {
   const html = pages.get(path);
   assert(html, `${path} was not generated`);
-  assert(html.includes(expected), `${path} lacks the cross-platform privacy headline`);
+  assert(
+    html.includes(expected),
+    `${path} lacks privacy headline "${expected}"`,
+  );
+}
+
+const currentYear = new Date().getFullYear();
+const copyrightByLocale = new Map([
+  ["en", `© ${currentYear} ultrspeak. All rights reserved.`],
+  ["zh-tw", `© ${currentYear} ultrspeak。保留一切權利。`],
+  ["zh-cn", `© ${currentYear} ultrspeak。保留所有权利。`],
+  ["ja", `© ${currentYear} ultrspeak. すべての権利を保有します。`],
+]);
+
+for (const [path, html] of pages) {
+  const locale = /^dist\/(zh-tw|zh-cn|ja)\//u.exec(path)?.[1] ?? "en";
+  const expected = copyrightByLocale.get(locale);
+  assert(expected, `${path} has no expected copyright locale`);
+
+  const copyrightTag =
+    html.match(
+      /<span\b(?=[^>]*\bdata-footer-copyright(?:\s|=|>))[^>]*>([\s\S]*?)<\/span>/iu,
+    )?.[1] ?? "";
+  const actual = copyrightTag.replace(/<[^>]+>/gu, "").replace(/\s+/gu, " ").trim();
+  assert(
+    actual === expected,
+    `${path} has copyright "${actual}", expected "${expected}"`,
+  );
 }
 
 console.log(`Static output audit passed (${htmlFiles.length} pages).`);

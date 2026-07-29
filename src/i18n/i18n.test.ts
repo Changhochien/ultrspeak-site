@@ -67,6 +67,21 @@ describe("translation dictionaries", () => {
       expect(contact.copySuccess).toContain("hello@ultrspeak.com");
     }
   });
+
+  it("provides locale-specific copyright notices", () => {
+    expect(translations.en.footer.copyright).toBe(
+      "© {year} ultrspeak. All rights reserved.",
+    );
+    expect(translations["zh-TW"].footer.copyright).toBe(
+      "© {year} ultrspeak。保留一切權利。",
+    );
+    expect(translations["zh-CN"].footer.copyright).toBe(
+      "© {year} ultrspeak。保留所有权利。",
+    );
+    expect(translations.ja.footer.copyright).toBe(
+      "© {year} ultrspeak. すべての権利を保有します。",
+    );
+  });
 });
 
 describe("localized route helpers", () => {

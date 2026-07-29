@@ -12,6 +12,7 @@ const { locale } = Astro.props;
 const t = getTranslations(locale);
 const homePath = getLocalizedPath(locale, "home");
 const year = new Date().getFullYear();
+const copyright = t.footer.copyright.replace("{year}", String(year));
 ---
 
 <section id="download" class="mx-auto max-w-6xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
@@ -60,8 +61,7 @@ const year = new Date().getFullYear();
         <span class="w-[3px] h-full rounded-full bg-amber"></span>
         <span class="w-[3px] h-3/5 rounded-full bg-amber"></span>
       </span>
-      <span class="font-semibold text-ink-strong">ultrspeak</span>
-      <span>© {year}</span>
+      <span data-footer-copyright>{copyright}</span>
     </div>
     <nav class="flex flex-wrap gap-x-6 gap-y-1" aria-label={t.footer.navAria}>
       <a href={`${homePath}#features`} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.nav.features}</a>

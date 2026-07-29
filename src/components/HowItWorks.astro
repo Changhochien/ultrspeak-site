@@ -3,39 +3,28 @@ import { Image } from "astro:assets";
 import stateListening from "../assets/screenshots/state-listening.png";
 import stateTranscribing from "../assets/screenshots/state-transcribing.png";
 import stateDone from "../assets/screenshots/state-done.png";
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
 
-const steps = [
-  {
-    n: "1",
-    title: "Press your shortcut",
-    body: "A subtle indicator appears. ultrspeak is listening, from any app, without switching windows.",
-    shot: stateListening,
-    alt: "ultrspeak listening indicator with a live waveform",
-    live: false,
-  },
-  {
-    n: "2",
-    title: "See it stream live",
-    body: "Your words appear in the indicator while you speak. Stable text stays crisp while the newest phrase remains visibly in progress.",
-    shot: stateTranscribing,
-    alt: "ultrspeak live transcript preview streaming words while recording",
-    live: true,
-  },
-  {
-    n: "3",
-    title: "Release, it's typed",
-    body: "Clean, punctuated text appears instantly at your cursor. Keep working without breaking flow.",
-    shot: stateDone,
-    alt: "ultrspeak delivered indicator",
-    live: false,
-  },
-];
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).how;
+const shots = [stateListening, stateTranscribing, stateDone];
+const steps = t.steps.map((step, index) => ({
+  ...step,
+  n: String(index + 1),
+  shot: shots[index],
+  live: index === 1,
+}));
 ---
 
 <section id="how" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
   <div class="reveal mb-10 max-w-2xl md:mb-16">
     <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
-      Three seconds, start to finish.
+      {t.title}
     </h2>
   </div>
 
@@ -58,7 +47,7 @@ const steps = [
               s.live && (
                 <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-amber-ink">
                   <span class="h-1.5 w-1.5 rounded-full bg-amber"></span>
-                  Live transcript preview
+                  {t.live}
                 </span>
               )
             }

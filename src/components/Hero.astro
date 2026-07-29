@@ -1,6 +1,15 @@
 ---
 import AppShot from "./AppShot.astro";
 import appHome from "../assets/screenshots/app-home.jpg";
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).hero;
 ---
 
 <section class="relative overflow-hidden">
@@ -18,24 +27,22 @@ import appHome from "../assets/screenshots/app-home.jpg";
       style="animation-delay:0.04s"
     >
       <span class="h-1.5 w-1.5 rounded-full bg-amber"></span>
-      On-device voice dictation for Mac and Windows
+      {t.eyebrow}
     </p>
 
     <h1
       class="rise font-display text-[clamp(2.65rem,12vw,5.8rem)] leading-[0.98] text-ink-strong"
       style="animation-delay:0.1s"
     >
-      Speak. It's
-      <span class="text-amber-ink">already written.</span>
+      {t.title}
+      <span class="text-amber-ink">{t.titleAccent}</span>
     </h1>
 
     <p
       class="rise mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink2 sm:mt-7 sm:text-lg"
       style="animation-delay:0.2s"
     >
-      Hold one key, talk, and clean formatted text lands wherever your cursor
-      is. Roughly three times faster than typing, fully private, and it works
-      offline.
+      {t.body}
     </p>
 
     <div
@@ -46,25 +53,25 @@ import appHome from "../assets/screenshots/app-home.jpg";
         href="#download"
         class="rounded-full bg-amber px-7 py-3.5 text-sm font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)] transition-transform hover:-translate-y-0.5"
       >
-        Download
+        {t.download}
       </a>
       <a
         href="#modes"
         class="rounded-full border border-line bg-card px-7 py-3.5 text-sm font-semibold text-ink-strong transition-colors hover:border-ink2"
       >
-        See it work
+        {t.seeItWork}
       </a>
     </div>
     <p
       class="rise mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink2"
       style="animation-delay:0.36s"
     >
-      Free to try on Mac and Windows. Press
+      {t.trialBefore}
       <kbd
         class="mx-1 inline-block whitespace-nowrap rounded-md border border-line bg-card px-2 py-0.5 font-mono text-xs text-ink-strong shadow-sm"
         >⌥ Space</kbd
       >
-      to dictate.
+      {t.trialAfter}
     </p>
   </div>
 
@@ -82,7 +89,7 @@ import appHome from "../assets/screenshots/app-home.jpg";
       <AppShot
         image={appHome}
         ratio="1001 / 586"
-        alt="ultrspeak app, Home screen"
+        alt={t.imageAlt}
       />
     </div>
   </div>

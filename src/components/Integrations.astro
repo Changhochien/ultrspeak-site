@@ -1,23 +1,26 @@
 ---
-const rows = [
-  ["Slack", "Mail", "Notes", "Cursor", "VS Code", "Notion"],
-  ["Messages", "Safari", "Chrome", "Obsidian", "Linear"],
-  ["Gmail", "Figma", "Terminal", "Docs", "Discord"],
-];
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).integrations;
 ---
 
 <section class="border-y border-line bg-card">
   <div class="mx-auto max-w-6xl px-6 py-20 md:py-28">
     <div class="reveal mx-auto mb-10 max-w-2xl text-center md:mb-14">
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
-        Works everywhere
+        {t.eyebrow}
       </p>
       <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
-        If you can type in it, you can talk to it.
+        {t.title}
       </h2>
       <p class="mx-auto mt-4 max-w-md text-ink2">
-        ultrspeak sits one keystroke away in every app. No integrations to set
-        up, no plugins, no copy and paste.
+        {t.intro}
       </p>
     </div>
 
@@ -27,7 +30,7 @@ const rows = [
     >
       <div class="space-y-2.5">
         {
-          rows.map((row, i) => (
+          t.apps.map((row, i) => (
             <div
               class="flex justify-center gap-2.5"
               style={`padding-left:${i * 1.6}rem;padding-right:${i * 0.4}rem`}
@@ -59,7 +62,7 @@ const rows = [
               <span class="wave-bar w-[3px] h-full rounded-full bg-ink-strong" style="animation-delay:-0.4s"></span>
               <span class="wave-bar w-[3px] h-3/5 rounded-full bg-ink-strong" style="animation-delay:-0.7s"></span>
             </span>
-            Hold Space to dictate
+            {t.hold}
           </span>
         </div>
       </div>

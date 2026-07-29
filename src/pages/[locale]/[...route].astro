@@ -1,0 +1,45 @@
+---
+import ContactPage from "../../components/pages/ContactPage.astro";
+import HomePage from "../../components/pages/HomePage.astro";
+import LegalPage from "../../components/pages/LegalPage.astro";
+import SuccessPage from "../../components/pages/SuccessPage.astro";
+import {
+  defaultLocale,
+  localeConfig,
+  locales,
+  publicRoutes,
+  routeSegments,
+  type Locale,
+  type PublicRoute,
+} from "../../i18n/config";
+
+interface Props {
+  locale: Locale;
+  route: PublicRoute;
+}
+
+export function getStaticPaths() {
+  return locales
+    .filter((locale) => locale !== defaultLocale)
+    .flatMap((locale) =>
+      publicRoutes.map((route) => ({
+        params: {
+          locale: localeConfig[locale].path,
+          route: routeSegments[route] || undefined,
+        },
+        props: { locale, route },
+      })),
+    );
+}
+
+const { locale, route } = Astro.props;
+---
+
+{route === "home" && <HomePage locale={locale} />}
+{route === "contact" && <ContactPage locale={locale} />}
+{route === "success" && <SuccessPage locale={locale} />}
+{
+  (route === "privacy" || route === "terms") && (
+    <LegalPage locale={locale} page={route} />
+  )
+}

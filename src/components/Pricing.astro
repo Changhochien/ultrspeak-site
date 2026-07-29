@@ -1,32 +1,28 @@
 ---
 const ACCOUNT_URL = "https://accounts.ultrclick.com/account";
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+import { getLocalizedPath } from "../i18n/utils";
 
-const proFree = [
-  "On-device transcription",
-  "English & Chinese",
-  "Global hold-to-talk shortcut",
-  "Up to 2,000 words per day",
-];
-const proPaid = [
-  "Everything in Free",
-  "Unlimited dictation",
-  "All writing modes",
-  "Custom vocabulary",
-  "Searchable history",
-];
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).pricing;
+const homePath = getLocalizedPath(locale, "home");
 ---
 
 <section id="pricing" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
   <div class="reveal mx-auto mb-10 max-w-2xl text-center md:mb-12">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
-      Pricing
+      {t.eyebrow}
     </p>
     <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
-      Honest pricing. No lock-in.
+      {t.title}
     </h2>
     <p class="mx-auto mt-4 max-w-md text-ink2">
-      Start free, then upgrade through your account when you want unlimited
-      dictation. Cancel any time.
+      {t.intro}
     </p>
   </div>
 
@@ -34,19 +30,19 @@ const proPaid = [
     <div class="mx-auto grid max-w-3xl gap-5 md:grid-cols-2">
       <!-- Free -->
       <article class="flex flex-col rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8">
-        <h3 class="text-2xl font-semibold tracking-tight text-ink-strong">Free</h3>
-        <p class="mt-1 text-sm text-ink2">Try dictation, no account needed.</p>
+        <h3 class="text-2xl font-semibold tracking-tight text-ink-strong">{t.free}</h3>
+        <p class="mt-1 text-sm text-ink2">{t.freeIntro}</p>
         <div class="mt-6 text-5xl font-bold tracking-tight tabular-nums text-ink-strong">$0</div>
-        <p class="mt-1 text-xs text-ink2">forever</p>
+        <p class="mt-1 text-xs text-ink2">{t.forever}</p>
         <a
-          href="/#download"
+          href={`${homePath}#download`}
           class="mt-7 rounded-full border border-line px-6 py-3 text-center text-sm font-semibold text-ink-strong transition-colors hover:border-ink2"
         >
-          Download free
+          {t.downloadFree}
         </a>
         <ul class="mt-8 space-y-3 border-t border-line pt-6 text-sm">
           {
-            proFree.map((f) => (
+            t.freeFeatures.map((f) => (
               <li class="flex items-start gap-3 text-ink2">
                 <span class="mt-0.5 text-amber-ink">→</span>
                 {f}
@@ -62,28 +58,28 @@ const proPaid = [
       >
         <span
           class="absolute -top-3 left-8 rounded-full bg-amber px-3 py-1 text-xs font-semibold text-ink-strong"
-          >Most popular</span
+          >{t.popular}</span
         >
         <h3 class="text-2xl font-semibold tracking-tight text-ink-strong">Pro</h3>
-        <p class="mt-1 text-sm text-ink2">Unlimited, for daily drivers.</p>
+        <p class="mt-1 text-sm text-ink2">{t.proIntro}</p>
 
         <div>
           <div class="mt-6 flex items-baseline gap-2">
             <span class="text-5xl font-bold tracking-tight tabular-nums text-ink-strong">$19.49</span>
-            <span class="text-sm text-ink2">USD / year</span>
+            <span class="text-sm text-ink2">{t.perYear}</span>
           </div>
-          <p class="mt-1 text-xs text-ink2">about $1.62 per month, billed annually</p>
+          <p class="mt-1 text-xs text-ink2">{t.monthly}</p>
           <a
             href={ACCOUNT_URL}
             class="mt-7 block rounded-full bg-amber px-6 py-3 text-center text-sm font-semibold text-ink-strong transition-transform hover:-translate-y-0.5"
           >
-            Sign in to upgrade
+            {t.upgrade}
           </a>
         </div>
 
         <ul class="mt-8 space-y-3 border-t border-line pt-6 text-sm">
           {
-            proPaid.map((f) => (
+            t.paidFeatures.map((f) => (
               <li class="flex items-start gap-3 text-ink2">
                 <span class="mt-0.5 text-amber-ink">→</span>
                 {f}
@@ -95,8 +91,7 @@ const proPaid = [
     </div>
 
     <p class="mt-8 text-center text-xs text-ink2">
-      Secure checkout is hosted by Stripe. Manage or cancel your subscription
-      from your account.
+      {t.checkout}
     </p>
   </div>
 </section>

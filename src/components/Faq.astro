@@ -1,30 +1,13 @@
 ---
-const faqs = [
-  {
-    q: "Does my voice get sent to a server?",
-    a: "No. Transcription runs entirely on your Mac with on-device models. ultrspeak works offline and never uploads your audio or text.",
-  },
-  {
-    q: "How do I activate my license?",
-    a: "Sign in to your ultrspeak account and choose Upgrade to Pro. Checkout is hosted securely by Stripe, and your Pro access is linked to the same account you use in the app.",
-  },
-  {
-    q: "Which devices are supported?",
-    a: "ultrspeak runs on Apple Silicon Macs (M1 and newer) with macOS 13 or later, and on Windows 11. On-device models perform best on recent hardware.",
-  },
-  {
-    q: "What languages does it handle?",
-    a: "English and Mandarin Chinese today, with dedicated routing for each and graceful fallback for mixed-language speech.",
-  },
-  {
-    q: "Can I get a refund?",
-    a: "Yes, 14 days, no questions asked. Email us from the address on your account and we'll process it. Payments are handled securely through Stripe.",
-  },
-  {
-    q: "Is it on the App Store?",
-    a: "ultrspeak is sold directly so it can run on-device models without sandbox limits. You download a signed app straight from us, on both Mac and Windows.",
-  },
-];
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).faq;
 ---
 
 <section id="faq" class="border-t border-line bg-card">
@@ -32,12 +15,12 @@ const faqs = [
     <h2
       class="reveal mb-10 font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong md:mb-12"
     >
-      Questions, answered.
+      {t.title}
     </h2>
 
     <div class="divide-y divide-line border-y border-line">
       {
-        faqs.map((f) => (
+        t.items.map((f) => (
           <details class="reveal group">
             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-medium text-ink-strong">
               {f.q}

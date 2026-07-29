@@ -1,22 +1,46 @@
 ---
+import {
+  localeConfig,
+  locales,
+  type Locale,
+  type PublicRoute,
+} from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+import { getLocalizedPath, getLocaleSwitchPath } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+  route: PublicRoute;
+}
+
+const { locale, route } = Astro.props;
+const t = getTranslations(locale);
+const homePath = getLocalizedPath(locale, "home");
 const links = [
-  { label: "Features", href: "/#features" },
-  { label: "How it works", href: "/#how" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: t.nav.features, href: `${homePath}#features` },
+  { label: t.nav.how, href: `${homePath}#how` },
+  { label: t.nav.pricing, href: `${homePath}#pricing` },
 ];
 ---
 
 <header
   class="sticky top-0 z-50 border-b border-line/80 bg-paper/85 backdrop-blur-xl"
 >
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-2.5">
-    <a href="/" class="flex min-h-11 items-center gap-2.5">
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6"
+    aria-label={t.nav.primaryAria}
+  >
+    <a
+      href={homePath}
+      class="flex min-h-11 shrink-0 items-center gap-2.5"
+      aria-label="ultrspeak"
+    >
       <span class="flex items-end gap-[2.5px] h-4" aria-hidden="true">
         <span class="wave-bar w-[3px] h-2/5 rounded-full bg-amber" style="animation-delay:-0.1s"></span>
         <span class="wave-bar w-[3px] h-full rounded-full bg-amber" style="animation-delay:-0.45s"></span>
         <span class="wave-bar w-[3px] h-3/5 rounded-full bg-amber" style="animation-delay:-0.8s"></span>
       </span>
-      <span class="text-lg font-semibold tracking-tight text-ink-strong"
+      <span class="hidden text-lg font-semibold tracking-tight text-ink-strong min-[390px]:inline"
         >ultrspeak</span
       >
     </a>
@@ -36,11 +60,53 @@ const links = [
       }
     </ul>
 
-    <a
-      href="/#pricing"
-      class="inline-flex min-h-11 items-center rounded-full bg-amber px-4 py-2 text-sm font-semibold text-ink-strong shadow-[0_2px_10px_-2px_oklch(0.785_0.15_72/0.55)] transition-transform hover:-translate-y-0.5 sm:px-5"
-    >
-      Get ultrspeak
-    </a>
+    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
+      <div data-language-select-wrapper>
+        <label for="language-selector" class="sr-only">{t.nav.language}</label>
+        <select
+          id="language-selector"
+          data-language-selector
+          class="min-h-11 max-w-[6.5rem] cursor-pointer rounded-full border border-line bg-card px-2 py-2 text-sm font-medium text-ink-strong outline-none focus:border-amber sm:max-w-none sm:px-3"
+          aria-label={t.nav.language}
+        >
+          {
+            locales.map((targetLocale) => (
+              <option
+                value={getLocaleSwitchPath(targetLocale, Astro.url.pathname)}
+                selected={targetLocale === locale}
+                lang={localeConfig[targetLocale].htmlLang}
+              >
+                {localeConfig[targetLocale].label}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+      <noscript>
+        <style is:global>
+          [data-language-select-wrapper] { display: none; }
+        </style>
+        <div class="flex flex-wrap items-center justify-end gap-x-2 text-xs" aria-label={t.nav.language}>
+          {
+            locales.map((targetLocale) => (
+              <a
+                href={getLocaleSwitchPath(targetLocale, Astro.url.pathname)}
+                class="link-amber min-h-11 content-center text-ink2 hover:text-ink-strong"
+                lang={localeConfig[targetLocale].htmlLang}
+                aria-current={targetLocale === locale ? "page" : undefined}
+              >
+                {localeConfig[targetLocale].label}
+              </a>
+            ))
+          }
+        </div>
+      </noscript>
+      <a
+        href={`${homePath}#pricing`}
+        class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-amber px-3 py-2 text-center text-xs font-semibold text-ink-strong shadow-[0_2px_10px_-2px_oklch(0.785_0.15_72/0.55)] transition-transform hover:-translate-y-0.5 min-[390px]:text-sm sm:px-5"
+      >
+        {t.nav.get}
+      </a>
+    </div>
   </nav>
 </header>

@@ -2,15 +2,24 @@
 import { Image } from "astro:assets";
 import Waveform from "./Waveform.astro";
 import appHistory from "../assets/screenshots/app-history.jpeg";
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).features;
 ---
 
 <section id="features" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
   <div class="reveal mb-10 max-w-2xl md:mb-14">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
-      Why ultrspeak
+      {t.eyebrow}
     </p>
     <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
-      Built to feel like thinking out loud.
+      {t.title}
     </h2>
   </div>
 
@@ -22,12 +31,10 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
       <div>
         <span class="font-mono text-xs text-amber-ink">01</span>
         <h3 class="mt-4 text-2xl font-semibold tracking-tight text-ink-strong">
-          It never leaves your Mac
+          {t.cards[0].title}
         </h3>
         <p class="mt-3 max-w-md leading-relaxed text-ink2">
-          Transcription runs on-device with local models. No cloud, no account,
-          no upload. ultrspeak works on a plane, in a meeting, anywhere, and
-          your voice stays yours.
+          {t.cards[0].body}
         </p>
       </div>
       <div
@@ -36,7 +43,7 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
         <div class="h-16 min-w-0 grow overflow-hidden"><Waveform bars={44} /></div>
         <span
           class="shrink-0 self-start rounded-full bg-amber-soft px-3 py-1 font-mono text-xs text-amber-ink sm:self-auto"
-          >0 bytes sent</span
+          >{t.bytesSent}</span
         >
       </div>
     </article>
@@ -47,11 +54,10 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
     >
       <span class="font-mono text-xs text-amber-ink">02</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
-        Hold a key, anywhere
+        {t.cards[1].title}
       </h3>
       <p class="mt-3 text-sm leading-relaxed text-ink2">
-        One global shortcut works in any text field. The text lands exactly
-        where your cursor already is.
+        {t.cards[1].body}
       </p>
     </article>
 
@@ -61,11 +67,10 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
     >
       <span class="font-mono text-xs text-amber-ink">03</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
-        Knows your words
+        {t.cards[2].title}
       </h3>
       <p class="mt-3 text-sm leading-relaxed text-ink2">
-        Teach it names, jargon, and product terms once. Your custom vocabulary
-        lands right the first time, every time.
+        {t.cards[2].body}
       </p>
     </article>
 
@@ -75,11 +80,10 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
     >
       <span class="font-mono text-xs text-amber-ink">04</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
-        English and Chinese
+        {t.cards[3].title}
       </h3>
       <p class="mt-3 text-sm leading-relaxed text-ink2">
-        Dedicated routing for Mandarin alongside English, with automatic
-        fallback so mixed-language speech stays accurate.
+        {t.cards[3].body}
       </p>
     </article>
 
@@ -89,18 +93,17 @@ import appHistory from "../assets/screenshots/app-history.jpeg";
     >
       <span class="font-mono text-xs text-amber-ink">05</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
-        Nothing gets lost
+        {t.cards[4].title}
       </h3>
       <p class="mt-3 text-sm leading-relaxed text-ink2">
-        Every dictation is saved locally and searchable. Find, copy, or reuse
-        anything you have said, then clear it whenever you want.
+        {t.cards[4].body}
       </p>
       <div
         class="mt-7 overflow-hidden rounded-2xl ring-1 ring-line shadow-card"
       >
         <Image
           src={appHistory}
-          alt="ultrspeak app, searchable History of past dictations"
+          alt={t.historyAlt}
           widths={[640, 960, 1280]}
           sizes="(min-width: 768px) 460px, 92vw"
           class="block h-auto w-full"

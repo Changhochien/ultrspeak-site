@@ -1,28 +1,31 @@
 ---
 import Waveform from "./Waveform.astro";
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
 
-const modes = [
-  { id: "formal", label: "Formal", default: true },
-  { id: "casual", label: "Casual", default: false },
-  { id: "email", label: "Email", default: false },
-  { id: "code", label: "Prompt", default: false },
-];
+interface Props {
+  locale: Locale;
+}
 
-const said =
-  "um so can you send me last quarter's report whenever you get a sec, thanks";
+const { locale } = Astro.props;
+const t = getTranslations(locale).modes;
+const modes = ["formal", "casual", "email", "code"].map((id, index) => ({
+  id,
+  label: t.labels[index],
+  default: index === 0,
+}));
 ---
 
 <section id="modes" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
   <div class="reveal mx-auto mb-10 max-w-2xl text-center md:mb-14">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
-      Modes
+      {t.eyebrow}
     </p>
     <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
-      One voice. Every register.
+      {t.title}
     </h2>
     <p class="mx-auto mt-4 max-w-md text-ink2">
-      Pick a mode and ultrspeak shapes the same rambling thought into the tone
-      the moment calls for.
+      {t.intro}
     </p>
   </div>
 
@@ -52,9 +55,9 @@ const said =
       <!-- What you said -->
       <div class="flex flex-col rounded-2xl border border-line bg-paper p-7">
         <span class="font-mono text-xs uppercase tracking-wider text-ink2"
-          >You said</span
+          >{t.youSaid}</span
         >
-        <p class="mt-4 grow text-lg leading-relaxed text-ink2">{said}</p>
+        <p class="mt-4 grow text-lg leading-relaxed text-ink2">{t.said}</p>
         <div class="mt-5 h-10 w-40"><Waveform bars={26} /></div>
       </div>
 
@@ -69,38 +72,35 @@ const said =
       <!-- ultrspeak writes -->
       <div class="mode-stage flex flex-col rounded-2xl border border-line bg-card p-7 shadow-card">
         <span class="font-mono text-xs uppercase tracking-wider text-amber-ink"
-          >ultrspeak writes</span
+          >{t.writes}</span
         >
 
         <div class="mode-panel panel-formal mt-4 grow">
           <p class="text-xl font-medium leading-snug text-ink-strong">
-            Could you please send me last quarter's report when you have a
-            moment? Thank you.
+            {t.formal}
           </p>
         </div>
         <div class="mode-panel panel-casual mt-4 grow">
           <p class="text-xl font-medium leading-snug text-ink-strong">
-            hey, could you send over last quarter's report when you get a sec?
-            thanks!
+            {t.casual}
           </p>
         </div>
         <div class="mode-panel panel-email mt-4 grow">
-          <p class="font-mono text-xs text-ink2">Subject: Last quarter's report</p>
+          <p class="font-mono text-xs text-ink2">{t.emailSubject}</p>
           <p class="mt-3 text-lg font-medium leading-snug text-ink-strong">
-            Hi,<br />
-            When you have a moment, could you send me last quarter's report?
-            No rush. Thanks for your help.
+            {t.emailBody.split("\n").map((line, index) => (
+              <>{index > 0 && <br />}{line}</>
+            ))}
           </p>
         </div>
         <div class="mode-panel panel-code mt-4 grow">
           <p class="font-mono text-sm leading-relaxed text-ink-strong">
-            Pull last quarter's report and summarize the key metrics, flagging
-            anything that moved more than 10%.
+            {t.prompt}
           </p>
         </div>
 
         <span class="mt-5 text-xs text-ink2"
-          >Punctuation, capitalization, and tone, handled.</span
+          >{t.note}</span
         >
       </div>
     </div>

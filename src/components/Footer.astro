@@ -3,9 +3,9 @@ import Waveform from "./Waveform.astro";
 const year = new Date().getFullYear();
 ---
 
-<section id="download" class="mx-auto max-w-6xl px-6 pb-16 pt-24">
+<section id="download" class="mx-auto max-w-6xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
   <div
-    class="relative overflow-hidden rounded-[2rem] border border-line bg-ink-strong p-12 text-center md:p-20"
+    class="relative overflow-hidden rounded-[1.75rem] border border-line bg-ink-strong p-7 text-center sm:p-10 md:rounded-[2rem] md:p-20"
   >
     <div
       class="pointer-events-none absolute -bottom-24 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full blur-[120px]"
@@ -14,21 +14,29 @@ const year = new Date().getFullYear();
     >
     </div>
     <div class="relative">
-      <div class="mx-auto mb-8 h-12 w-44 opacity-90"><Waveform bars={30} /></div>
+      <div class="mx-auto mb-8 h-12 w-full max-w-44 opacity-90"><Waveform bars={30} /></div>
       <h2
-        class="font-display text-[clamp(2.6rem,6vw,4.6rem)] leading-[1.02] text-paper"
+        class="font-display text-[clamp(2.25rem,10vw,4.6rem)] leading-[1.02] text-paper"
       >
-        Stop typing. <span class="italic">Start speaking.</span>
+        Stop typing. <span class="text-amber">Start speaking.</span>
       </h2>
       <p class="mx-auto mt-4 max-w-sm text-paper/65">
-        Free to try on any Apple Silicon Mac. Your voice never leaves it.
+        Free to try on Mac and Windows. Your voice never leaves your device.
       </p>
-      <a
-        href="#pricing"
-        class="mt-8 inline-block rounded-full bg-amber px-8 py-4 text-sm font-semibold text-ink-strong transition-transform hover:-translate-y-0.5"
-      >
-        Download for Mac
-      </a>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+        <a
+          href="/download/macos?source=footer_mac"
+          class="inline-flex min-h-13 w-full items-center justify-center rounded-full bg-amber px-7 py-4 text-sm font-semibold text-ink-strong transition-transform hover:-translate-y-0.5 sm:w-auto"
+        >
+          Download for Mac
+        </a>
+        <a
+          href="/download/windows?source=footer_windows"
+          class="inline-flex min-h-13 w-full items-center justify-center rounded-full border border-paper/25 px-7 py-4 text-sm font-semibold text-paper transition-colors hover:bg-paper/10 sm:w-auto"
+        >
+          Download for Windows
+        </a>
+      </div>
     </div>
   </div>
 
@@ -44,15 +52,13 @@ const year = new Date().getFullYear();
       <span class="font-semibold text-ink-strong">ultrspeak</span>
       <span>© {year}</span>
     </div>
-    <nav class="flex flex-wrap gap-6">
-      <a href="/#features" class="link-amber hover:text-ink-strong">Features</a>
-      <a href="/#modes" class="link-amber hover:text-ink-strong">Modes</a>
-      <a href="/#pricing" class="link-amber hover:text-ink-strong">Pricing</a>
-      <a href="/#faq" class="link-amber hover:text-ink-strong">FAQ</a>
-      <a href="mailto:hello@ultrspeak.com" class="link-amber hover:text-ink-strong"
-        >Contact</a
-      >
-      <a href="/privacy" class="link-amber hover:text-ink-strong">Privacy</a>
+    <nav class="flex flex-wrap gap-x-6 gap-y-1">
+      <a href="/#features" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">Features</a>
+      <a href="/#how" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">How it works</a>
+      <a href="/#pricing" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">Pricing</a>
+      <a href="/contact" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">Contact</a>
+      <a href="/privacy" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">Privacy</a>
+      <a href="/terms" class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">Terms</a>
     </nav>
   </div>
 </section>

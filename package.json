@@ -9,11 +9,21 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:cloudflare": "npm run build && wrangler dev",
+    "deploy:preview": "npm run build && wrangler deploy",
+    "test:worker": "vitest run worker/index.test.ts",
+    "typecheck:worker": "wrangler types --check && tsc --noEmit",
     "astro": "astro"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.3",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2",
+    "vitest": "^4.0.18",
+    "wrangler": "^4.115.0"
   }
 }

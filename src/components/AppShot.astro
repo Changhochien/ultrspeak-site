@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+
+// Presents an app screenshot with depth. The screenshot already includes
+// the OS window chrome, so this only adds rounding, a hairline ring, and a
+// soft shadow.
+//
+// Pass `image` as a static import from `src/assets/screenshots/` so Astro
+// optimizes it at build time (compression, modern formats, responsive
+// srcset). Without `image`, a clean placeholder is shown.
+interface Props {
+  image?: ImageMetadata;
+  alt?: string;
+  ratio?: string;
+  class?: string;
+}
+const {
+  image,
+  alt = "ultrspeak app",
+  ratio = "2900 / 1370",
+  class: cls = "",
+} = Astro.props;
+---
+
+<div
+  class={`overflow-hidden rounded-2xl bg-card shadow-lift ring-1 ring-line ${cls}`}
+>
+  {
+    image ? (
+      <Image
+        src={image}
+        alt={alt}
+        widths={[640, 960, 1280, 1920]}
+        sizes="(min-width: 1024px) 960px, 92vw"
+        class="block h-auto w-full"
+      />
+    ) : (
+      <div
+        class="flex flex-col items-center justify-center gap-3 bg-paper"
+        style={`aspect-ratio:${ratio}`}
+      >
+        <span class="flex items-end gap-1 h-7" aria-hidden="true">
+          <span class="wave-bar w-1 h-2/5 rounded-full bg-amber" />
+          <span
+            class="wave-bar w-1 h-full rounded-full bg-amber"
+            style="animation-delay:-0.4s"
+          />
+          <span
+            class="wave-bar w-1 h-3/5 rounded-full bg-amber"
+            style="animation-delay:-0.7s"
+          />
+        </span>
+        <span class="font-mono text-xs text-ink2">App screenshot</span>
+      </div>
+    )
+  }
+</div>

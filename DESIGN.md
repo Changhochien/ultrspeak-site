@@ -24,21 +24,25 @@ Never `#000`/`#fff`. All neutrals tinted warm (hue ~70-80).
 
 ## Typography
 
-Three families, each with one job. They work together because their roles
-never overlap. Rule of thumb: Fraunces speaks for ultrspeak, Hanken speaks
-for the user, mono is for the machine.
+One family, used with conviction. ultrspeak is all-sans for a clean, precise,
+Apple-like feel; hierarchy comes from weight and size, not from mixing
+typefaces. No serif, no italic display.
 
-- **Fraunces** (display serif) — the brand's voice. Reserved for the hero
-  headline, section headlines, and page titles. Optical sizing on, weight
-  ~460, italic for accent words. Never used below ~2.4rem, never on UI chrome.
-- **Hanken Grotesk** (sans) — everything human: body copy, navigation,
-  buttons, UI headings (card titles, plan names, step labels via weight 600),
-  prices, and the dictated-text examples (the user's own words).
-- **JetBrains Mono** (mono) — system and technical labels only: keyboard
-  keys, window-chrome labels, status indicators, feature index numbers, the
+- **Hanken Grotesk** — the whole site. Headlines at weight 800 with tight
+  tracking (-0.03em); UI headings at 600; body at 400, line-height ~1.6.
+  Accent words in a headline use color (amber), not italic.
+- **JetBrains Mono** — system and technical labels only: keyboard keys,
+  window-chrome labels, status indicators, feature index numbers, the
   Prompt-mode example. Never full sentences of prose.
 
-Body line length capped ~68ch. Scale steps ≥1.25 ratio.
+Body line length capped ~68ch. Headline scale steps ≥1.25 ratio.
+
+## Imagery
+
+Show the real app. Screenshots go in the `AppShot` component, which adds
+rounded corners, a hairline ring, and a soft shadow; the screenshot itself
+already carries its own OS window chrome. Real product UI beats abstract
+decoration for the clean, Apple-like read.
 
 ## Elevation
 

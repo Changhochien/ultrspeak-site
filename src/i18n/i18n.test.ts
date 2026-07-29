@@ -82,6 +82,116 @@ describe("translation dictionaries", () => {
       "© {year} ultrspeak. すべての権利を保有します。",
     );
   });
+
+  it("uses the approved native headline in every locale", () => {
+    const headlineByLocale = {
+      en: ["Your words,", "ready at the cursor."],
+      "zh-TW": ["用說的，", "寫得更清楚。"],
+      "zh-CN": ["直接说，", "写得更清楚。"],
+      ja: ["話すだけで、", "伝わる文章に。"],
+    } as const;
+    const metadataByLocale = {
+      en: [
+        "ultrspeak — Your words, ready at the cursor.",
+        "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
+      ],
+      "zh-TW": [
+        "ultrspeak — 用說的，寫得更清楚。",
+        "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
+      ],
+      "zh-CN": [
+        "ultrspeak — 直接说，写得更清楚。",
+        "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
+      ],
+      ja: [
+        "ultrspeak — 話すだけで、伝わる文章に。",
+        "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
+      ],
+    } as const;
+
+    for (const locale of locales) {
+      expect([
+        translations[locale].hero.title,
+        translations[locale].hero.titleAccent,
+      ]).toEqual(headlineByLocale[locale]);
+      expect([
+        translations[locale].meta.home.title,
+        translations[locale].meta.home.description,
+      ]).toEqual(metadataByLocale[locale]);
+    }
+  });
+
+  it("qualifies platform, language, free-tier, and Pro support above the fold", () => {
+    const qualificationByLocale = {
+      en: "Free on Mac and Windows for up to 2,000 words a day. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
+      "zh-TW": "Mac 與 Windows 皆可免費使用，每日可免費輸入 2,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
+      "zh-CN": "Mac 与 Windows 均可免费使用，每天可免费输入 2,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
+      ja: "Mac・Windows で1日2,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
+    } as const;
+
+    for (const locale of locales) {
+      const hero = translations[locale].hero;
+      const qualification = `${hero.trialBefore} ⌥ Space / Alt + Space ${hero.trialAfter}`;
+      expect(qualification).toBe(qualificationByLocale[locale]);
+    }
+  });
+
+  it("removes retired slogans and unsupported homepage claims", () => {
+    const retiredCopy = [
+      "Speak. It's already written.",
+      "Stop typing.",
+      "Start speaking.",
+      "開口說，文字已完成。",
+      "開口說。",
+      "文字已經寫好。",
+      "別再打字。",
+      "開始用說的。",
+      "开口说，文字已完成。",
+      "开口说。",
+      "文字已经写好。",
+      "别再打字。",
+      "开始用说的。",
+      "話せば、もう書けている。",
+      "話せば、",
+      "もう書けている。",
+      "タイピングをやめて、",
+      "話し始めよう。",
+    ];
+
+    for (const locale of locales) {
+      const t = translations[locale];
+      const homepagePositioning = [
+        t.meta.home.title,
+        t.meta.home.description,
+        t.hero.eyebrow,
+        t.hero.title,
+        t.hero.titleAccent,
+        t.hero.body,
+        t.hero.trialBefore,
+        t.hero.trialAfter,
+        t.features.cards[1].title,
+        t.features.cards[1].body,
+        t.integrations.eyebrow,
+        t.integrations.title,
+        t.integrations.intro,
+        t.how.steps[0].title,
+        t.how.steps[0].body,
+        t.footer.title,
+        t.footer.titleAccent,
+        t.footer.intro,
+      ].join(" ");
+
+      for (const retired of retiredCopy) {
+        expect(homepagePositioning).not.toContain(retired);
+      }
+      expect(homepagePositioning).not.toMatch(
+        /perfect(?:ly)?\s+(?:formatted\s+)?text|(?:3|three)\s*(?:x|×|times?)\s*(?:as\s+)?fast(?:er)?|3\s*倍|三倍/iu,
+      );
+      expect(homepagePositioning).not.toMatch(
+        /any text field|every app|from any app|works everywhere|hold a key, anywhere|if you can type in it|任何文字欄位|每個應用程式|無論在哪個應用程式|隨處按住按鍵就能說|能打字的地方|任何文本框|每个应用程序|无论在哪个应用程序|随处按住按键就能说|あらゆるテキスト欄|どのアプリでも|どのアプリからでも|どこでもキーを押して話すだけ|文字を打てる場所なら/iu,
+      );
+    }
+  });
 });
 
 describe("localized route helpers", () => {

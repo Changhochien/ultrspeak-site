@@ -3,9 +3,9 @@ import type { Locale } from "./config";
 export const en = {
   meta: {
     home: {
-      title: "ultrspeak — Speak. It's already written.",
+      title: "ultrspeak — Your words, ready at the cursor.",
       description:
-        "ultrspeak turns your voice into perfect text on Mac and Windows. On-device, private, and 3× faster than typing.",
+        "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
     },
     contact: {
       title: "Contact — ultrspeak",
@@ -33,14 +33,16 @@ export const en = {
     language: "Choose language",
   },
   hero: {
-    eyebrow: "On-device voice dictation for Mac and Windows",
-    title: "Speak. It's",
-    titleAccent: "already written.",
-    body: "Hold one key, talk, and clean formatted text lands wherever your cursor is. Roughly three times faster than typing, fully private, and it works offline.",
+    eyebrow: "Private voice dictation for Mac and Windows",
+    title: "Your words,",
+    titleAccent: "ready at the cursor.",
+    body: "Hold one key and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
     download: "Download",
     seeItWork: "See it work",
-    trialBefore: "Free to try on Mac and Windows. Press",
-    trialAfter: "to dictate.",
+    trialBefore:
+      "Free on Mac and Windows for up to 2,000 words a day. Hold",
+    trialAfter:
+      "to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
     imageAlt: "ultrspeak app, Home screen",
   },
   modes: {
@@ -72,8 +74,8 @@ export const en = {
         body: "Transcription runs on your device with local models. There is no cloud processing and no audio or text upload. ultrspeak works on a plane, in a meeting, anywhere, and your voice stays yours.",
       },
       {
-        title: "Hold a key, anywhere",
-        body: "One global shortcut works in any text field. The text lands exactly where your cursor already is.",
+        title: "Hold a key, keep your flow",
+        body: "One global shortcut works across supported text inputs in the apps you use. The text lands where your cursor already is.",
       },
       {
         title: "Knows your words",
@@ -92,10 +94,10 @@ export const en = {
     historyAlt: "ultrspeak app, searchable History of past dictations",
   },
   integrations: {
-    eyebrow: "Works everywhere",
-    title: "If you can type in it, you can talk to it.",
+    eyebrow: "Works across your workflow",
+    title: "Use your voice in the apps where you write.",
     intro:
-      "ultrspeak sits one keystroke away in every app. No integrations to set up, no plugins, no copy and paste.",
+      "ultrspeak is one keystroke away across common desktop apps. No integrations to set up, no plugins, no copy and paste.",
     apps: [
       ["Slack", "Mail", "Notes", "Cursor", "VS Code", "Notion"],
       ["Messages", "Safari", "Chrome", "Obsidian", "Linear"],
@@ -108,8 +110,8 @@ export const en = {
     live: "Live transcript preview",
     steps: [
       {
-        title: "Press your shortcut",
-        body: "A subtle indicator appears. ultrspeak is listening, from any app, without switching windows.",
+        title: "Hold your shortcut",
+        body: "A subtle indicator appears. In supported apps, ultrspeak starts listening without making you switch windows.",
         alt: "ultrspeak listening indicator with a live waveform",
       },
       {
@@ -184,10 +186,10 @@ export const en = {
     ],
   },
   footer: {
-    title: "Stop typing.",
-    titleAccent: "Start speaking.",
+    title: "Your voice stays on your device.",
+    titleAccent: "Your words land at the cursor.",
     intro:
-      "Free to try on Mac and Windows. Your voice never leaves your device.",
+      "Try it free on Mac and Windows, with English and Mandarin dictation.",
     downloadMac: "Download for Mac",
     downloadWindows: "Download for Windows",
     navAria: "Footer navigation",
@@ -355,9 +357,9 @@ export type Translation = TranslationShape<typeof en>;
 export const zhTW: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 開口說，文字已完成。",
+      title: "ultrspeak — 用說的，寫得更清楚。",
       description:
-        "ultrspeak 在 Mac 或 Windows 上，將你的聲音轉成俐落文字。全程裝置端處理、私密安全，速度約為打字的 3 倍。",
+        "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
     },
     contact: {
       title: "聯絡我們 — ultrspeak",
@@ -385,14 +387,16 @@ export const zhTW: Translation = {
     language: "選擇語言",
   },
   hero: {
-    eyebrow: "適用於 Mac 與 Windows 的裝置端語音輸入",
-    title: "開口說。",
-    titleAccent: "文字已經寫好。",
-    body: "按住一個按鍵開始說話，整理好的文字就會出現在游標所在處。速度約為打字的三倍，完全私密，而且離線也能使用。",
+    eyebrow: "Mac 與 Windows 的裝置端語音輸入",
+    title: "用說的，",
+    titleAccent: "寫得更清楚。",
+    body: "按住一個鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
     download: "下載",
     seeItWork: "看看如何運作",
-    trialBefore: "Mac 與 Windows 皆可免費試用。按下",
-    trialAfter: "即可語音輸入。",
+    trialBefore:
+      "Mac 與 Windows 皆可免費使用，每日可免費輸入 2,000 字詞。按住",
+    trialAfter:
+      "即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
     imageAlt: "ultrspeak 應用程式主畫面",
   },
   modes: {
@@ -419,8 +423,8 @@ export const zhTW: Translation = {
         body: "轉錄由本機模型在你的裝置上完成。不使用雲端處理，也不上傳音訊或文字。無論在飛機上、會議中或任何地方，ultrspeak 都能運作，你的聲音始終屬於你。",
       },
       {
-        title: "隨處按住按鍵就能說",
-        body: "一組全域快速鍵適用於任何文字欄位，文字會精準出現在游標所在處。",
+        title: "按住按鍵，不打斷思緒",
+        body: "一組全域快速鍵可在常用應用程式的支援文字欄位中使用，整理好的文字會直接出現在游標位置。",
       },
       {
         title: "懂得你的用詞",
@@ -439,9 +443,9 @@ export const zhTW: Translation = {
     historyAlt: "ultrspeak 應用程式中可搜尋的歷史語音輸入",
   },
   integrations: {
-    eyebrow: "到處都能使用",
-    title: "能打字的地方，就能用說的。",
-    intro: "ultrspeak 在每個應用程式中都只差一個按鍵。不必設定整合、不必安裝外掛，也不用複製貼上。",
+    eyebrow: "融入日常工作流程",
+    title: "在常用的應用程式裡，直接用說的。",
+    intro: "ultrspeak 可透過一組快速鍵在多款常用的桌面應用程式中使用。不必設定整合、不必安裝外掛，也不用複製貼上。",
     apps: [
       ["Slack", "郵件", "備忘錄", "Cursor", "VS Code", "Notion"],
       ["訊息", "Safari", "Chrome", "Obsidian", "Linear"],
@@ -454,8 +458,8 @@ export const zhTW: Translation = {
     live: "即時逐字稿預覽",
     steps: [
       {
-        title: "按下快速鍵",
-        body: "畫面會出現低調的指示器。無論在哪個應用程式，ultrspeak 都會開始聆聽，不必切換視窗。",
+        title: "按住快速鍵",
+        body: "畫面會出現低調的指示器。在支援的應用程式中，ultrspeak 會開始聆聽，不必切換視窗。",
         alt: "ultrspeak 聆聽指示器與即時波形",
       },
       {
@@ -478,7 +482,7 @@ export const zhTW: Translation = {
     freeIntro: "不用帳戶即可試用語音輸入。",
     forever: "永久免費",
     downloadFree: "免費下載",
-    freeFeatures: ["裝置端轉錄", "英文與中文", "全域按住說話快速鍵", "每日最多 2,000 個單詞"],
+    freeFeatures: ["裝置端轉錄", "英文與中文", "全域按住說話快速鍵", "每日可免費輸入 2,000 字詞"],
     popular: "最受歡迎",
     proIntro: "為每天大量使用的人提供無限額度。",
     perYear: "美元／年",
@@ -517,9 +521,9 @@ export const zhTW: Translation = {
     ],
   },
   footer: {
-    title: "別再打字。",
-    titleAccent: "開始用說的。",
-    intro: "Mac 與 Windows 皆可免費試用。你的聲音不會離開裝置。",
+    title: "聲音留在你的裝置。",
+    titleAccent: "整理好的文字，直接送到游標位置。",
+    intro: "Mac 與 Windows 皆可免費使用，支援英文與華語語音輸入。",
     downloadMac: "下載 Mac 版",
     downloadWindows: "下載 Windows 版",
     navAria: "頁尾導覽",
@@ -650,9 +654,9 @@ export const zhTW: Translation = {
 export const zhCN: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 开口说，文字已完成。",
+      title: "ultrspeak — 直接说，写得更清楚。",
       description:
-        "ultrspeak 在 Mac 或 Windows 上将你的声音变成清晰文字。全程在设备端处理、私密安全，速度约为打字的 3 倍。",
+        "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
     },
     contact: { title: "联系我们 — ultrspeak", description: "联系 ultrspeak 团队。" },
     success: { title: "结账完成 — ultrspeak", description: "返回 ultrspeak 使用你的 Pro 订阅。" },
@@ -668,14 +672,16 @@ export const zhCN: Translation = {
     language: "选择语言",
   },
   hero: {
-    eyebrow: "适用于 Mac 与 Windows 的设备端语音输入",
-    title: "开口说。",
-    titleAccent: "文字已经写好。",
-    body: "按住一个按键开始说话，整理好的文字就会出现在光标所在处。速度约为打字的三倍，完全私密，而且离线也能使用。",
+    eyebrow: "Mac 与 Windows 的本地语音输入",
+    title: "直接说，",
+    titleAccent: "写得更清楚。",
+    body: "按住一个键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
     download: "下载",
     seeItWork: "看看如何工作",
-    trialBefore: "Mac 与 Windows 均可免费试用。按下",
-    trialAfter: "即可语音输入。",
+    trialBefore:
+      "Mac 与 Windows 均可免费使用，每天可免费输入 2,000 字词。按住",
+    trialAfter:
+      "即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
     imageAlt: "ultrspeak 应用程序主界面",
   },
   modes: {
@@ -698,7 +704,7 @@ export const zhCN: Translation = {
     title: "就像把脑中的想法直接说出来。",
     cards: [
       { title: "声音不会离开你的电脑", body: "转录由本地模型在你的设备上完成。不使用云端处理，也不上传音频或文字。无论在飞机上、会议中还是任何地方，ultrspeak 都能工作，你的声音始终属于你。" },
-      { title: "随处按住按键就能说", body: "一组全局快捷键适用于任何文本框，文字会准确出现在光标所在处。" },
+      { title: "按住按键，不打断思路", body: "一组全局快捷键可在常用应用程序支持的文本框中使用，整理好的文字会直接出现在光标位置。" },
       { title: "懂得你的用词", body: "只要教它一次人名、术语和产品名称，自定义词汇每次都能正确呈现。" },
       { title: "英文与中文", body: "英文与中文各有专用识别路径，并能自动回退，让中英混合语音依然准确。" },
       { title: "说过的内容都不会丢失", body: "每次语音输入都保存在本地并可搜索。你可以查找、复制或重复使用，也能随时清除。" },
@@ -707,9 +713,9 @@ export const zhCN: Translation = {
     historyAlt: "ultrspeak 应用程序中可搜索的历史语音输入",
   },
   integrations: {
-    eyebrow: "到处都能使用",
-    title: "能打字的地方，就能用说的。",
-    intro: "ultrspeak 在每个应用程序中都只差一个按键。无需设置集成、无需安装插件，也不用复制粘贴。",
+    eyebrow: "融入日常工作流程",
+    title: "在常用的应用程序里，直接说就行。",
+    intro: "ultrspeak 可通过一组快捷键在多款常用桌面应用程序中使用。无需设置集成、无需安装插件，也不用复制粘贴。",
     apps: [
       ["Slack", "邮件", "备忘录", "Cursor", "VS Code", "Notion"],
       ["信息", "Safari", "Chrome", "Obsidian", "Linear"],
@@ -721,7 +727,7 @@ export const zhCN: Translation = {
     title: "三秒钟，从开口到完成。",
     live: "实时转录预览",
     steps: [
-      { title: "按下快捷键", body: "界面会出现一个低调的指示器。无论在哪个应用程序，ultrspeak 都会开始聆听，无需切换窗口。", alt: "ultrspeak 聆听指示器和实时波形" },
+      { title: "按住快捷键", body: "界面会出现一个低调的指示器。在支持的应用程序中，ultrspeak 会开始聆听，无需切换窗口。", alt: "ultrspeak 聆听指示器和实时波形" },
       { title: "观看实时转录", body: "说话时，文字会出现在指示器中。已确认的文字保持清晰，最新片段则显示为处理中。", alt: "ultrspeak 录音时流式显示文字的实时转录预览" },
       { title: "松开按键，文字已输入", body: "整理好标点的文字立即出现在光标处，让你不中断思路继续工作。", alt: "ultrspeak 已完成输入的指示器" },
     ],
@@ -734,7 +740,7 @@ export const zhCN: Translation = {
     freeIntro: "无需账户即可试用语音输入。",
     forever: "永久免费",
     downloadFree: "免费下载",
-    freeFeatures: ["设备端转录", "英文与中文", "全局按住说话快捷键", "每天最多 2,000 个单词"],
+    freeFeatures: ["设备端转录", "英文与中文", "全局按住说话快捷键", "每天可免费输入 2,000 字词"],
     popular: "最受欢迎",
     proIntro: "为每天大量使用的人提供无限额度。",
     perYear: "美元／年",
@@ -755,9 +761,9 @@ export const zhCN: Translation = {
     ],
   },
   footer: {
-    title: "别再打字。",
-    titleAccent: "开始用说的。",
-    intro: "Mac 与 Windows 均可免费试用。你的声音不会离开设备。",
+    title: "声音留在你的设备。",
+    titleAccent: "整理好的文字，直接送到光标位置。",
+    intro: "Mac 与 Windows 均可免费使用，支持英语和普通话语音输入。",
     downloadMac: "下载 Mac 版",
     downloadWindows: "下载 Windows 版",
     navAria: "页脚导航",
@@ -832,9 +838,9 @@ export const zhCN: Translation = {
 export const ja: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 話せば、もう書けている。",
+      title: "ultrspeak — 話すだけで、伝わる文章に。",
       description:
-        "ultrspeak は Mac や Windows で声を整った文章に変えます。完全オンデバイスでプライベート、タイピングの約3倍の速さです。",
+        "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
     },
     contact: { title: "お問い合わせ — ultrspeak", description: "ultrspeak チームへのお問い合わせはこちら。" },
     success: { title: "決済完了 — ultrspeak", description: "ultrspeak に戻って Pro サブスクリプションをご利用ください。" },
@@ -851,13 +857,14 @@ export const ja: Translation = {
   },
   hero: {
     eyebrow: "Mac・Windows 向けオンデバイス音声入力",
-    title: "話せば、",
-    titleAccent: "もう書けている。",
-    body: "キーを1つ押しながら話すだけで、整った文章がカーソル位置に入ります。タイピングの約3倍の速さで、完全にプライベート。オフラインでも使えます。",
+    title: "話すだけで、",
+    titleAccent: "伝わる文章に。",
+    body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
     download: "ダウンロード",
     seeItWork: "動作を見る",
-    trialBefore: "Mac と Windows で無料体験。音声入力は",
-    trialAfter: "を押してください。",
+    trialBefore: "Mac・Windows で1日2,000語まで無料。",
+    trialAfter:
+      "を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
     imageAlt: "ultrspeak アプリのホーム画面",
   },
   modes: {
@@ -880,7 +887,7 @@ export const ja: Translation = {
     title: "考えたまま話すだけの心地よさ。",
     cards: [
       { title: "声はコンピューターの外へ出ません", body: "ローカルモデルにより、お使いのデバイス上で処理します。クラウド処理は行わず、音声や文章をアップロードしません。飛行機でも会議でもどこでも使え、声はずっとあなたのものです。" },
-      { title: "どこでもキーを押して話すだけ", body: "1つのグローバルショートカットが、あらゆるテキスト欄で動作します。文章は現在のカーソル位置に正確に入ります。" },
+      { title: "キー1つで、流れを止めない", body: "1つのグローバルショートカットが、普段使うアプリの対応テキスト欄で動作します。整った文章が現在のカーソル位置に入ります。" },
       { title: "あなたの言葉を覚えます", body: "人名、専門用語、製品名を一度登録するだけ。カスタム語彙が毎回正しく入力されます。" },
       { title: "英語と中国語", body: "英語と中国語には専用の認識経路があり、言語が混ざった音声も自動フォールバックで正確に処理します。" },
       { title: "話した内容を見失いません", body: "すべての音声入力はローカルに保存され、検索できます。検索、コピー、再利用ができ、いつでも消去できます。" },
@@ -889,9 +896,9 @@ export const ja: Translation = {
     historyAlt: "過去の音声入力を検索できる ultrspeak アプリの履歴画面",
   },
   integrations: {
-    eyebrow: "どこでも使えます",
-    title: "文字を打てる場所なら、声でも入力できます。",
-    intro: "ultrspeak は、どのアプリでもキー1つですぐ使えます。連携設定もプラグインも、コピー＆ペーストも不要です。",
+    eyebrow: "いつもの作業にそのまま",
+    title: "普段使うアプリで、声から文章へ。",
+    intro: "ultrspeak は、多くの一般的なデスクトップアプリでキー1つですぐ使えます。連携設定もプラグインも、コピー＆ペーストも不要です。",
     apps: [
       ["Slack", "メール", "メモ", "Cursor", "VS Code", "Notion"],
       ["メッセージ", "Safari", "Chrome", "Obsidian", "Linear"],
@@ -903,7 +910,7 @@ export const ja: Translation = {
     title: "話し始めて3秒で完了。",
     live: "リアルタイム文字起こし",
     steps: [
-      { title: "ショートカットを押す", body: "控えめなインジケーターが表示されます。ウィンドウを切り替えず、どのアプリからでも ultrspeak が聞き取りを始めます。", alt: "ライブ波形を表示する ultrspeak の聞き取りインジケーター" },
+      { title: "ショートカットを押し続ける", body: "控えめなインジケーターが表示されます。対応しているアプリなら、ウィンドウを切り替えずに ultrspeak が聞き取りを始めます。", alt: "ライブ波形を表示する ultrspeak の聞き取りインジケーター" },
       { title: "リアルタイムで確認", body: "話した言葉がインジケーターに表示されます。確定した文字は鮮明に保たれ、最新のフレーズは処理中と分かる表示になります。", alt: "録音中の言葉を表示する ultrspeak のリアルタイム文字起こし" },
       { title: "キーを離せば入力完了", body: "句読点まで整った文章がカーソル位置にすぐ入ります。流れを止めずに作業を続けられます。", alt: "入力完了を示す ultrspeak のインジケーター" },
     ],
@@ -937,9 +944,9 @@ export const ja: Translation = {
     ],
   },
   footer: {
-    title: "タイピングをやめて、",
-    titleAccent: "話し始めよう。",
-    intro: "Mac と Windows で無料体験。声はデバイスの外へ出ません。",
+    title: "音声は端末の中に。",
+    titleAccent: "整った文章は、書いている場所へ。",
+    intro: "Mac・Windows で無料で始められます。音声入力は英語・中国語（普通話）に対応。",
     downloadMac: "Mac 版をダウンロード",
     downloadWindows: "Windows 版をダウンロード",
     navAria: "フッターナビゲーション",

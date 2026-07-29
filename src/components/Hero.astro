@@ -12,7 +12,7 @@ const { locale } = Astro.props;
 const t = getTranslations(locale).hero;
 ---
 
-<section class="relative overflow-hidden">
+<section class="relative overflow-hidden" data-home-hero>
   <!-- Soft amber wash -->
   <div
     class="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full blur-[150px]"
@@ -63,13 +63,14 @@ const t = getTranslations(locale).hero;
       </a>
     </div>
     <p
+      data-home-hero-qualification
       class="rise mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink2"
       style="animation-delay:0.36s"
     >
       {t.trialBefore}
       <kbd
         class="mx-1 inline-block whitespace-nowrap rounded-md border border-line bg-card px-2 py-0.5 font-mono text-xs text-ink-strong shadow-sm"
-        >⌥ Space</kbd
+        >⌥ Space / Alt + Space</kbd
       >
       {t.trialAfter}
     </p>

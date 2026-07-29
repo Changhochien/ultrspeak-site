@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local agent and Cloudflare development state
+.claude/
+.omc/
+.wrangler/
+src/assets/screenshots/.omc/

@@ -1,5 +1,6 @@
 ---
 import AppShot from "./AppShot.astro";
+import appHome from "../assets/screenshots/app-home.jpg";
 ---
 
 <section class="relative overflow-hidden">
@@ -11,9 +12,9 @@ import AppShot from "./AppShot.astro";
   >
   </div>
 
-  <div class="relative mx-auto max-w-3xl px-6 pb-20 pt-20 text-center md:pt-28">
+  <div class="relative mx-auto max-w-3xl px-6 pb-16 pt-16 text-center sm:pb-20 sm:pt-20 md:pt-28">
     <p
-      class="rise mb-8 inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs font-medium tracking-wide text-ink2 shadow-card"
+      class="rise mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1.5 text-xs font-medium tracking-wide text-ink2 shadow-card sm:mb-8 sm:px-4"
       style="animation-delay:0.04s"
     >
       <span class="h-1.5 w-1.5 rounded-full bg-amber"></span>
@@ -21,7 +22,7 @@ import AppShot from "./AppShot.astro";
     </p>
 
     <h1
-      class="rise font-display text-[clamp(2.9rem,8vw,5.8rem)] leading-[0.98] text-ink-strong"
+      class="rise font-display text-[clamp(2.65rem,12vw,5.8rem)] leading-[0.98] text-ink-strong"
       style="animation-delay:0.1s"
     >
       Speak. It's
@@ -29,7 +30,7 @@ import AppShot from "./AppShot.astro";
     </h1>
 
     <p
-      class="rise mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink2"
+      class="rise mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink2 sm:mt-7 sm:text-lg"
       style="animation-delay:0.2s"
     >
       Hold one key, talk, and clean formatted text lands wherever your cursor
@@ -55,12 +56,12 @@ import AppShot from "./AppShot.astro";
       </a>
     </div>
     <p
-      class="rise mt-5 flex items-center justify-center gap-2 text-sm text-ink2"
+      class="rise mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink2"
       style="animation-delay:0.36s"
     >
       Free to try on Mac and Windows. Press
       <kbd
-        class="rounded-md border border-line bg-card px-2 py-0.5 font-mono text-xs text-ink-strong shadow-sm"
+        class="mx-1 inline-block whitespace-nowrap rounded-md border border-line bg-card px-2 py-0.5 font-mono text-xs text-ink-strong shadow-sm"
         >⌥ Space</kbd
       >
       to dictate.
@@ -69,7 +70,7 @@ import AppShot from "./AppShot.astro";
 
   <!-- App preview -->
   <div
-    class="rise relative mx-auto -mb-24 max-w-4xl px-6"
+    class="rise relative mx-auto -mb-20 max-w-3xl px-6"
     style="animation-delay:0.46s"
   >
     <div class="relative">
@@ -78,7 +79,11 @@ import AppShot from "./AppShot.astro";
         aria-hidden="true"
       >
       </div>
-      <AppShot src="/screenshots/app-modes.png" alt="ultrspeak Modes screen" />
+      <AppShot
+        image={appHome}
+        ratio="1001 / 586"
+        alt="ultrspeak app, Home screen"
+      />
     </div>
   </div>
 </section>

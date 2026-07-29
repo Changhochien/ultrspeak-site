@@ -1,35 +1,49 @@
 ---
+import { Image } from "astro:assets";
+import stateListening from "../assets/screenshots/state-listening.png";
+import stateTranscribing from "../assets/screenshots/state-transcribing.png";
+import stateDone from "../assets/screenshots/state-done.png";
+
 const steps = [
   {
     n: "1",
     title: "Press your shortcut",
     body: "A subtle indicator appears. ultrspeak is listening, from any app, without switching windows.",
+    shot: stateListening,
+    alt: "ultrspeak listening indicator with a live waveform",
+    live: false,
   },
   {
     n: "2",
-    title: "Speak naturally",
-    body: "Talk the way you think. Pauses, corrections, and asides are all handled for you.",
+    title: "See it stream live",
+    body: "Your words appear in the indicator while you speak. Stable text stays crisp while the newest phrase remains visibly in progress.",
+    shot: stateTranscribing,
+    alt: "ultrspeak live transcript preview streaming words while recording",
+    live: true,
   },
   {
     n: "3",
     title: "Release, it's typed",
     body: "Clean, punctuated text appears instantly at your cursor. Keep working without breaking flow.",
+    shot: stateDone,
+    alt: "ultrspeak delivered indicator",
+    live: false,
   },
 ];
 ---
 
-<section id="how" class="mx-auto max-w-6xl px-6 py-28">
-  <div class="reveal mb-16 max-w-2xl">
+<section id="how" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+  <div class="reveal mb-10 max-w-2xl md:mb-16">
     <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
       Three seconds, start to finish.
     </h2>
   </div>
 
-  <ol class="grid gap-5 md:grid-cols-3">
+  <ol class="grid gap-4 md:grid-cols-[0.9fr_1.2fr_0.9fr] md:gap-5">
     {
       steps.map((s, i) => (
         <li
-          class="reveal relative rounded-3xl border border-line bg-card p-8 shadow-card"
+          class="reveal relative flex flex-col rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8"
           style={`transition-delay:${i * 110}ms`}
         >
           <span class="flex h-12 w-12 items-center justify-center rounded-full bg-amber text-xl font-semibold text-ink-strong">
@@ -37,6 +51,25 @@ const steps = [
           </span>
           <h3 class="mt-6 text-2xl font-semibold tracking-tight text-ink-strong">{s.title}</h3>
           <p class="mt-3 text-sm leading-relaxed text-ink2">{s.body}</p>
+          <div
+            class="mt-7 flex min-h-[180px] grow flex-col items-center justify-center rounded-2xl border border-line bg-paper px-4 py-6 md:min-h-[210px]"
+          >
+            {
+              s.live && (
+                <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-amber-ink">
+                  <span class="h-1.5 w-1.5 rounded-full bg-amber"></span>
+                  Live transcript preview
+                </span>
+              )
+            }
+            <Image
+              src={s.shot}
+              alt={s.alt}
+              widths={[320, 520]}
+              sizes="(min-width: 768px) 360px, 84vw"
+              class={`block h-auto w-full ${s.live ? "max-w-[420px]" : "max-w-[320px]"}`}
+            />
+          </div>
         </li>
       ))
     }

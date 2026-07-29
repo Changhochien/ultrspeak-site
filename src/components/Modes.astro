@@ -12,8 +12,8 @@ const said =
   "um so can you send me last quarter's report whenever you get a sec, thanks";
 ---
 
-<section id="modes" class="mx-auto max-w-6xl px-6 py-28">
-  <div class="reveal mx-auto mb-14 max-w-2xl text-center">
+<section id="modes" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+  <div class="reveal mx-auto mb-10 max-w-2xl text-center md:mb-14">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
       Modes
     </p>
@@ -41,7 +41,7 @@ const said =
       {modes.map((m) => (
         <label
           for={`mode-${m.id}`}
-          class="mode-tab cursor-pointer rounded-full border border-line bg-card px-5 py-2 text-sm font-medium text-ink2 transition-colors hover:text-ink-strong"
+          class="mode-tab inline-flex min-h-11 cursor-pointer items-center rounded-full border border-line bg-card px-4 py-2.5 text-sm font-medium text-ink2 transition-colors hover:text-ink-strong sm:px-5"
         >
           {m.label}
         </label>

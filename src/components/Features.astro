@@ -1,9 +1,11 @@
 ---
+import { Image } from "astro:assets";
 import Waveform from "./Waveform.astro";
+import appHistory from "../assets/screenshots/app-history.jpeg";
 ---
 
-<section id="features" class="mx-auto max-w-6xl px-6 py-28">
-  <div class="reveal mb-14 max-w-2xl">
+<section id="features" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+  <div class="reveal mb-10 max-w-2xl md:mb-14">
     <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
       Why ultrspeak
     </p>
@@ -12,10 +14,10 @@ import Waveform from "./Waveform.astro";
     </h2>
   </div>
 
-  <div class="grid gap-4 md:grid-cols-12 md:grid-rows-2">
+  <div class="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-12 md:grid-rows-2">
     <!-- Big: on-device -->
     <article
-      class="reveal flex flex-col justify-between rounded-3xl border border-line bg-card p-8 shadow-card md:col-span-7 md:row-span-2"
+      class="reveal min-w-0 flex flex-col justify-between rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8 md:col-span-7 md:row-span-2"
     >
       <div>
         <span class="font-mono text-xs text-amber-ink">01</span>
@@ -29,11 +31,11 @@ import Waveform from "./Waveform.astro";
         </p>
       </div>
       <div
-        class="mt-8 flex items-end gap-4 rounded-2xl border border-line bg-paper p-6"
+        class="mt-8 flex min-w-0 flex-col gap-4 rounded-2xl border border-line bg-paper p-4 sm:flex-row sm:items-end sm:p-6"
       >
-        <div class="h-16 grow"><Waveform bars={44} /></div>
+        <div class="h-16 min-w-0 grow overflow-hidden"><Waveform bars={44} /></div>
         <span
-          class="shrink-0 rounded-full bg-amber-soft px-3 py-1 font-mono text-xs text-amber-ink"
+          class="shrink-0 self-start rounded-full bg-amber-soft px-3 py-1 font-mono text-xs text-amber-ink sm:self-auto"
           >0 bytes sent</span
         >
       </div>
@@ -41,7 +43,7 @@ import Waveform from "./Waveform.astro";
 
     <!-- Hold to talk -->
     <article
-      class="reveal rounded-3xl border border-line bg-card p-8 shadow-card md:col-span-5"
+      class="reveal min-w-0 rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8 md:col-span-5"
     >
       <span class="font-mono text-xs text-amber-ink">02</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
@@ -55,7 +57,7 @@ import Waveform from "./Waveform.astro";
 
     <!-- Vocabulary -->
     <article
-      class="reveal rounded-3xl border border-line bg-card p-8 shadow-card md:col-span-5"
+      class="reveal min-w-0 rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8 md:col-span-5"
     >
       <span class="font-mono text-xs text-amber-ink">03</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
@@ -69,7 +71,7 @@ import Waveform from "./Waveform.astro";
 
     <!-- Bilingual -->
     <article
-      class="reveal rounded-3xl border border-line bg-card p-8 shadow-card md:col-span-6"
+      class="reveal min-w-0 rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8 md:col-span-6"
     >
       <span class="font-mono text-xs text-amber-ink">04</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
@@ -83,7 +85,7 @@ import Waveform from "./Waveform.astro";
 
     <!-- History -->
     <article
-      class="reveal rounded-3xl border border-line bg-card p-8 shadow-card md:col-span-6"
+      class="reveal min-w-0 flex flex-col rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8 md:col-span-6"
     >
       <span class="font-mono text-xs text-amber-ink">05</span>
       <h3 class="mt-4 text-xl font-semibold tracking-tight text-ink-strong">
@@ -93,6 +95,17 @@ import Waveform from "./Waveform.astro";
         Every dictation is saved locally and searchable. Find, copy, or reuse
         anything you have said, then clear it whenever you want.
       </p>
+      <div
+        class="mt-7 overflow-hidden rounded-2xl ring-1 ring-line shadow-card"
+      >
+        <Image
+          src={appHistory}
+          alt="ultrspeak app, searchable History of past dictations"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 768px) 460px, 92vw"
+          class="block h-auto w-full"
+        />
+      </div>
     </article>
   </div>
 </section>

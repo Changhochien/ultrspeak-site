@@ -92,13 +92,12 @@ const alternateLinks = getAlternateLinks(site, route);
       }
 
       document
-        .querySelectorAll<HTMLSelectElement>("[data-language-selector]")
-        .forEach((selector) => {
-          selector.addEventListener("change", () => {
-            window.location.assign(
-              `${selector.value}${window.location.search}${window.location.hash}`,
-            );
-          });
+        .querySelectorAll<HTMLAnchorElement>("[data-language-link]")
+        .forEach((link) => {
+          const destination = new URL(link.href);
+          destination.search = window.location.search;
+          destination.hash = window.location.hash;
+          link.href = destination.toString();
         });
     </script>
   </body>

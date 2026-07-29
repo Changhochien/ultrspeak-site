@@ -1,7 +1,7 @@
 # Deferred work
 
-## Pre-existing website issues surfaced during multilingual review
+## Resolved website issues from multilingual review
 
-- Confirm the payment-provider source of truth before revising purchase or legal copy: `PRODUCT.md` says Lemon Squeezy license keys, while the current website uses Stripe subscriptions and checkout language.
-- Replace the placeholder Formspree endpoint (`https://formspree.io/f/your-form-id`) once the production form ID is available; localization intentionally preserved the existing destination.
-- Revisit the feature-card headline “It never leaves your Mac,” which predates localization but now conflicts with the website’s stated Windows support.
+- [x] Payment documentation now identifies account-based Stripe subscriptions, matching the pricing, privacy, terms, and checkout-success copy (`PRODUCT.md`, `src/i18n/ui.ts`).
+- [x] The placeholder Formspree endpoint and fake server-delivery state were removed. Contact now opens a localized `mailto:` draft to `hello@ultrspeak.com`, explains that the website does not send it, and provides a copyable fallback (`src/components/pages/ContactPage.astro`, `src/i18n/ui.ts`).
+- [x] The on-device privacy feature and related FAQ answer now refer to the visitor's computer/device across English, Traditional Chinese, Simplified Chinese, and Japanese (`src/i18n/ui.ts`).

@@ -60,50 +60,67 @@ const links = [
       }
     </ul>
 
-    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
-      <div data-language-select-wrapper>
-        <label for="language-selector" class="sr-only">{t.nav.language}</label>
-        <select
-          id="language-selector"
-          data-language-selector
-          class="min-h-11 max-w-[6.5rem] cursor-pointer rounded-full border border-line bg-card px-2 py-2 text-sm font-medium text-ink-strong outline-none focus:border-amber sm:max-w-none sm:px-3"
+    <div class="flex min-w-0 items-center gap-1.5 sm:gap-3">
+      <details class="language-menu relative">
+        <summary
+          class="flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-full border border-amber/70 bg-card px-2.5 text-sm font-semibold text-ink-strong shadow-[0_1px_2px_oklch(0.235_0.014_65/0.08)] transition-colors hover:border-amber focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber sm:px-3.5"
+          aria-label={`${t.nav.language}: ${localeConfig[locale].label}`}
+        >
+          <svg
+            class="size-4 shrink-0 text-amber-ink"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+          </svg>
+          <span class="hidden lg:inline">{t.nav.language}</span>
+          <span class="whitespace-nowrap" lang={localeConfig[locale].htmlLang}>
+            {localeConfig[locale].shortLabel}
+          </span>
+          <svg
+            class="size-3 shrink-0 text-ink2 transition-transform"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="m3 4.5 3 3 3-3"></path>
+          </svg>
+        </summary>
+
+        <div
+          class="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-44 overflow-hidden rounded-2xl border border-line bg-card p-1.5 shadow-lift"
           aria-label={t.nav.language}
         >
           {
             locales.map((targetLocale) => (
-              <option
-                value={getLocaleSwitchPath(targetLocale, Astro.url.pathname)}
-                selected={targetLocale === locale}
-                lang={localeConfig[targetLocale].htmlLang}
-              >
-                {localeConfig[targetLocale].label}
-              </option>
-            ))
-          }
-        </select>
-      </div>
-      <noscript>
-        <style is:global>
-          [data-language-select-wrapper] { display: none; }
-        </style>
-        <div class="flex flex-wrap items-center justify-end gap-x-2 text-xs" aria-label={t.nav.language}>
-          {
-            locales.map((targetLocale) => (
               <a
+                data-language-link
                 href={getLocaleSwitchPath(targetLocale, Astro.url.pathname)}
-                class="link-amber min-h-11 content-center text-ink2 hover:text-ink-strong"
+                class:list={[
+                  "flex min-h-11 items-center justify-between rounded-xl px-3 text-sm transition-colors hover:bg-amber-soft/60 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-amber",
+                  targetLocale === locale
+                    ? "bg-amber-soft/40 font-semibold text-ink-strong"
+                    : "text-ink2",
+                ]}
                 lang={localeConfig[targetLocale].htmlLang}
                 aria-current={targetLocale === locale ? "page" : undefined}
               >
                 {localeConfig[targetLocale].label}
+                {targetLocale === locale && <span aria-hidden="true">✓</span>}
               </a>
             ))
           }
         </div>
-      </noscript>
+      </details>
       <a
         href={`${homePath}#pricing`}
-        class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-amber px-3 py-2 text-center text-xs font-semibold text-ink-strong shadow-[0_2px_10px_-2px_oklch(0.785_0.15_72/0.55)] transition-transform hover:-translate-y-0.5 min-[390px]:text-sm sm:px-5"
+        class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-amber px-2.5 py-2 text-center text-[0.6875rem] font-semibold leading-tight text-ink-strong shadow-[0_2px_10px_-2px_oklch(0.785_0.15_72/0.55)] transition-transform hover:-translate-y-0.5 min-[390px]:px-3 min-[390px]:text-xs sm:px-5 sm:text-sm"
       >
         {t.nav.get}
       </a>

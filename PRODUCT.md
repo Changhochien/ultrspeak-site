@@ -9,7 +9,8 @@ brand
 ultrspeak is a voice dictation app for Mac and Windows. You hold a keyboard
 shortcut, speak, and clean formatted text appears wherever your cursor is.
 Transcription runs fully on-device, so it is private and works offline. This
-site sells the app directly via Lemon Squeezy license keys.
+site offers the app directly and sells account-based Pro subscriptions through
+Stripe Checkout. Pro access is linked to the same account used in the app.
 
 ## Users
 
@@ -35,5 +36,5 @@ welcome. Speak to the reader as a peer.
 - Privacy and on-device processing are core differentiators. Say so plainly.
 - Show the product working (real dictation examples, mode transformations)
   rather than describing it abstractly.
-- Pricing is honest and cheap; make the path to buy obvious and frictionless.
+- Pricing is honest and cheap; make the path to upgrade obvious and frictionless.
 - Distinctive but never noisy. Warmth and craft over visual volume.

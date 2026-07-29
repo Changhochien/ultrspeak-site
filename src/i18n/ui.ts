@@ -5,7 +5,7 @@ export const en = {
     home: {
       title: "ultrspeak — Speak. It's already written.",
       description:
-        "ultrspeak turns your voice into perfect text anywhere on your Mac. On-device, private, and 3× faster than typing.",
+        "ultrspeak turns your voice into perfect text on Mac and Windows. On-device, private, and 3× faster than typing.",
     },
     contact: {
       title: "Contact — ultrspeak",
@@ -68,8 +68,8 @@ export const en = {
     title: "Built to feel like thinking out loud.",
     cards: [
       {
-        title: "It never leaves your Mac",
-        body: "Transcription runs on-device with local models. No cloud, no account, no upload. ultrspeak works on a plane, in a meeting, anywhere, and your voice stays yours.",
+        title: "It never leaves your computer",
+        body: "Transcription runs on your device with local models. There is no cloud processing and no audio or text upload. ultrspeak works on a plane, in a meeting, anywhere, and your voice stays yours.",
       },
       {
         title: "Hold a key, anywhere",
@@ -159,7 +159,7 @@ export const en = {
     items: [
       {
         q: "Does my voice get sent to a server?",
-        a: "No. Transcription runs entirely on your Mac with on-device models. ultrspeak works offline and never uploads your audio or text.",
+        a: "No. Transcription runs entirely on your computer with on-device models. ultrspeak works offline and never uploads your audio or text.",
       },
       {
         q: "How do I activate my license?",
@@ -205,11 +205,20 @@ export const en = {
     emailPlaceholder: "you@example.com",
     message: "Message",
     messagePlaceholder: "How can we help?",
-    send: "Send message",
-    sending: "Sending…",
-    sent: "Thanks — your message is on its way. We'll reply soon.",
-    error:
-      "Something went wrong. Please email hello@ultrspeak.com instead.",
+    openDraft: "Open email draft",
+    recipientLabel: "To",
+    subjectLabel: "Subject",
+    draftGuidance:
+      "This form opens a prepared draft in your email app. Nothing is sent until you review and send it there.",
+    emailSubject: "ultrspeak support request",
+    draftOpened:
+      "Your draft is ready below. We also tried to open it in your email app. This website has not sent your message.",
+    fallbackHeading: "Email draft",
+    fallbackIntro:
+      "If your email app did not open, copy this draft and send it to hello@ultrspeak.com.",
+    copyDraft: "Copy draft",
+    copySuccess: "Draft copied. Send it to hello@ultrspeak.com.",
+    copyError: "Copy did not work. Select the draft and copy it manually.",
     preferEmail: "Prefer email? Reach us directly at",
     refund:
       ". For refunds, email within 14 days of purchase from your checkout address.",
@@ -405,8 +414,8 @@ export const zhTW: Translation = {
     title: "就像把腦中的想法直接說出來。",
     cards: [
       {
-        title: "聲音不會離開你的 Mac",
-        body: "轉錄由本機模型在裝置端完成。不使用雲端、不需要帳戶，也不上傳資料。無論在飛機上、會議中或任何地方，ultrspeak 都能運作，你的聲音始終屬於你。",
+        title: "聲音不會離開你的電腦",
+        body: "轉錄由本機模型在你的裝置上完成。不使用雲端處理，也不上傳音訊或文字。無論在飛機上、會議中或任何地方，ultrspeak 都能運作，你的聲音始終屬於你。",
       },
       {
         title: "隨處按住按鍵就能說",
@@ -482,7 +491,7 @@ export const zhTW: Translation = {
     items: [
       {
         q: "我的聲音會傳到伺服器嗎？",
-        a: "不會。轉錄完全由裝置端模型在你的 Mac 上進行。ultrspeak 可離線使用，絕不會上傳你的音訊或文字。",
+        a: "不會。轉錄完全由裝置端模型在你的電腦上進行。ultrspeak 可離線使用，絕不會上傳你的音訊或文字。",
       },
       {
         q: "如何啟用授權？",
@@ -526,10 +535,17 @@ export const zhTW: Translation = {
     emailPlaceholder: "you@example.com",
     message: "訊息",
     messagePlaceholder: "我們能如何協助你？",
-    send: "傳送訊息",
-    sending: "傳送中…",
-    sent: "謝謝，你的訊息已送出。我們會盡快回覆。",
-    error: "發生問題。請改寄電子郵件至 hello@ultrspeak.com。",
+    openDraft: "開啟電子郵件草稿",
+    recipientLabel: "收件者",
+    subjectLabel: "主旨",
+    draftGuidance: "此表單會在你的郵件應用程式中開啟預先填好的草稿。請確認內容並在郵件應用程式中送出；網站不會自行傳送訊息。",
+    emailSubject: "ultrspeak 客服請求",
+    draftOpened: "草稿已在下方準備完成，網站也已嘗試在你的郵件應用程式中開啟。此網站尚未傳送你的訊息。",
+    fallbackHeading: "電子郵件草稿",
+    fallbackIntro: "如果郵件應用程式沒有開啟，請複製這份草稿並寄至 hello@ultrspeak.com。",
+    copyDraft: "複製草稿",
+    copySuccess: "草稿已複製。請寄至 hello@ultrspeak.com。",
+    copyError: "無法自動複製。請選取草稿並手動複製。",
     preferEmail: "偏好使用電子郵件？請直接寄信至",
     refund: "。如需退款，請在購買後 14 天內使用結帳時的電子郵件地址來信。",
   },
@@ -679,7 +695,7 @@ export const zhCN: Translation = {
     eyebrow: "为什么选择 ultrspeak",
     title: "就像把脑中的想法直接说出来。",
     cards: [
-      { title: "声音不会离开你的 Mac", body: "转录由本地模型在设备端完成。不使用云端、无需账户，也不上传数据。无论在飞机上、会议中还是任何地方，ultrspeak 都能工作，你的声音始终属于你。" },
+      { title: "声音不会离开你的电脑", body: "转录由本地模型在你的设备上完成。不使用云端处理，也不上传音频或文字。无论在飞机上、会议中还是任何地方，ultrspeak 都能工作，你的声音始终属于你。" },
       { title: "随处按住按键就能说", body: "一组全局快捷键适用于任何文本框，文字会准确出现在光标所在处。" },
       { title: "懂得你的用词", body: "只要教它一次人名、术语和产品名称，自定义词汇每次都能正确呈现。" },
       { title: "英文与中文", body: "英文与中文各有专用识别路径，并能自动回退，让中英混合语音依然准确。" },
@@ -728,7 +744,7 @@ export const zhCN: Translation = {
   faq: {
     title: "常见问题。",
     items: [
-      { q: "我的声音会发送到服务器吗？", a: "不会。转录完全由设备端模型在你的 Mac 上进行。ultrspeak 可离线使用，绝不会上传你的音频或文字。" },
+      { q: "我的声音会发送到服务器吗？", a: "不会。转录完全由设备端模型在你的电脑上进行。ultrspeak 可离线使用，绝不会上传你的音频或文字。" },
       { q: "如何激活授权？", a: "登录 ultrspeak 账户并选择升级至 Pro。结账由 Stripe 安全托管，Pro 权限会关联到你在应用程序中使用的同一个账户。" },
       { q: "支持哪些设备？", a: "ultrspeak 支持搭载 Apple 芯片（M1 或更新版本）、运行 macOS 13 或更新版本的 Mac，以及 Windows 11。设备端模型在较新的硬件上表现最佳。" },
       { q: "它能处理哪些语言？", a: "目前支持英文与普通话，各有专用识别路径，对中英混合语音也能自然回退处理。" },
@@ -756,10 +772,17 @@ export const zhCN: Translation = {
     emailPlaceholder: "you@example.com",
     message: "留言",
     messagePlaceholder: "我们能如何帮助你？",
-    send: "发送留言",
-    sending: "发送中…",
-    sent: "谢谢，你的留言已发送。我们会尽快回复。",
-    error: "出现问题。请改发邮件至 hello@ultrspeak.com。",
+    openDraft: "打开邮件草稿",
+    recipientLabel: "收件人",
+    subjectLabel: "主题",
+    draftGuidance: "此表单会在你的邮件应用中打开预先填写的草稿。请确认内容并在邮件应用中发送；网站不会自行发送留言。",
+    emailSubject: "ultrspeak 客服请求",
+    draftOpened: "草稿已在下方准备好，网站也已尝试在你的邮件应用中打开。此网站尚未发送你的留言。",
+    fallbackHeading: "邮件草稿",
+    fallbackIntro: "如果邮件应用没有打开，请复制这份草稿并发送至 hello@ultrspeak.com。",
+    copyDraft: "复制草稿",
+    copySuccess: "草稿已复制。请发送至 hello@ultrspeak.com。",
+    copyError: "无法自动复制。请选中草稿并手动复制。",
     preferEmail: "更喜欢电子邮件？请直接发送至",
     refund: "。如需退款，请在购买后 14 天内使用结账时的电子邮件地址来信。",
   },
@@ -853,7 +876,7 @@ export const ja: Translation = {
     eyebrow: "ultrspeak が選ばれる理由",
     title: "考えたまま話すだけの心地よさ。",
     cards: [
-      { title: "声は Mac の外へ出ません", body: "ローカルモデルによるオンデバイス処理です。クラウドもアカウントもアップロードもありません。飛行機でも会議でもどこでも使え、声はずっとあなたのものです。" },
+      { title: "声はコンピューターの外へ出ません", body: "ローカルモデルにより、お使いのデバイス上で処理します。クラウド処理は行わず、音声や文章をアップロードしません。飛行機でも会議でもどこでも使え、声はずっとあなたのものです。" },
       { title: "どこでもキーを押して話すだけ", body: "1つのグローバルショートカットが、あらゆるテキスト欄で動作します。文章は現在のカーソル位置に正確に入ります。" },
       { title: "あなたの言葉を覚えます", body: "人名、専門用語、製品名を一度登録するだけ。カスタム語彙が毎回正しく入力されます。" },
       { title: "英語と中国語", body: "英語と中国語には専用の認識経路があり、言語が混ざった音声も自動フォールバックで正確に処理します。" },
@@ -902,7 +925,7 @@ export const ja: Translation = {
   faq: {
     title: "よくあるご質問。",
     items: [
-      { q: "音声はサーバーに送信されますか？", a: "いいえ。文字起こしはオンデバイスモデルにより、すべて Mac 上で行われます。ultrspeak はオフラインで動作し、音声や文章をアップロードしません。" },
+      { q: "音声はサーバーに送信されますか？", a: "いいえ。文字起こしはオンデバイスモデルにより、すべてお使いのコンピューター上で行われます。ultrspeak はオフラインで動作し、音声や文章をアップロードしません。" },
       { q: "ライセンスを有効にするには？", a: "ultrspeak アカウントにログインして「Pro にアップグレード」を選択します。決済は Stripe が安全にホストし、Pro の利用権はアプリで使う同じアカウントに紐づきます。" },
       { q: "対応デバイスは？", a: "ultrspeak は Apple シリコン（M1以降）搭載で macOS 13以降の Mac と、Windows 11 に対応しています。オンデバイスモデルは新しいハードウェアほど快適に動作します。" },
       { q: "対応言語は？", a: "現在は英語と中国語に対応し、それぞれ専用の認識経路を備えています。言語が混ざった音声も自然にフォールバック処理します。" },
@@ -930,10 +953,17 @@ export const ja: Translation = {
     emailPlaceholder: "you@example.com",
     message: "メッセージ",
     messagePlaceholder: "どのようなご用件ですか？",
-    send: "メッセージを送信",
-    sending: "送信中…",
-    sent: "ありがとうございます。メッセージを送信しました。まもなく返信します。",
-    error: "問題が発生しました。hello@ultrspeak.com へ直接メールをお送りください。",
+    openDraft: "メールの下書きを開く",
+    recipientLabel: "宛先",
+    subjectLabel: "件名",
+    draftGuidance: "このフォームは、入力内容を入れた下書きをメールアプリで開きます。内容を確認し、メールアプリから送信してください。ウェブサイトが自動送信することはありません。",
+    emailSubject: "ultrspeak サポートへのお問い合わせ",
+    draftOpened: "下書きを下に用意し、メールアプリでも開くよう試みました。このウェブサイトからメッセージは送信されていません。",
+    fallbackHeading: "メールの下書き",
+    fallbackIntro: "メールアプリが開かない場合は、この下書きをコピーして hello@ultrspeak.com へお送りください。",
+    copyDraft: "下書きをコピー",
+    copySuccess: "下書きをコピーしました。hello@ultrspeak.com へお送りください。",
+    copyError: "コピーできませんでした。下書きを選択して手動でコピーしてください。",
     preferEmail: "メールでのお問い合わせは",
     refund: "まで直接ご連絡ください。返金をご希望の場合は、購入後14日以内に決済時のメールアドレスからお送りください。",
   },

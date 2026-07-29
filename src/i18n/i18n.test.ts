@@ -123,16 +123,36 @@ describe("translation dictionaries", () => {
 
   it("qualifies platform, language, free-tier, and Pro support above the fold", () => {
     const qualificationByLocale = {
-      en: "Free on Mac and Windows for up to 2,000 words a day. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
-      "zh-TW": "Mac 與 Windows 皆可免費使用，每日可免費輸入 2,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
-      "zh-CN": "Mac 与 Windows 均可免费使用，每天可免费输入 2,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
-      ja: "Mac・Windows で1日2,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
+      en: "Free on Mac and Windows for up to 8,000 words a week. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
+      "zh-TW": "Mac 與 Windows 皆可免費使用，每週可免費輸入 8,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
+      "zh-CN": "Mac 与 Windows 均可免费使用，每周可免费输入 8,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
+      ja: "Mac・Windows で週8,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
+    } as const;
+    const pricingAllowanceByLocale = {
+      en: "Up to 8,000 words per week",
+      "zh-TW": "每週可免費輸入 8,000 字詞",
+      "zh-CN": "每周可免费输入 8,000 字词",
+      ja: "週8,000語まで無料",
+    } as const;
+    const formerAllowanceByLocale = {
+      en: /2,000|\b(?:a|per) day\b/iu,
+      "zh-TW": /2,000|每天|每日|每周/u,
+      "zh-CN": /2,000|每天|每日|每週/u,
+      ja: /2,000|1日|日あたり/u,
     } as const;
 
     for (const locale of locales) {
       const hero = translations[locale].hero;
       const qualification = `${hero.trialBefore} ⌥ Space / Alt + Space ${hero.trialAfter}`;
+      const pricingAllowance = translations[locale].pricing.freeFeatures.find((feature) =>
+        feature.includes("8,000"),
+      );
       expect(qualification).toBe(qualificationByLocale[locale]);
+      expect(pricingAllowance).toBe(pricingAllowanceByLocale[locale]);
+      expect(`${qualification} ${pricingAllowance}`).not.toMatch(
+        formerAllowanceByLocale[locale],
+      );
+      expect(JSON.stringify(translations[locale])).not.toContain("2,000");
     }
   });
 

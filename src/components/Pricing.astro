@@ -29,7 +29,10 @@ const homePath = getLocalizedPath(locale, "home");
   <div class="reveal">
     <div class="mx-auto grid max-w-3xl gap-5 md:grid-cols-2">
       <!-- Free -->
-      <article class="flex flex-col rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8">
+      <article
+        data-pricing-plan="free"
+        class="flex flex-col rounded-3xl border border-line bg-card p-6 shadow-card sm:p-8"
+      >
         <h3 class="text-2xl font-semibold tracking-tight text-ink-strong">{t.free}</h3>
         <p class="mt-1 text-sm text-ink2">{t.freeIntro}</p>
         <div class="mt-6 text-5xl font-bold tracking-tight tabular-nums text-ink-strong">$0</div>

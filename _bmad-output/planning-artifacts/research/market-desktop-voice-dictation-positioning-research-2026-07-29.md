@@ -634,7 +634,7 @@ ultrspeak should not try to outclaim these products on universal speed, language
 3. **Mechanism:** Hold one key and speak naturally.
 4. **Trust:** Processing happens on the device; voice is not uploaded; offline use works.
 5. **Scope:** Mac and Windows; English and Mandarin dictation.
-6. **Value:** Free daily allowance and US$19.49 annual Pro plan.
+6. **Value:** 8,000-word weekly Free allowance and US$19.49 annual Pro plan.
 7. **Proof:** Real before-and-after output, elapsed completion, app context, and recovery behavior.
 
 Do not lead with “3× faster.” The mobile Stanford study often used in this category did not test modern desktop keyboards or ultrspeak. Any objective speed claim should be supported by a product-specific, reproducible desktop test. The FTC requires evidence for express and implied objective claims before advertising runs.
@@ -658,7 +658,7 @@ _Sources:_ [Stanford speech-versus-touchscreen study](https://hci.stanford.edu/r
 
 **Japanese supporting copy:** キーを1つ押して話すだけ。ultrspeakが音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。
 
-**Required qualification in every locale:** Daily free allowance; Pro annual price; Mac and Windows availability; and the actual English and Mandarin dictation-language scope. The Japanese page must not imply Japanese speech recognition.
+**Required qualification in every locale:** 8,000-word weekly Free allowance; Pro annual price; Mac and Windows availability; and the actual English and Mandarin dictation-language scope. The Japanese page must not imply Japanese speech recognition.
 
 ### Recommended Footer Copy
 

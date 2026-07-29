@@ -38,3 +38,8 @@ welcome. Speak to the reader as a peer.
   rather than describing it abstractly.
 - Pricing is honest and cheap; make the path to upgrade obvious and frictionless.
 - Distinctive but never noisy. Warmth and craft over visual volume.
+
+## Plans
+
+The Free tier includes up to 8,000 words per week. Pro provides unlimited
+dictation for US$19.49 per year.

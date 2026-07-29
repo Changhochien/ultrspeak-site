@@ -40,7 +40,7 @@ export const en = {
     download: "Download",
     seeItWork: "See it work",
     trialBefore:
-      "Free on Mac and Windows for up to 2,000 words a day. Hold",
+      "Free on Mac and Windows for up to 8,000 words a week. Hold",
     trialAfter:
       "to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
     imageAlt: "ultrspeak app, Home screen",
@@ -139,7 +139,7 @@ export const en = {
       "On-device transcription",
       "English & Chinese",
       "Global hold-to-talk shortcut",
-      "Up to 2,000 words per day",
+      "Up to 8,000 words per week",
     ],
     popular: "Most popular",
     proIntro: "Unlimited, for daily drivers.",
@@ -394,7 +394,7 @@ export const zhTW: Translation = {
     download: "下載",
     seeItWork: "看看如何運作",
     trialBefore:
-      "Mac 與 Windows 皆可免費使用，每日可免費輸入 2,000 字詞。按住",
+      "Mac 與 Windows 皆可免費使用，每週可免費輸入 8,000 字詞。按住",
     trialAfter:
       "即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
     imageAlt: "ultrspeak 應用程式主畫面",
@@ -482,7 +482,7 @@ export const zhTW: Translation = {
     freeIntro: "不用帳戶即可試用語音輸入。",
     forever: "永久免費",
     downloadFree: "免費下載",
-    freeFeatures: ["裝置端轉錄", "英文與中文", "全域按住說話快速鍵", "每日可免費輸入 2,000 字詞"],
+    freeFeatures: ["裝置端轉錄", "英文與中文", "全域按住說話快速鍵", "每週可免費輸入 8,000 字詞"],
     popular: "最受歡迎",
     proIntro: "為每天大量使用的人提供無限額度。",
     perYear: "美元／年",
@@ -679,7 +679,7 @@ export const zhCN: Translation = {
     download: "下载",
     seeItWork: "看看如何工作",
     trialBefore:
-      "Mac 与 Windows 均可免费使用，每天可免费输入 2,000 字词。按住",
+      "Mac 与 Windows 均可免费使用，每周可免费输入 8,000 字词。按住",
     trialAfter:
       "即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
     imageAlt: "ultrspeak 应用程序主界面",
@@ -740,7 +740,7 @@ export const zhCN: Translation = {
     freeIntro: "无需账户即可试用语音输入。",
     forever: "永久免费",
     downloadFree: "免费下载",
-    freeFeatures: ["设备端转录", "英文与中文", "全局按住说话快捷键", "每天可免费输入 2,000 字词"],
+    freeFeatures: ["设备端转录", "英文与中文", "全局按住说话快捷键", "每周可免费输入 8,000 字词"],
     popular: "最受欢迎",
     proIntro: "为每天大量使用的人提供无限额度。",
     perYear: "美元／年",
@@ -862,7 +862,7 @@ export const ja: Translation = {
     body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
     download: "ダウンロード",
     seeItWork: "動作を見る",
-    trialBefore: "Mac・Windows で1日2,000語まで無料。",
+    trialBefore: "Mac・Windows で週8,000語まで無料。",
     trialAfter:
       "を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
     imageAlt: "ultrspeak アプリのホーム画面",
@@ -923,7 +923,7 @@ export const ja: Translation = {
     freeIntro: "アカウント不要で音声入力を体験。",
     forever: "ずっと無料",
     downloadFree: "無料でダウンロード",
-    freeFeatures: ["オンデバイス文字起こし", "英語・中国語", "グローバル長押しショートカット", "1日最大2,000語"],
+    freeFeatures: ["オンデバイス文字起こし", "英語・中国語", "グローバル長押しショートカット", "週8,000語まで無料"],
     popular: "一番人気",
     proIntro: "毎日使う方に、無制限で。",
     perYear: "USD／年",

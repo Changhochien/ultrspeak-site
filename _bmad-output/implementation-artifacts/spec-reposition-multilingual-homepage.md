@@ -39,6 +39,11 @@ context:
 
 </frozen-after-approval>
 
+> **Superseded quota constraint (2026-07-29):** The approved
+> `spec-correct-free-tier-to-8000-weekly.md` decision supersedes this spec's
+> historical 2,000-word daily allowance constraint. The authoritative
+> ultrspeak Free tier is now 8,000 words per week.
+
 ## Code Map
 
 - `src/i18n/ui.ts` -- typed source of localized metadata, hero, trial disclosure, and footer CTA copy.
@@ -66,7 +71,7 @@ context:
 
 ## Spec Change Log
 
-- **Loop 1 — acceptance audit:** The approved constraint against universal text-field claims was not represented in the execution tasks, leaving older “any/every text field/app” copy untouched. Expanded the code map and tasks to cover feature/integration compatibility copy, visible-hero scoping, full daily/annual qualification, and regression checks. Avoid the known-bad state where metadata masks a missing hero or legacy universal promises remain elsewhere on the homepage. **KEEP:** preserve the four approved native headlines, local/offline privacy positioning, explicit English/Mandarin limits, Mac/Windows availability, 2,000-per-day free tier, US$19.49 annual price, localized footer CTA, existing routes/actions, and verified responsive layout.
+- **Loop 1 — acceptance audit:** The approved constraint against universal text-field claims was not represented in the execution tasks, leaving older “any/every text field/app” copy untouched. Expanded the code map and tasks to cover feature/integration compatibility copy, visible-hero scoping, full allowance/annual-price qualification, and regression checks. Avoid the known-bad state where metadata masks a missing hero or legacy universal promises remain elsewhere on the homepage. **KEEP:** preserve the four approved native headlines, local/offline privacy positioning, explicit English/Mandarin limits, Mac/Windows availability, US$19.49 annual price, localized footer CTA, existing routes/actions, and verified responsive layout. The former 2,000-per-day quota instruction is superseded by the approved 8,000-word weekly Free tier.
 
 ## Design Notes
 

@@ -130,10 +130,12 @@ const homepagePositioning = new Map([
       titleAccent: "ready at the cursor.",
       language: "English or Mandarin Chinese",
       free: "Free",
-      daily: "a day",
+      weekly: "a week",
       annual: "a year",
+      pricingAllowance: "Up to 8,000 words per week",
+      formerAllowance: /2,000|\b(?:a|per) day\b/iu,
       qualification:
-        "Free on Mac and Windows for up to 2,000 words a day. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
+        "Free on Mac and Windows for up to 8,000 words a week. Hold ⌥ Space / Alt + Space to dictate in English or Mandarin Chinese. Pro is US$19.49 a year.",
     },
   ],
   [
@@ -146,10 +148,12 @@ const homepagePositioning = new Map([
       titleAccent: "寫得更清楚。",
       language: "英文或華語",
       free: "免費",
-      daily: "每日",
+      weekly: "每週",
       annual: "年費",
+      pricingAllowance: "每週可免費輸入 8,000 字詞",
+      formerAllowance: /2,000|每天|每日|每周/u,
       qualification:
-        "Mac 與 Windows 皆可免費使用，每日可免費輸入 2,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
+        "Mac 與 Windows 皆可免費使用，每週可免費輸入 8,000 字詞。按住 ⌥ Space / Alt + Space 即可使用英文或華語語音輸入。Pro 年費 US$19.49。",
     },
   ],
   [
@@ -162,10 +166,12 @@ const homepagePositioning = new Map([
       titleAccent: "写得更清楚。",
       language: "英语或普通话",
       free: "免费",
-      daily: "每天",
+      weekly: "每周",
       annual: "年费",
+      pricingAllowance: "每周可免费输入 8,000 字词",
+      formerAllowance: /2,000|每天|每日|每週/u,
       qualification:
-        "Mac 与 Windows 均可免费使用，每天可免费输入 2,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
+        "Mac 与 Windows 均可免费使用，每周可免费输入 8,000 字词。按住 ⌥ Space / Alt + Space 即可使用英语或普通话语音输入。Pro 年费 US$19.49。",
     },
   ],
   [
@@ -178,10 +184,12 @@ const homepagePositioning = new Map([
       titleAccent: "伝わる文章に。",
       language: "英語・中国語（普通話）",
       free: "無料",
-      daily: "1日",
+      weekly: "週8,000語まで",
       annual: "年額",
+      pricingAllowance: "週8,000語まで無料",
+      formerAllowance: /2,000|1日|日あたり/u,
       qualification:
-        "Mac・Windows で1日2,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
+        "Mac・Windows で週8,000語まで無料。 ⌥ Space / Alt + Space を押しながら話すと、英語・中国語（普通話）で音声入力できます。Pro は年額US$19.49です。",
     },
   ],
 ]);
@@ -275,8 +283,8 @@ for (const [path, expected] of homepagePositioning) {
     `${path} lacks above-the-fold language disclosure "${expected.language}"`,
   );
   assert(heroText.includes(expected.free), `${path} does not identify the free tier`);
-  assert(heroText.includes("2,000"), `${path} lacks the free-tier allowance`);
-  assert(heroText.includes(expected.daily), `${path} does not identify the daily allowance`);
+  assert(heroText.includes("8,000"), `${path} lacks the free-tier allowance`);
+  assert(heroText.includes(expected.weekly), `${path} does not identify the weekly allowance`);
   assert(heroText.includes("US$19.49"), `${path} lacks the Pro price`);
   assert(heroText.includes(expected.annual), `${path} does not identify annual billing`);
 
@@ -290,7 +298,29 @@ for (const [path, expected] of homepagePositioning) {
     `${path} has unexpected hero qualification "${qualificationText}"`,
   );
 
+  const pricingHtml =
+    html.match(
+      /<section\b(?=[^>]*\bid="pricing")[^>]*>([\s\S]*?)<\/section>/iu,
+    )?.[1] ?? "";
+  const freePricingHtml =
+    pricingHtml.match(
+      /<article\b(?=[^>]*\bdata-pricing-plan="free")[^>]*>([\s\S]*?)<\/article>/iu,
+    )?.[1] ?? "";
+  const freePricingText = visibleText(freePricingHtml);
+  assert(freePricingText, `${path} lacks the rendered Free pricing card`);
+  assert(
+    freePricingText.includes(expected.pricingAllowance),
+    `${path} lacks Free pricing allowance "${expected.pricingAllowance}"`,
+  );
   const pageText = visibleText(html);
+  assert(
+    !expected.formerAllowance.test(`${qualificationText} ${freePricingText}`),
+    `${path} contains the former daily free-tier allowance`,
+  );
+  assert(
+    !pageText.includes("2,000"),
+    `${path} contains the former 2,000-word free-tier allowance`,
+  );
   for (const retired of retiredHomepageCopy) {
     assert(!pageText.includes(retired), `${path} contains retired copy "${retired}"`);
   }

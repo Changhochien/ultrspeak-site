@@ -288,6 +288,41 @@ for (const [path, expected] of homepagePositioning) {
   assert(heroText.includes("US$19.49"), `${path} lacks the Pro price`);
   assert(heroText.includes(expected.annual), `${path} does not identify annual billing`);
 
+  const qualificationMarkers = [
+    ...heroHtml.matchAll(
+      /<p\b(?=[^>]*\bdata-home-hero-qualification(?:\s|=|>))[^>]*>/giu,
+    ),
+  ];
+  const actionMarkers = [
+    ...heroHtml.matchAll(
+      /<div\b(?=[^>]*\bdata-home-hero-actions(?:\s|=|>))[^>]*>/giu,
+    ),
+  ];
+  assert(
+    qualificationMarkers.length === 1,
+    `${path} must render exactly one hero qualification marker`,
+  );
+  assert(
+    actionMarkers.length === 1,
+    `${path} must render exactly one hero action marker`,
+  );
+  assert(
+    qualificationMarkers[0].index < actionMarkers[0].index,
+    `${path} places hero actions before the qualification`,
+  );
+  const actionsHtml =
+    heroHtml.match(
+      /<div\b(?=[^>]*\bdata-home-hero-actions(?:\s|=|>))[^>]*>([\s\S]*?)<\/div>/iu,
+    )?.[1] ?? "";
+  assert(
+    actionsHtml.includes('href="#download"'),
+    `${path} hero actions lack the download destination`,
+  );
+  assert(
+    actionsHtml.includes('href="#modes"'),
+    `${path} hero actions lack the modes destination`,
+  );
+
   const qualificationHtml =
     html.match(
       /<p\b(?=[^>]*\bdata-home-hero-qualification(?:\s|=|>))[^>]*>([\s\S]*?)<\/p>/iu,

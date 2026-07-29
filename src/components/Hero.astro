@@ -45,27 +45,10 @@ const t = getTranslations(locale).hero;
       {t.body}
     </p>
 
-    <div
-      class="rise mt-9 flex flex-wrap items-center justify-center gap-3.5"
-      style="animation-delay:0.3s"
-    >
-      <a
-        href="#download"
-        class="rounded-full bg-amber px-7 py-3.5 text-sm font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)] transition-transform hover:-translate-y-0.5"
-      >
-        {t.download}
-      </a>
-      <a
-        href="#modes"
-        class="rounded-full border border-line bg-card px-7 py-3.5 text-sm font-semibold text-ink-strong transition-colors hover:border-ink2"
-      >
-        {t.seeItWork}
-      </a>
-    </div>
     <p
       data-home-hero-qualification
-      class="rise mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink2"
-      style="animation-delay:0.36s"
+      class="rise mx-auto mt-7 max-w-md text-sm leading-relaxed text-ink2"
+      style="animation-delay:0.3s"
     >
       {t.trialBefore}
       <kbd
@@ -74,6 +57,25 @@ const t = getTranslations(locale).hero;
       >
       {t.trialAfter}
     </p>
+
+    <div
+      data-home-hero-actions
+      class="rise mt-7 grid auto-rows-fr grid-cols-1 items-stretch justify-center gap-3.5 sm:mt-9 sm:grid-cols-[12rem_12rem] sm:items-center"
+      style="animation-delay:0.36s"
+    >
+      <a
+        href="#download"
+        class="box-border inline-flex min-h-14 w-full items-center justify-center rounded-full bg-amber px-8 py-3 text-base font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber sm:min-h-16 sm:py-4"
+      >
+        {t.download}
+      </a>
+      <a
+        href="#modes"
+        class="box-border inline-flex min-h-14 w-full items-center justify-center rounded-full border border-line bg-card px-8 py-3 text-base font-semibold text-ink-strong transition-colors hover:border-ink2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber sm:min-h-16 sm:py-4"
+      >
+        {t.seeItWork}
+      </a>
+    </div>
   </div>
 
   <!-- App preview -->

@@ -35,18 +35,46 @@ const copyright = t.footer.copyright.replace("{year}", String(year));
       <p class="mx-auto mt-4 max-w-sm text-paper/65">
         {t.footer.intro}
       </p>
-      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+      <p
+        id="platform-download-message"
+        class="mx-auto mt-5 min-h-6 max-w-md text-sm font-medium text-paper/80"
+        aria-live="polite"
+        data-platform-message
+        data-macos-message={t.footer.macDetected}
+        data-windows-message={t.footer.windowsDetected}
+        data-other-message={t.footer.choosePlatform}
+      >
+        {t.footer.choosePlatform}
+      </p>
+      <div
+        class="mt-5 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap"
+        data-platform-downloads
+      >
         <a
-          href="/download/macos?source=footer_mac"
-          class="inline-flex min-h-13 w-full items-center justify-center rounded-full bg-amber px-7 py-4 text-sm font-semibold text-ink-strong transition-transform hover:-translate-y-0.5 sm:w-auto"
+          href="/download/macos-test?source=footer_macos"
+          class="platform-download-option inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-semibold transition sm:w-auto"
+          data-download-option
+          data-download-platform="macos"
+          data-recommended="true"
+          aria-describedby="platform-download-message"
         >
-          {t.footer.downloadMac}
+          <span>{t.footer.downloadMac}</span>
+          <span class="platform-recommended-badge" data-platform-badge hidden>
+            {t.footer.recommended}
+          </span>
         </a>
         <a
           href="/download/windows?source=footer_windows"
-          class="inline-flex min-h-13 w-full items-center justify-center rounded-full border border-paper/25 px-7 py-4 text-sm font-semibold text-paper transition-colors hover:bg-paper/10 sm:w-auto"
+          class="platform-download-option inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full border px-7 py-4 text-sm font-semibold transition sm:w-auto"
+          data-download-option
+          data-download-platform="windows"
+          data-recommended="false"
+          aria-describedby="platform-download-message"
         >
-          {t.footer.downloadWindows}
+          <span>{t.footer.downloadWindows}</span>
+          <span class="platform-recommended-badge" data-platform-badge hidden>
+            {t.footer.recommended}
+          </span>
         </a>
       </div>
     </div>
@@ -73,3 +101,93 @@ const copyright = t.footer.copyright.replace("{year}", String(year));
     </nav>
   </div>
 </section>
+
+<style>
+  .platform-download-option[data-recommended="true"] {
+    border-color: var(--color-amber);
+    background: var(--color-amber);
+    color: var(--color-ink-strong);
+  }
+
+  .platform-download-option[data-recommended="true"]:hover {
+    transform: translateY(-0.125rem);
+  }
+
+  .platform-download-option[data-recommended="false"] {
+    border-color: color-mix(in oklab, var(--color-paper) 25%, transparent);
+    background: transparent;
+    color: var(--color-paper);
+  }
+
+  .platform-download-option[data-recommended="false"]:hover {
+    background: color-mix(in oklab, var(--color-paper) 10%, transparent);
+  }
+
+  .platform-recommended-badge {
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-ink-strong) 12%, transparent);
+    padding: 0.125rem 0.45rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+</style>
+
+<script>
+  import { detectDownloadPlatform } from "../scripts/platform-download";
+
+  type NavigatorWithUserAgentData = Navigator & {
+    readonly userAgentData?: { readonly platform?: string };
+  };
+
+  const downloadRoot = document.querySelector<HTMLElement>(
+    "[data-platform-downloads]",
+  );
+  const message = document.querySelector<HTMLElement>(
+    "[data-platform-message]",
+  );
+
+  if (downloadRoot && message) {
+    const browserNavigator = navigator as NavigatorWithUserAgentData;
+    const detectedPlatform = detectDownloadPlatform({
+      userAgent: browserNavigator.userAgent,
+      platform: browserNavigator.platform,
+      userAgentDataPlatform: browserNavigator.userAgentData?.platform,
+      maxTouchPoints: browserNavigator.maxTouchPoints,
+    });
+    downloadRoot.dataset.detectedPlatform = detectedPlatform;
+
+    const options = Array.from(
+      downloadRoot.querySelectorAll<HTMLElement>("[data-download-option]"),
+    );
+    const recommended =
+      detectedPlatform === "other"
+        ? undefined
+        : options.find(
+            (option) =>
+              option.dataset.downloadPlatform === detectedPlatform,
+          );
+
+    for (const option of options) {
+      const isRecommended = option === recommended;
+      option.dataset.recommended = String(isRecommended);
+      const badge =
+        option.querySelector<HTMLElement>("[data-platform-badge]");
+      if (badge) badge.hidden = !isRecommended;
+    }
+
+    if (recommended) {
+      downloadRoot.prepend(recommended);
+    }
+
+    const messageByPlatform = {
+      macos: message.dataset.macosMessage,
+      windows: message.dataset.windowsMessage,
+      other: message.dataset.otherMessage,
+    };
+    message.textContent =
+      messageByPlatform[detectedPlatform] ??
+      message.dataset.otherMessage ??
+      "";
+  }
+</script>

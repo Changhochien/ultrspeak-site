@@ -1,9 +1,10 @@
 const SUPPORTED_PLATFORMS = ["macos", "windows"] as const;
-const RELEASE_CHANNEL = "stable" as const;
+const RELEASE_CHANNELS = ["stable", "test"] as const;
 const MAX_MANIFEST_BYTES = 4096;
 const MAX_SOURCE_LENGTH = 48;
 
 type Platform = (typeof SUPPORTED_PLATFORMS)[number];
+type ReleaseChannel = (typeof RELEASE_CHANNELS)[number];
 type DownloadOutcome = "available" | "unavailable" | "error";
 
 interface ReleaseManifest {
@@ -22,12 +23,30 @@ function isPlatform(value: string): value is Platform {
   return SUPPORTED_PLATFORMS.some((platform) => platform === value);
 }
 
-function manifestKey(platform: Platform): string {
-  return `downloads/${platform}/${RELEASE_CHANNEL}/latest.json`;
+export function resolveDownloadRoute(
+  pathname: string,
+): { readonly platform: Platform; readonly channel: ReleaseChannel } | null {
+  const match = /^\/download\/(macos|windows)(-test)?\/?$/u.exec(pathname);
+  const platform = match?.[1];
+  if (platform === undefined || !isPlatform(platform)) return null;
+
+  const channel: ReleaseChannel = match?.[2] === "-test" ? "test" : "stable";
+  if (channel === "test" && platform !== "macos") return null;
+  return { platform, channel };
 }
 
-function releasePrefix(platform: Platform): string {
-  return `${platform}/${RELEASE_CHANNEL}/releases/`;
+function manifestKey(
+  platform: Platform,
+  channel: ReleaseChannel,
+): string {
+  return `downloads/${platform}/${channel}/latest.json`;
+}
+
+function releasePrefix(
+  platform: Platform,
+  channel: ReleaseChannel,
+): string {
+  return `${platform}/${channel}/releases/`;
 }
 
 function isSafeVersion(value: string): boolean {
@@ -53,6 +72,7 @@ function isSafeSha256(value: string): boolean {
 export function parseReleaseManifest(
   value: unknown,
   platform: Platform,
+  channel: ReleaseChannel = "stable",
 ): ReleaseManifest | null {
   if (!isRecord(value)) return null;
 
@@ -66,7 +86,7 @@ export function parseReleaseManifest(
     typeof version !== "string" ||
     !isSafeVersion(version) ||
     typeof objectKey !== "string" ||
-    !objectKey.startsWith(releasePrefix(platform)) ||
+    !objectKey.startsWith(releasePrefix(platform, channel)) ||
     objectKey.includes("..") ||
     typeof fileName !== "string" ||
     !isSafeFileName(fileName) ||
@@ -102,6 +122,7 @@ export function sanitizeDownloadSource(value: string | null): string {
 
 function recordDownloadEvent(input: {
     readonly platform: Platform;
+    readonly channel: ReleaseChannel;
     readonly version: string;
     readonly outcome: DownloadOutcome;
     readonly source: string;
@@ -115,7 +136,7 @@ function recordDownloadEvent(input: {
     JSON.stringify({
       event: "download",
       platform: input.platform,
-      channel: RELEASE_CHANNEL,
+      channel: input.channel,
       version: input.version,
       outcome: input.outcome,
       source: input.source,
@@ -179,8 +200,9 @@ function methodNotAllowedResponse(): Response {
 async function readManifest(
   env: Env,
   platform: Platform,
+  channel: ReleaseChannel,
 ): Promise<ReleaseManifest | null> {
-  const object = await env.RELEASES.get(manifestKey(platform));
+  const object = await env.RELEASES.get(manifestKey(platform, channel));
   if (object === null || object.size > MAX_MANIFEST_BYTES) return null;
 
   let parsed: unknown;
@@ -189,13 +211,14 @@ async function readManifest(
   } catch {
     return null;
   }
-  return parseReleaseManifest(parsed, platform);
+  return parseReleaseManifest(parsed, platform, channel);
 }
 
 async function handleDownload(
   request: Request,
   env: Env,
   platform: Platform,
+  channel: ReleaseChannel,
 ): Promise<Response> {
   if (request.method !== "GET" && request.method !== "HEAD") {
     return methodNotAllowedResponse();
@@ -204,11 +227,12 @@ async function handleDownload(
   const source = sanitizeDownloadSource(
     new URL(request.url).searchParams.get("source"),
   );
-  const manifest = await readManifest(env, platform);
+  const manifest = await readManifest(env, platform, channel);
   if (manifest === null) {
     if (request.method === "GET") {
       recordDownloadEvent({
         platform,
+        channel,
         version: "none",
         outcome: "unavailable",
         source,
@@ -222,6 +246,7 @@ async function handleDownload(
     if (request.method === "GET") {
       recordDownloadEvent({
         platform,
+        channel,
         version: manifest.version,
         outcome: "unavailable",
         source,
@@ -233,6 +258,7 @@ async function handleDownload(
   if (request.method === "GET") {
     recordDownloadEvent({
       platform,
+      channel,
       version: manifest.version,
       outcome: "available",
       source,
@@ -261,20 +287,106 @@ async function handleDownload(
   });
 }
 
+export function resolveTestUpdateObjectKey(pathname: string): string | null {
+  if (pathname === "/updates/macos/test/appcast.xml") {
+    return "macos/test/appcast.xml";
+  }
+
+  const releaseMatch =
+    /^\/updates\/macos\/test\/releases\/([0-9A-Za-z][0-9A-Za-z._+()-]{0,159})$/u.exec(
+      pathname,
+    );
+  const fileName = releaseMatch?.[1];
+  if (fileName === undefined || !isSafeFileName(fileName)) return null;
+  return `macos/test/releases/${fileName}`;
+}
+
+async function handleTestUpdateAsset(
+  request: Request,
+  env: Env,
+  objectKey: string,
+): Promise<Response> {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return methodNotAllowedResponse();
+  }
+
+  const object = await env.RELEASES.get(objectKey);
+  if (object === null) {
+    return new Response("Not Found", {
+      status: 404,
+      headers: {
+        "Cache-Control": "private, no-store",
+        "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex",
+      },
+    });
+  }
+
+  const isAppcast = objectKey.endsWith("/appcast.xml");
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  headers.set(
+    "Cache-Control",
+    isAppcast
+      ? "no-cache, max-age=60"
+      : "public, max-age=31536000, immutable",
+  );
+  headers.set("Content-Length", String(object.size));
+  headers.set(
+    "Content-Type",
+    isAppcast
+      ? "application/xml; charset=utf-8"
+      : (headers.get("Content-Type") ?? "application/octet-stream"),
+  );
+  headers.set("ETag", object.httpEtag);
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("X-Robots-Tag", "noindex");
+
+  return new Response(request.method === "HEAD" ? null : object.body, {
+    status: 200,
+    headers,
+  });
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
-    const match = /^\/download\/([^/]+)\/?$/u.exec(url.pathname);
-    if (match === null || match[1] === undefined || !isPlatform(match[1])) {
-      return env.ASSETS.fetch(request);
+    const updateObjectKey = resolveTestUpdateObjectKey(url.pathname);
+    if (updateObjectKey !== null) {
+      try {
+        return await handleTestUpdateAsset(request, env, updateObjectKey);
+      } catch (error) {
+        console.error(
+          JSON.stringify({
+            message: "test update request failed",
+            path: url.pathname,
+            error: error instanceof Error ? error.message : "unknown",
+          }),
+        );
+        return new Response("Update service unavailable", {
+          status: 503,
+          headers: {
+            "Cache-Control": "private, no-store",
+            "Retry-After": "300",
+            "X-Content-Type-Options": "nosniff",
+          },
+        });
+      }
     }
 
+    const downloadRoute = resolveDownloadRoute(url.pathname);
+    if (downloadRoute === null) {
+      return env.ASSETS.fetch(request);
+    }
+    const { platform, channel } = downloadRoute;
+
     try {
-      return await handleDownload(request, env, match[1]);
+      return await handleDownload(request, env, platform, channel);
     } catch (error) {
       if (request.method === "GET") {
         recordDownloadEvent({
-          platform: match[1],
+          platform,
+          channel,
           version: "unknown",
           outcome: "error",
           source: sanitizeDownloadSource(url.searchParams.get("source")),

@@ -4,6 +4,17 @@ The first-party routes `/download/macos` and `/download/windows` read a small
 release manifest from the `ultrwispr-updates` R2 bucket, record one structured
 Workers Logs event, and stream the signed installer from R2.
 
+The temporary pre-domain macOS release lane uses the existing Workers.dev
+preview host:
+
+- `/download/macos-test` reads `downloads/macos/test/latest.json`.
+- `/updates/macos/test/appcast.xml` streams `macos/test/appcast.xml`.
+- `/updates/macos/test/releases/<file>` streams immutable test artifacts.
+
+This lane is intentionally separate from `stable`. Only signed and notarized
+builds may be published to it, and production builds must continue to use the
+project-owned update domain.
+
 No IP address, user agent, referrer, cookie, account identifier, or arbitrary
 query value is written to the download log. The `source` query parameter is
 restricted to a short placement identifier such as `footer_mac`.
@@ -19,6 +30,8 @@ downloads/
   macos/
     stable/
       latest.json
+    test/
+      latest.json
   windows/
     stable/
       latest.json
@@ -26,6 +39,10 @@ macos/
   stable/
     releases/
       Ultrwispr-0.1.0-1.dmg
+  test/
+    appcast.xml
+    releases/
+      Ultrwispr-0.1.1-test.1.dmg
 windows/
   stable/
     releases/

@@ -16,7 +16,8 @@
       "/download/macos-test/",
       "/download/windows",
       "/download/windows/",
-      "/updates/macos/test/*"
+      "/updates/macos/*",
+      "/macos/*"
     ]
   },
   "r2_buckets": [

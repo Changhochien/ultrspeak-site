@@ -9,7 +9,8 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const t = getTranslations(locale).hero;
+const translations = getTranslations(locale);
+const t = translations.hero;
 ---
 
 <section class="relative overflow-hidden" data-home-hero>
@@ -53,9 +54,13 @@ const t = getTranslations(locale).hero;
     >
       <a
         href="#download"
+        data-hero-download
+        data-default-label={t.download}
+        data-macos-label={translations.footer.downloadMac}
+        data-windows-label={translations.footer.downloadWindows}
         class="box-border inline-flex min-h-14 w-full items-center justify-center rounded-full bg-amber px-8 py-3 text-base font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber sm:min-h-16 sm:py-4"
       >
-        {t.download}
+        <span data-hero-download-label>{t.download}</span>
       </a>
       <a
         href="#modes"
@@ -85,3 +90,45 @@ const t = getTranslations(locale).hero;
     </div>
   </div>
 </section>
+
+<script>
+  import {
+    detectDownloadPlatform,
+    getDownloadHref,
+  } from "../scripts/platform-download";
+
+  type NavigatorWithUserAgentData = Navigator & {
+    readonly userAgentData?: { readonly platform?: string };
+  };
+
+  const heroDownload =
+    document.querySelector<HTMLAnchorElement>("[data-hero-download]");
+  const heroDownloadLabel = heroDownload?.querySelector<HTMLElement>(
+    "[data-hero-download-label]",
+  );
+
+  if (heroDownload && heroDownloadLabel) {
+    const browserNavigator = navigator as NavigatorWithUserAgentData;
+    const platform = detectDownloadPlatform({
+      userAgent: browserNavigator.userAgent,
+      platform: browserNavigator.platform,
+      userAgentDataPlatform: browserNavigator.userAgentData?.platform,
+      maxTouchPoints: browserNavigator.maxTouchPoints,
+    });
+    const href = getDownloadHref(platform, `hero_${platform}`);
+
+    if (href && platform !== "other") {
+      const labelByPlatform = {
+        macos: heroDownload.dataset.macosLabel,
+        windows: heroDownload.dataset.windowsLabel,
+      };
+      heroDownload.href = href;
+      heroDownloadLabel.textContent =
+        labelByPlatform[platform] ??
+        heroDownload.dataset.defaultLabel ??
+        "";
+    }
+
+    heroDownload.dataset.detectedPlatform = platform;
+  }
+</script>

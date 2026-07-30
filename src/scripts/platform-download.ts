@@ -7,6 +7,11 @@ export interface PlatformHints {
   readonly maxTouchPoints?: number;
 }
 
+const downloadPathByPlatform = {
+  macos: "/download/macos-test",
+  windows: "/download/windows",
+} as const;
+
 export function detectDownloadPlatform(
   hints: PlatformHints,
 ): DownloadPlatform {
@@ -31,4 +36,12 @@ export function detectDownloadPlatform(
     return "macos";
   }
   return "other";
+}
+
+export function getDownloadHref(
+  platform: DownloadPlatform,
+  source: string,
+): string | undefined {
+  if (platform === "other") return undefined;
+  return `${downloadPathByPlatform[platform]}?source=${encodeURIComponent(source)}`;
 }

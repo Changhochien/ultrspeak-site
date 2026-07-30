@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { detectDownloadPlatform } from "./platform-download";
+import {
+  detectDownloadPlatform,
+  getDownloadHref,
+} from "./platform-download";
 
 describe("download platform detection", () => {
   it("prefers the browser's user-agent client hint for macOS", () => {
@@ -38,5 +41,15 @@ describe("download platform detection", () => {
       "other",
     );
     expect(detectDownloadPlatform({})).toBe("other");
+  });
+
+  it("maps supported platforms to the current download routes", () => {
+    expect(getDownloadHref("macos", "hero_macos")).toBe(
+      "/download/macos-test?source=hero_macos",
+    );
+    expect(getDownloadHref("windows", "hero_windows")).toBe(
+      "/download/windows?source=hero_windows",
+    );
+    expect(getDownloadHref("other", "hero")).toBeUndefined();
   });
 });

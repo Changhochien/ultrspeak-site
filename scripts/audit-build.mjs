@@ -53,6 +53,12 @@ const pages = new Map(
 
 const localePrefixes = ["", "zh-tw", "zh-cn", "ja"];
 const routeSuffixes = ["", "contact", "privacy", "terms", "success"];
+const languageTriggerByLocalePrefix = new Map([
+  ["", { shortLabel: "EN", accessibleLabel: "Choose language: English" }],
+  ["zh-tw", { shortLabel: "繁中", accessibleLabel: "選擇語言: 繁體中文" }],
+  ["zh-cn", { shortLabel: "简中", accessibleLabel: "选择语言: 简体中文" }],
+  ["ja", { shortLabel: "日本語", accessibleLabel: "言語を選択: 日本語" }],
+]);
 const expectedPages = new Map();
 
 for (const localePrefix of localePrefixes) {
@@ -60,7 +66,7 @@ for (const localePrefix of localePrefixes) {
     const segments = [localePrefix, routeSuffix].filter(Boolean);
     const publicPath = `/${segments.join("/")}`;
     const outputPath = `dist${publicPath === "/" ? "/index.html" : `${publicPath}/index.html`}`;
-    expectedPages.set(outputPath, { routeSuffix });
+    expectedPages.set(outputPath, { localePrefix, routeSuffix });
   }
 }
 
@@ -69,9 +75,44 @@ assert(
   `expected ${expectedPages.size} HTML pages, found ${pages.size}`,
 );
 
-for (const [path, { routeSuffix }] of expectedPages) {
+for (const [path, { localePrefix, routeSuffix }] of expectedPages) {
   const html = pages.get(path);
   assert(html, `${path} was not generated`);
+
+  const expectedTrigger = languageTriggerByLocalePrefix.get(localePrefix);
+  assert(expectedTrigger, `${path} has no expected language trigger`);
+  const languageTriggers = [
+    ...html.matchAll(
+      /<summary\b(?=[^>]*\bdata-language-trigger(?:\s|=|>))([^>]*)>([\s\S]*?)<\/summary>/giu,
+    ),
+  ];
+  assert(
+    languageTriggers.length === 1,
+    `${path} must render exactly one language selector trigger`,
+  );
+  const [, triggerAttributes, triggerContent] = languageTriggers[0];
+  const triggerAccessibleLabel =
+    triggerAttributes.match(/\baria-label="([^"]+)"/iu)?.[1] ?? "";
+  assert(
+    triggerAccessibleLabel === expectedTrigger.accessibleLabel,
+    `${path} has unexpected language trigger accessible name "${triggerAccessibleLabel}"`,
+  );
+  const triggerIcons = [
+    ...triggerContent.matchAll(
+      /<svg\b(?=[^>]*\baria-hidden="true")[^>]*>/giu,
+    ),
+  ];
+  assert(
+    triggerIcons.length === 2,
+    `${path} language trigger must retain its globe and chevron icons`,
+  );
+  const triggerText = visibleText(
+    triggerContent.replace(/<svg\b[\s\S]*?<\/svg>/giu, ""),
+  );
+  assert(
+    triggerText === expectedTrigger.shortLabel,
+    `${path} has unexpected visible language trigger text "${triggerText}"`,
+  );
 
   const localeLinks =
     html.match(/<a\b(?=[^>]*\bdata-language-link(?:\s|=|>))[^>]*>/giu) ?? [];
@@ -86,8 +127,8 @@ for (const [path, { routeSuffix }] of expectedPages) {
     `${path} does not expose four distinct language destinations`,
   );
 
-  for (const localePrefix of localePrefixes) {
-    const expectedHref = `/${[localePrefix, routeSuffix].filter(Boolean).join("/")}`;
+  for (const targetLocalePrefix of localePrefixes) {
+    const expectedHref = `/${[targetLocalePrefix, routeSuffix].filter(Boolean).join("/")}`;
     assert(
       localeHrefs.includes(expectedHref),
       `${path} lacks language destination ${expectedHref}`,

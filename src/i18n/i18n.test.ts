@@ -281,14 +281,27 @@ describe("release-critical component wiring", () => {
     expect(source).not.toContain("your-form-id");
   });
 
-  it("renders all locale choices as accessible navigation links", () => {
+  it("keeps the language selector compact and accessibly named", () => {
     const source = readFileSync(
       new URL("../components/Nav.astro", import.meta.url),
       "utf8",
     );
+    const summary =
+      source.match(
+        /<summary\b(?=[^>]*\bdata-language-trigger(?:\s|=|>))[\s\S]*?<\/summary>/u,
+      )?.[0] ?? "";
+    const summaryContent = summary.slice(
+      summary.indexOf(">") + 1,
+      summary.lastIndexOf("</summary>"),
+    );
 
     expect(source).toContain("<details");
-    expect(source).toContain("<summary");
+    expect(summary).toContain("data-language-trigger");
+    expect(summary).toContain(
+      'aria-label={`${t.nav.language}: ${localeConfig[locale].label}`}',
+    );
+    expect(summaryContent).toContain("{localeConfig[locale].shortLabel}");
+    expect(summaryContent).not.toContain("{t.nav.language}");
     expect(source).toContain("data-language-link");
     expect(source).toContain("aria-current");
   });

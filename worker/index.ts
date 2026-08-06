@@ -1,12 +1,20 @@
 const SUPPORTED_PLATFORMS = ["macos", "windows"] as const;
 const RELEASE_CHANNELS = ["stable", "test"] as const;
 const UPDATE_CHANNELS = ["stable", "beta", "canary", "test"] as const;
+const TAURI_UPDATE_CHANNELS = ["stable", "beta", "canary"] as const;
+const TAURI_VERSION_PATTERNS = {
+  stable: /^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$/u,
+  beta: /^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)-beta\.[1-9][0-9]*$/u,
+  canary:
+    /^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)-canary\.[1-9][0-9]*$/u,
+} as const;
 const MAX_MANIFEST_BYTES = 4096;
 const MAX_SOURCE_LENGTH = 48;
 
 type Platform = (typeof SUPPORTED_PLATFORMS)[number];
 type ReleaseChannel = (typeof RELEASE_CHANNELS)[number];
 type UpdateChannel = (typeof UPDATE_CHANNELS)[number];
+type TauriUpdateChannel = (typeof TAURI_UPDATE_CHANNELS)[number];
 type DownloadOutcome = "available" | "unavailable" | "error";
 
 interface ReleaseManifest {
@@ -188,14 +196,19 @@ function unavailableResponse(
   });
 }
 
-function methodNotAllowedResponse(): Response {
+function methodNotAllowedResponse(updateRoute = false): Response {
+  const headers = new Headers({
+    Allow: "GET, HEAD",
+    "Cache-Control": "private, no-store",
+    "X-Content-Type-Options": "nosniff",
+  });
+  if (updateRoute) {
+    headers.set("X-Robots-Tag", "noindex");
+    headers.set("X-Ultrspeak-Update-Route", "1");
+  }
   return new Response("Method Not Allowed", {
     status: 405,
-    headers: {
-      Allow: "GET, HEAD",
-      "Cache-Control": "private, no-store",
-      "X-Content-Type-Options": "nosniff",
-    },
+    headers,
   });
 }
 
@@ -295,6 +308,19 @@ interface UpdateObjectRoute {
   readonly isAppcast: boolean;
 }
 
+interface TauriUpdateObjectRoute {
+  readonly objectKey: string;
+  readonly channel: TauriUpdateChannel;
+  readonly isManifest: boolean;
+}
+
+interface UpdateAssetRoute {
+  readonly objectKey: string;
+  readonly mutableDocument: boolean;
+  readonly documentContentType?: string;
+  readonly missingCacheControl?: string;
+}
+
 export function resolveUpdateObjectRoute(
   pathname: string,
 ): UpdateObjectRoute | null {
@@ -336,6 +362,81 @@ export function resolveUpdateObjectRoute(
 export function resolveTestUpdateObjectKey(pathname: string): string | null {
   const route = resolveUpdateObjectRoute(pathname);
   return route?.channel === "test" ? route.objectKey : null;
+}
+
+function isSafeTauriVersion(
+  channel: TauriUpdateChannel,
+  value: string,
+): boolean {
+  return value.length <= 64 && TAURI_VERSION_PATTERNS[channel].test(value);
+}
+
+function isTauriArtifactFileName(
+  target: string,
+  arch: string,
+  fileName: string,
+): boolean {
+  if (!isSafeFileName(fileName)) return false;
+  if (target === "darwin" && arch === "aarch64") {
+    return fileName.endsWith(".app.tar.gz");
+  }
+  if (target === "windows" && arch === "x86_64") {
+    return fileName.endsWith("-setup.exe");
+  }
+  if (target === "linux" && arch === "x86_64") {
+    return fileName.endsWith(".AppImage");
+  }
+  return false;
+}
+
+export function resolveTauriUpdateObjectRoute(
+  pathname: string,
+): TauriUpdateObjectRoute | null {
+  const manifest = /^\/tauri\/(stable|beta|canary)\/latest\.json$/u.exec(
+    pathname,
+  );
+  const manifestChannel = manifest?.[1] as TauriUpdateChannel | undefined;
+  if (
+    manifestChannel !== undefined &&
+    TAURI_UPDATE_CHANNELS.some((channel) => channel === manifestChannel)
+  ) {
+    return {
+      objectKey: `tauri/${manifestChannel}/latest.json`,
+      channel: manifestChannel,
+      isManifest: true,
+    };
+  }
+
+  const artifact =
+    /^\/tauri\/(stable|beta|canary)\/(darwin|windows|linux)\/(aarch64|x86_64)\/releases\/([^/]+)\/([a-f0-9]{64})\/([^/]+)$/u.exec(
+      pathname,
+    );
+  const channel = artifact?.[1] as TauriUpdateChannel | undefined;
+  const target = artifact?.[2];
+  const arch = artifact?.[3];
+  const version = artifact?.[4];
+  const digest = artifact?.[5];
+  const fileName = artifact?.[6];
+  if (
+    channel === undefined ||
+    !TAURI_UPDATE_CHANNELS.some((candidate) => candidate === channel) ||
+    target === undefined ||
+    arch === undefined ||
+    version === undefined ||
+    !isSafeTauriVersion(channel, version) ||
+    digest === undefined ||
+    fileName === undefined ||
+    !isTauriArtifactFileName(target, arch, fileName)
+  ) {
+    return null;
+  }
+  return {
+    objectKey:
+      `tauri/${channel}/${target}/${arch}/releases/` +
+      `${version}/${digest}/${fileName}`,
+    channel,
+    isManifest: false,
+  };
 }
 
 interface ByteRange {
@@ -405,14 +506,14 @@ function strongIfRangeMatches(value: string, etag: string): boolean {
 async function handleUpdateAsset(
   request: Request,
   env: Env,
-  route: UpdateObjectRoute,
+  route: UpdateAssetRoute,
 ): Promise<Response> {
   if (request.method !== "GET" && request.method !== "HEAD") {
-    return methodNotAllowedResponse();
+    return methodNotAllowedResponse(true);
   }
 
   const rangeHeader =
-    request.method === "GET" && !route.isAppcast
+    request.method === "GET" && !route.mutableDocument
       ? request.headers.get("Range")
       : null;
   const initialObject =
@@ -425,7 +526,7 @@ async function handleUpdateAsset(
     return new Response("Not Found", {
       status: 404,
       headers: {
-        "Cache-Control": "private, no-store",
+        "Cache-Control": route.missingCacheControl ?? "private, no-store",
         "X-Ultrspeak-Update-Route": "1",
         "X-Content-Type-Options": "nosniff",
         "X-Robots-Tag": "noindex",
@@ -444,6 +545,8 @@ async function handleUpdateAsset(
         "Cache-Control": "private, no-store",
         ETag: metadata.httpEtag,
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex",
+        "X-Ultrspeak-Update-Route": "1",
       },
     });
   }
@@ -455,11 +558,13 @@ async function handleUpdateAsset(
     return new Response(null, {
       status: 304,
       headers: {
-        "Cache-Control": route.isAppcast
+        "Cache-Control": route.mutableDocument
           ? "no-cache, max-age=60"
           : "public, max-age=31536000, immutable",
         ETag: metadata.httpEtag,
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex",
+        "X-Ultrspeak-Update-Route": "1",
       },
     });
   }
@@ -480,6 +585,8 @@ async function handleUpdateAsset(
         "Content-Range": `bytes */${metadata.size}`,
         "Cache-Control": "private, no-store",
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex",
+        "X-Ultrspeak-Update-Route": "1",
       },
     });
   }
@@ -499,6 +606,8 @@ async function handleUpdateAsset(
         "Cache-Control": "private, no-store",
         "Retry-After": "300",
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex",
+        "X-Ultrspeak-Update-Route": "1",
       },
     });
   }
@@ -509,26 +618,26 @@ async function handleUpdateAsset(
   responseMetadata.writeHttpMetadata(headers);
   headers.set(
     "Cache-Control",
-    route.isAppcast
+    route.mutableDocument
       ? "no-cache, max-age=60"
       : "public, max-age=31536000, immutable",
   );
-  headers.set("Accept-Ranges", route.isAppcast ? "none" : "bytes");
+  headers.set("Accept-Ranges", route.mutableDocument ? "none" : "bytes");
   headers.set(
     "Content-Length",
     String(requestedRange?.length ?? responseMetadata.size),
   );
   headers.set(
     "Content-Type",
-    route.isAppcast
-      ? "application/xml; charset=utf-8"
+    route.mutableDocument
+      ? (route.documentContentType ?? "application/octet-stream")
       : (headers.get("Content-Type") ?? "application/octet-stream"),
   );
   headers.set("ETag", responseMetadata.httpEtag);
   headers.set("X-Ultrspeak-Update-Route", "1");
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("X-Robots-Tag", "noindex");
-  if (!route.isAppcast && route.objectKey.endsWith(".html")) {
+  if (!route.mutableDocument && route.objectKey.endsWith(".html")) {
     headers.set(
       "Content-Security-Policy",
       "sandbox; default-src 'none'; img-src data:; style-src 'unsafe-inline'",
@@ -554,7 +663,13 @@ export default {
     const updateRoute = resolveUpdateObjectRoute(url.pathname);
     if (updateRoute !== null) {
       try {
-        return await handleUpdateAsset(request, env, updateRoute);
+        return await handleUpdateAsset(request, env, {
+          objectKey: updateRoute.objectKey,
+          mutableDocument: updateRoute.isAppcast,
+          ...(updateRoute.isAppcast
+            ? { documentContentType: "application/xml; charset=utf-8" }
+            : {}),
+        });
       } catch (error) {
         console.error(
           JSON.stringify({
@@ -569,9 +684,54 @@ export default {
             "Cache-Control": "private, no-store",
             "Retry-After": "300",
             "X-Content-Type-Options": "nosniff",
+            "X-Robots-Tag": "noindex",
+            "X-Ultrspeak-Update-Route": "1",
           },
         });
       }
+    }
+
+    const tauriUpdateRoute = resolveTauriUpdateObjectRoute(url.pathname);
+    if (tauriUpdateRoute !== null) {
+      try {
+        return await handleUpdateAsset(request, env, {
+          objectKey: tauriUpdateRoute.objectKey,
+          mutableDocument: tauriUpdateRoute.isManifest,
+          ...(tauriUpdateRoute.isManifest
+            ? { documentContentType: "application/json; charset=utf-8" }
+            : {}),
+          missingCacheControl: "no-cache",
+        });
+      } catch (error) {
+        console.error(
+          JSON.stringify({
+            message: "Tauri update request failed",
+            path: url.pathname,
+            error: error instanceof Error ? error.message : "unknown",
+          }),
+        );
+        return new Response("Update service unavailable", {
+          status: 503,
+          headers: {
+            "Cache-Control": "private, no-store",
+            "Retry-After": "300",
+            "X-Content-Type-Options": "nosniff",
+            "X-Robots-Tag": "noindex",
+            "X-Ultrspeak-Update-Route": "1",
+          },
+        });
+      }
+    }
+    if (url.pathname === "/tauri" || url.pathname.startsWith("/tauri/")) {
+      return new Response("Not Found", {
+        status: 404,
+        headers: {
+          "Cache-Control": "no-cache",
+          "X-Content-Type-Options": "nosniff",
+          "X-Robots-Tag": "noindex",
+          "X-Ultrspeak-Update-Route": "1",
+        },
+      });
     }
 
     const downloadRoute = resolveDownloadRoute(url.pathname);

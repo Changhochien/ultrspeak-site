@@ -5,6 +5,7 @@ import {
   parseReleaseManifest,
   parseSingleByteRange,
   resolveDownloadRoute,
+  resolveTauriUpdateObjectRoute,
   resolveUpdateObjectRoute,
   resolveTestUpdateObjectKey,
   sanitizeDownloadSource,
@@ -212,6 +213,66 @@ describe("host-independent update aliases", () => {
   });
 });
 
+describe("Tauri update object routing", () => {
+  const digest = "a".repeat(64);
+
+  it("maps each channel manifest and supported platform pair exactly", () => {
+    for (const channel of ["canary", "beta", "stable"]) {
+      expect(
+        resolveTauriUpdateObjectRoute(`/tauri/${channel}/latest.json`),
+      ).toEqual({
+        objectKey: `tauri/${channel}/latest.json`,
+        channel,
+        isManifest: true,
+      });
+    }
+    for (const [channel, version] of [
+      ["canary", "0.2.0-canary.1"],
+      ["beta", "0.2.0-beta.1"],
+      ["stable", "0.2.0"],
+    ]) {
+      for (const [target, arch, fileName] of [
+        ["darwin", "aarch64", "Ultrwispr.app.tar.gz"],
+        ["windows", "x86_64", "Ultrwispr_0.2.0_x64-setup.exe"],
+        ["linux", "x86_64", "Ultrwispr_0.2.0_amd64.AppImage"],
+      ]) {
+        const pathname =
+          `/tauri/${channel}/${target}/${arch}/releases/` +
+          `${version}/${digest}/${fileName}`;
+        expect(resolveTauriUpdateObjectRoute(pathname)).toEqual({
+          objectKey: pathname.slice(1),
+          channel,
+          isManifest: false,
+        });
+      }
+    }
+  });
+
+  it("rejects unsafe, private, and unsupported Tauri object shapes", () => {
+    for (const pathname of [
+      "/tauri/test/latest.json",
+      "/tauri/nightly/latest.json",
+      "/tauri/canary/candidates/latest-123.json",
+      `/tauri/canary/darwin/x86_64/releases/0.2.0-canary.1/${digest}/Ultrwispr.app.tar.gz`,
+      `/tauri/canary/windows/aarch64/releases/0.2.0-canary.1/${digest}/Ultrwispr-setup.exe`,
+      `/tauri/canary/linux/x86_64/releases/not-semver/${digest}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/0.2.0/${digest}/Ultrwispr.AppImage`,
+      `/tauri/beta/linux/x86_64/releases/0.2.0-canary.1/${digest}/Ultrwispr.AppImage`,
+      `/tauri/stable/linux/x86_64/releases/0.2.0-beta.1/${digest}/Ultrwispr.AppImage`,
+      `/tauri/stable/linux/x86_64/releases/01.2.3/${digest}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/1.2.3-canary.0/${digest}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/1.2.3-canary.01/${digest}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/1.2.3-canary.1.extra/${digest}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/0.2.0-canary.1/${"A".repeat(64)}/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/0.2.0-canary.1/${digest}/Ultrwispr.AppImage.sig`,
+      `/tauri/canary/linux/x86_64/releases/0.2.0-canary.1/${digest}/nested/Ultrwispr.AppImage`,
+      `/tauri/canary/linux/x86_64/releases/0.2.0-canary.1/${digest}/../private.key`,
+    ]) {
+      expect(resolveTauriUpdateObjectRoute(pathname), pathname).toBeNull();
+    }
+  });
+});
+
 describe("update range parsing", () => {
   it("supports bounded, open-ended, and suffix byte ranges", () => {
     expect(parseSingleByteRange("bytes=0-99", 1000)).toEqual({
@@ -413,5 +474,225 @@ describe("update asset responses", () => {
     );
     expect(response.status).toBe(416);
     expect(response.headers.get("Content-Range")).toBe("bytes */10");
+  });
+});
+
+describe("Tauri update asset responses", () => {
+  const digest = "a".repeat(64);
+  const artifactPath =
+    `/tauri/canary/darwin/aarch64/releases/0.2.0-canary.1/` +
+    `${digest}/Ultrwispr.app.tar.gz`;
+
+  it("serves the shared manifest as an atomic low-cache JSON document", async () => {
+    let headCalls = 0;
+    const manifest = '{"version":"0.2.0-canary.1"}';
+    const bytes = new TextEncoder().encode(manifest);
+    const env = {
+      ASSETS: {
+        fetch: () => Promise.resolve(new Response("asset fallback")),
+      },
+      RELEASES: {
+        head: () => {
+          headCalls += 1;
+          return Promise.resolve(null);
+        },
+        get: () =>
+          Promise.resolve({
+            size: bytes.byteLength,
+            httpEtag: '"manifest-etag"',
+            body: bytes,
+            writeHttpMetadata() {},
+          }),
+      },
+    } as unknown as Env;
+    const response = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json", {
+        headers: { Range: "bytes=0-1" },
+      }),
+      env,
+    );
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe(
+      "application/json; charset=utf-8",
+    );
+    expect(response.headers.get("Cache-Control")).toBe("no-cache, max-age=60");
+    expect(response.headers.get("Accept-Ranges")).toBe("none");
+    expect(response.headers.get("Content-Range")).toBeNull();
+    expect(response.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+    expect(await response.text()).toBe(manifest);
+    expect(headCalls).toBe(0);
+  });
+
+  it("serves manifest HEAD metadata and honors ETag revalidation", async () => {
+    const env = workerEnv(
+      '{"version":"0.2.0-canary.1"}',
+      "application/octet-stream",
+    );
+    const head = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json", {
+        method: "HEAD",
+      }),
+      env,
+    );
+    expect(head.status).toBe(200);
+    expect(head.headers.get("Content-Type")).toBe(
+      "application/json; charset=utf-8",
+    );
+    expect(head.headers.get("ETag")).toBe('"fixture-etag"');
+    expect(await head.text()).toBe("");
+
+    const notModified = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json", {
+        headers: { "If-None-Match": 'W/"fixture-etag"' },
+      }),
+      env,
+    );
+    expect(notModified.status).toBe(304);
+    expect(notModified.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+  });
+
+  it("serves immutable Tauri artifacts with one byte range", async () => {
+    const response = await worker.fetch(
+      new Request(`https://worker.example${artifactPath}`, {
+        headers: { Range: "bytes=2-5" },
+      }),
+      workerEnv("0123456789", "application/gzip"),
+    );
+    expect(response.status).toBe(206);
+    expect(response.headers.get("Content-Range")).toBe("bytes 2-5/10");
+    expect(response.headers.get("Content-Length")).toBe("4");
+    expect(response.headers.get("Cache-Control")).toBe(
+      "public, max-age=31536000, immutable",
+    );
+    expect(response.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+    expect(await response.text()).toBe("2345");
+  });
+
+  it("serves artifact HEAD metadata without a response body", async () => {
+    const response = await worker.fetch(
+      new Request(`https://worker.example${artifactPath}`, {
+        method: "HEAD",
+      }),
+      workerEnv("0123456789", "application/gzip"),
+    );
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Length")).toBe("10");
+    expect(response.headers.get("Content-Type")).toBe("application/gzip");
+    expect(response.headers.get("ETag")).toBe('"fixture-etag"');
+    expect(response.headers.get("Accept-Ranges")).toBe("bytes");
+    expect(response.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+    expect(await response.text()).toBe("");
+  });
+
+  it("falls back to a full artifact when If-Range is stale", async () => {
+    const response = await worker.fetch(
+      new Request(`https://worker.example${artifactPath}`, {
+        headers: {
+          Range: "bytes=2-5",
+          "If-Range": '"stale"',
+        },
+      }),
+      workerEnv("0123456789", "application/gzip"),
+    );
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Range")).toBeNull();
+    expect(await response.text()).toBe("0123456789");
+  });
+
+  it("returns a marked 416 for an unsatisfiable artifact range", async () => {
+    const response = await worker.fetch(
+      new Request(`https://worker.example${artifactPath}`, {
+        headers: { Range: "bytes=100-" },
+      }),
+      workerEnv("0123456789", "application/gzip"),
+    );
+    expect(response.status).toBe(416);
+    expect(response.headers.get("Content-Range")).toBe("bytes */10");
+    expect(response.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+  });
+
+  it("fails closed for invalid Tauri paths without querying R2 or assets", async () => {
+    let assetCalls = 0;
+    let r2Calls = 0;
+    const env = {
+      ASSETS: {
+        fetch: () => {
+          assetCalls += 1;
+          return Promise.resolve(new Response("asset fallback"));
+        },
+      },
+      RELEASES: {
+        head: () => {
+          r2Calls += 1;
+          return Promise.resolve(null);
+        },
+        get: () => {
+          r2Calls += 1;
+          return Promise.resolve(null);
+        },
+      },
+    } as unknown as Env;
+    const response = await worker.fetch(
+      new Request(
+        "https://worker.example/tauri/canary/candidates/private.json",
+      ),
+      env,
+    );
+    expect(response.status).toBe(404);
+    expect(response.headers.get("Cache-Control")).toBe("no-cache");
+    expect(response.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+    expect(assetCalls).toBe(0);
+    expect(r2Calls).toBe(0);
+
+    const bareResponse = await worker.fetch(
+      new Request("https://worker.example/tauri"),
+      env,
+    );
+    expect(bareResponse.status).toBe(404);
+    expect(bareResponse.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+    expect(assetCalls).toBe(0);
+    expect(r2Calls).toBe(0);
+  });
+
+  it("marks missing objects, method rejection, and R2 failures", async () => {
+    const missing = {
+      ASSETS: {
+        fetch: () => Promise.resolve(new Response("asset fallback")),
+      },
+      RELEASES: {
+        head: () => Promise.resolve(null),
+        get: () => Promise.resolve(null),
+      },
+    } as unknown as Env;
+    const missingResponse = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json"),
+      missing,
+    );
+    expect(missingResponse.status).toBe(404);
+    expect(missingResponse.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+
+    const methodResponse = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json", {
+        method: "POST",
+      }),
+      missing,
+    );
+    expect(methodResponse.status).toBe(405);
+    expect(methodResponse.headers.get("Allow")).toBe("GET, HEAD");
+    expect(methodResponse.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
+
+    const failing = {
+      ...missing,
+      RELEASES: {
+        head: () => Promise.reject(new Error("R2 unavailable")),
+        get: () => Promise.reject(new Error("R2 unavailable")),
+      },
+    } as unknown as Env;
+    const failureResponse = await worker.fetch(
+      new Request("https://worker.example/tauri/canary/latest.json"),
+      failing,
+    );
+    expect(failureResponse.status).toBe(503);
+    expect(failureResponse.headers.get("X-Ultrspeak-Update-Route")).toBe("1");
   });
 });

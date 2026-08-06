@@ -14,6 +14,21 @@ R2 objects from Workers.dev now and from a custom Worker hostname later:
 - `/macos/<channel>/*` is retained as a compatibility alias for existing
   stable, beta, canary, and test feed configurations.
 
+The first Tauri canary uses the same R2 binding through the deployed test
+Worker origin, `https://ultrspeak-site-preview.hcchangdesign.workers.dev`:
+
+- `/tauri/<channel>/latest.json` serves one shared Tauri updater manifest.
+- `/tauri/<channel>/<target>/<arch>/releases/<version>/<sha256>/<file>`
+  serves an immutable, content-addressed updater artifact.
+
+`<channel>` is exactly `canary`, `beta`, or `stable`. The only supported
+target/architecture/file combinations are `darwin/aarch64/*.app.tar.gz`,
+`windows/x86_64/*-setup.exe`, and `linux/x86_64/*.AppImage`. Candidate
+manifests, detached `.sig` files, private metadata, unsupported pairs,
+traversal, nested file paths, and directory listings are never routed.
+Every rejected `/tauri/*` path fails closed in the Worker instead of falling
+through to the static asset binding.
+
 The test lane is intentionally separate from `stable`. Only signed, notarized,
 stapled, Sparkle-signed builds may be published. Attaching a custom domain adds
 a hostname; it does not replace R2 keys or permit removing Workers.dev routes
@@ -57,6 +72,12 @@ windows/
   stable/
     releases/
       Ultrwispr-0.1.0-x64-setup.exe
+tauri/
+  canary/
+    latest.json
+    darwin/aarch64/releases/0.2.0-canary.1/<sha256>/Ultrwispr.app.tar.gz
+    windows/x86_64/releases/0.2.0-canary.1/<sha256>/Ultrwispr-setup.exe
+    linux/x86_64/releases/0.2.0-canary.1/<sha256>/Ultrwispr.AppImage
 ```
 
 Example `latest.json`:
@@ -94,3 +115,11 @@ marker before packaging so a typo or unbound hostname cannot be embedded.
 `If-Range` accepts only an exact strong ETag; wildcards, weak validators, lists,
 and stale values fall back to a full `200` response.
 Never publish an ad-hoc, unsigned, unstapled, or non-notarized build.
+
+Tauri manifests use atomic R2 reads, JSON content type, ETag revalidation,
+`no-cache, max-age=60`, and no range support. Tauri artifacts use one-year
+immutable caching and the same single-range/strong-`If-Range` contract as the
+Sparkle artifacts. Tauri routes accept only `GET` and `HEAD`, return
+`X-Ultrspeak-Update-Route: 1`, and mark missing objects and R2 failures without
+disclosing bucket contents. Canary may use the test Worker origin; beta and
+stable retain the project-owned production origin policy.

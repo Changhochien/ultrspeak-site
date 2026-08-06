@@ -17,7 +17,9 @@
       "/download/windows",
       "/download/windows/",
       "/updates/macos/*",
-      "/macos/*"
+      "/macos/*",
+      "/tauri",
+      "/tauri/*"
     ]
   },
   "r2_buckets": [

@@ -28,3 +28,6 @@ pnpm-debug.log*
 .omc/
 .wrangler/
 src/assets/screenshots/.omc/
+
+# design-review skill state (impeccable)
+.impeccable/

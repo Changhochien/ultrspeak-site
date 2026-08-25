@@ -9,11 +9,14 @@
   --color-line: oklch(0.895 0.008 80);
   --color-amber: oklch(0.785 0.15 72);
   --color-amber-soft: oklch(0.93 0.06 80);
-  --color-amber-ink: oklch(0.56 0.13 60);
+  --color-amber-ink: oklch(0.52 0.13 60);
 
-  --font-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace,
+    monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -40,15 +43,15 @@ body {
 }
 
 html:lang(zh-TW) body {
-  font-family: "Hanken Grotesk", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
+  font-family: "Hanken Grotesk Variable", "Hanken Grotesk", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
 }
 
 html:lang(zh-CN) body {
-  font-family: "Hanken Grotesk", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+  font-family: "Hanken Grotesk Variable", "Hanken Grotesk", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
 }
 
 html:lang(ja) body {
-  font-family: "Hanken Grotesk", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  font-family: "Hanken Grotesk Variable", "Hanken Grotesk", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
 }
 
 html:lang(zh-TW) .font-display,
@@ -86,20 +89,10 @@ html:lang(ja) .font-display {
   transform-origin: center;
   animation: wave 1.15s ease-in-out infinite;
 }
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* Pause looping waveform animations while offscreen (toggled by script) */
+.waveform-paused .wave-bar {
+  animation-play-state: paused;
 }
-.marquee-track {
-  animation: marquee 38s linear infinite;
-}
-
-@keyframes float-soft {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-.float-soft { animation: float-soft 6s ease-in-out infinite; }
 
 .reveal {
   opacity: 0;
@@ -114,11 +107,17 @@ html:lang(ja) .font-display {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .wave-bar, .marquee-track, .float-soft {
+  .rise, .wave-bar {
     animation: none;
   }
   .rise { opacity: 1; }
   .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Consistent focus ring across all interactive elements */
+:is(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
 }
 
 /* Link underline */
@@ -165,28 +164,4 @@ html:lang(ja) .font-display {
   background: var(--color-ink-strong);
   color: var(--color-paper);
   border-color: var(--color-ink-strong);
-}
-
-/* Pricing period toggle (via :has) */
-.price-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-.price-block { display: none; }
-
-.price-toggle:has(#period-quarter:checked) .price-quarter,
-.price-toggle:has(#period-year:checked) .price-year,
-.price-toggle:has(#period-life:checked) .price-life {
-  display: block;
-  animation: rise 0.45s var(--ease-out-expo);
-}
-
-.price-toggle:has(#period-quarter:checked) label[for="period-quarter"],
-.price-toggle:has(#period-year:checked) label[for="period-year"],
-.price-toggle:has(#period-life:checked) label[for="period-life"] {
-  background: var(--color-ink-strong);
-  color: var(--color-paper);
 }

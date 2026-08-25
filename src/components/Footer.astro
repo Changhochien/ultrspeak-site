@@ -77,6 +77,9 @@ const copyright = t.footer.copyright.replace("{year}", String(year));
           </span>
         </a>
       </div>
+      <p class="mt-5 font-mono text-xs tracking-wide text-paper/60">
+        {t.footer.requirements}
+      </p>
     </div>
   </div>
 
@@ -91,13 +94,13 @@ const copyright = t.footer.copyright.replace("{year}", String(year));
       </span>
       <span data-footer-copyright>{copyright}</span>
     </div>
-    <nav class="flex flex-wrap gap-x-6 gap-y-1" aria-label={t.footer.navAria}>
-      <a href={`${homePath}#features`} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.nav.features}</a>
-      <a href={`${homePath}#how`} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.nav.how}</a>
-      <a href={`${homePath}#pricing`} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.nav.pricing}</a>
-      <a href={getLocalizedPath(locale, "contact")} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.footer.contact}</a>
-      <a href={getLocalizedPath(locale, "privacy")} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.footer.privacy}</a>
-      <a href={getLocalizedPath(locale, "terms")} class="link-amber inline-flex min-h-11 items-center hover:text-ink-strong">{t.footer.terms}</a>
+    <nav class="flex flex-wrap gap-x-2 gap-y-1" aria-label={t.footer.navAria}>
+      <a href={`${homePath}#features`} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.nav.features}</a>
+      <a href={`${homePath}#how`} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.nav.how}</a>
+      <a href={`${homePath}#pricing`} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.nav.pricing}</a>
+      <a href={getLocalizedPath(locale, "contact")} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.footer.contact}</a>
+      <a href={getLocalizedPath(locale, "privacy")} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.footer.privacy}</a>
+      <a href={getLocalizedPath(locale, "terms")} class="link-amber inline-flex min-h-11 items-center px-3 py-2 hover:text-ink-strong">{t.footer.terms}</a>
     </nav>
   </div>
 </section>

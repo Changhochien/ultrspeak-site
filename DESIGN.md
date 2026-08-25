@@ -17,7 +17,7 @@ accent, used with intent (CTAs, highlights, the waveform, active states).
 - `--ink-2`   oklch(0.505 0.014 68)  — muted text
 - `--line`    oklch(0.895 0.008 80)  — hairline borders
 - `--amber`   oklch(0.785 0.150 72)  — accent fills, waveform
-- `--amber-ink` oklch(0.560 0.130 60) — amber used as readable text
+- `--amber-ink` oklch(0.520 0.130 60) — amber used as readable text (≥4.5:1 on paper)
 - `--ink-strong` oklch(0.18 0.012 65) — deepest ink, hero headline
 
 Never `#000`/`#fff`. All neutrals tinted warm (hue ~70-80).
@@ -32,8 +32,11 @@ typefaces. No serif, no italic display.
   tracking (-0.03em); UI headings at 600; body at 400, line-height ~1.6.
   Accent words in a headline use color (amber), not italic.
 - **JetBrains Mono** — system and technical labels only: keyboard keys,
-  window-chrome labels, status indicators, feature index numbers, the
-  Prompt-mode example. Never full sentences of prose.
+  window-chrome labels, status indicators, feature index numbers, hardware
+  requirements lines, and ledger column headers. Never full sentences of prose.
+
+Both families are self-hosted as variable fonts (@fontsource-variable); no
+third-party font CDN requests — the site's own privacy story applies to itself.
 
 Body line length capped ~68ch. Headline scale steps ≥1.25 ratio.
 
@@ -55,8 +58,12 @@ Hairline 1px `--line` borders. Generous radii: 20-28px cards, full pills/buttons
 - Buttons: amber fill + ink text (primary); ink-outline (secondary). Full radius.
 - Pills/badges: small, uppercase tracking, hairline border or amber fill.
 - Sections: generous vertical rhythm (≥7rem desktop), centered max-width ~72rem.
+- Comparison ledger: three-column data table (label / ultrspeak / cloud) with
+  hairline rules, mono column headers, drawn SVG check marks; collapses to
+  label-above-pair on mobile. Facts only; carries a scope note.
 
 ## Motion
 
 ease-out-expo / quint. Staggered load-in reveals, scroll reveals, looping
-waveform bars, app marquee. No bounce. Respect prefers-reduced-motion.
+waveform bars. No bounce. Respect prefers-reduced-motion. Waveform loops pause
+while offscreen (IntersectionObserver toggles `.waveform-paused`).

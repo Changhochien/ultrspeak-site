@@ -1,0 +1,86 @@
+---
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale).comparison;
+---
+
+<section class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+  <div class="reveal mx-auto mb-10 max-w-2xl text-center md:mb-12">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-ink">
+      {t.eyebrow}
+    </p>
+    <h2 class="font-display text-[clamp(2.4rem,5vw,3.9rem)] leading-[1.04] text-ink-strong">
+      {t.title}
+    </h2>
+    <p class="mx-auto mt-4 max-w-md text-ink2">
+      {t.intro}
+    </p>
+  </div>
+
+  <div
+    class="reveal mx-auto max-w-3xl overflow-hidden rounded-3xl border border-line bg-card shadow-card"
+  >
+    <div
+      class="grid grid-cols-2 gap-x-4 border-b border-line bg-paper/70 px-6 py-4 sm:px-8 md:grid-cols-[1.15fr_1fr_1fr]"
+    >
+      <span class="hidden md:block"></span>
+      <span class="font-mono text-xs font-semibold uppercase tracking-wider text-amber-ink">
+        {t.columnsUs}
+      </span>
+      <span class="font-mono text-xs font-semibold uppercase tracking-wider text-ink2">
+        {t.columnsCloud}
+      </span>
+    </div>
+
+    <dl>
+      {
+        t.rows.map((row) => (
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2 border-b border-line px-6 py-5 last:border-b-0 sm:px-8 md:grid-cols-[1.15fr_1fr_1fr] md:items-baseline">
+            <dt class="col-span-2 text-sm font-semibold tracking-tight text-ink-strong md:col-span-1">
+              {row.label}
+            </dt>
+            <dd class="flex items-start gap-2 text-sm text-ink">
+              <svg
+                viewBox="0 0 16 16"
+                class="mt-0.5 size-4 shrink-0 text-amber-ink"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m3 8.5 3.5 3.5L13 5" />
+              </svg>
+              <span>{row.us}</span>
+            </dd>
+            <dd class="flex items-start gap-2 text-sm text-ink2">
+              <svg
+                viewBox="0 0 16 16"
+                class="mt-0.5 size-4 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="M8 1v7M8 11v.01" />
+              </svg>
+              <span>{row.cloud}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="border-t border-line bg-paper/70 px-6 py-3.5 text-xs leading-relaxed text-ink2 sm:px-8">
+      {t.note}
+    </p>
+  </div>
+</section>

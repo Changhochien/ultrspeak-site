@@ -164,7 +164,7 @@ const homepagePositioning = new Map([
   [
     "dist/index.html",
     {
-      metaTitle: "ultrspeak — Your words, ready at the cursor.",
+      metaTitle: "ultrspeak — Private, Offline Voice Dictation for Mac and Windows",
       metaDescription:
         "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
       title: "Your words,",
@@ -179,7 +179,7 @@ const homepagePositioning = new Map([
   [
     "dist/zh-tw/index.html",
     {
-      metaTitle: "ultrspeak — 用說的，寫得更清楚。",
+      metaTitle: "ultrspeak — 私密離線語音輸入，Mac 與 Windows 適用",
       metaDescription:
         "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
       title: "用說的，",
@@ -194,7 +194,7 @@ const homepagePositioning = new Map([
   [
     "dist/zh-cn/index.html",
     {
-      metaTitle: "ultrspeak — 直接说，写得更清楚。",
+      metaTitle: "ultrspeak — 私密离线语音输入，Mac 与 Windows 适用",
       metaDescription:
         "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
       title: "直接说，",
@@ -209,7 +209,7 @@ const homepagePositioning = new Map([
   [
     "dist/ja/index.html",
     {
-      metaTitle: "ultrspeak — 話すだけで、伝わる文章に。",
+      metaTitle: "ultrspeak — プライベートでオフラインの音声入力、Mac・Windows 対応",
       metaDescription:
         "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
       title: "話すだけで、",

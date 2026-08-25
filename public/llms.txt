@@ -1,0 +1,24 @@
+# ultrspeak
+
+> ultrspeak is private voice dictation software for Mac and Windows: hold a keyboard shortcut, speak, and clean formatted text appears wherever your cursor is. Transcription runs entirely on-device, so dictation is private and works offline.
+
+ultrspeak turns speech into clear, punctuated text in any app where you write — email, chat, editors, browsers. Writing modes reshape the same spoken thought into formal prose, casual messages, ready-to-send emails, or agent prompts. Every dictation is saved locally and searchable. Custom vocabulary teaches it names, jargon, and product terms.
+
+## Facts
+
+- Transcription runs 100% on-device with local models; no cloud processing, no audio or text upload (0 bytes sent)
+- Works fully offline
+- Languages: English and Mandarin Chinese, with automatic handling of mixed-language speech
+- Platforms and requirements: Apple Silicon Macs (M1 or newer) with macOS 13 or later; Windows 11
+- Free tier: up to 8,000 words per week, no account needed
+- Pro: unlimited dictation for US$19.49 per year (about US$1.62 per month), billed annually; cancel any time; 14-day refund
+- Checkout and subscription management are handled through a hosted account portal with Stripe payments
+- No analytics or telemetry collected by default
+
+## Links
+
+- [Home](https://ultrspeak.com/)
+- [Download](https://ultrspeak.com/#download)
+- [Privacy](https://ultrspeak.com/privacy)
+- [Terms](https://ultrspeak.com/terms)
+- [Contact](https://ultrspeak.com/contact)

@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "../../i18n/config";
 import Base from "../../layouts/Base.astro";
+import Comparison from "../Comparison.astro";
 import Faq from "../Faq.astro";
 import Features from "../Features.astro";
 import Footer from "../Footer.astro";
@@ -8,8 +9,10 @@ import Hero from "../Hero.astro";
 import HowItWorks from "../HowItWorks.astro";
 import Integrations from "../Integrations.astro";
 import Modes from "../Modes.astro";
+import MobileCta from "../MobileCta.astro";
 import Nav from "../Nav.astro";
 import Pricing from "../Pricing.astro";
+import StructuredData from "../StructuredData.astro";
 
 interface Props {
   locale: Locale;
@@ -19,6 +22,7 @@ const { locale } = Astro.props;
 ---
 
 <Base locale={locale} route="home">
+  <StructuredData locale={locale} />
   <Nav locale={locale} route="home" />
   <main>
     <Hero locale={locale} />
@@ -26,8 +30,10 @@ const { locale } = Astro.props;
     <Features locale={locale} />
     <Integrations locale={locale} />
     <HowItWorks locale={locale} />
+    <Comparison locale={locale} />
     <Pricing locale={locale} />
     <Faq locale={locale} />
   </main>
   <Footer locale={locale} />
+  <MobileCta locale={locale} />
 </Base>

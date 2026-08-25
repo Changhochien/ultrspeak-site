@@ -1,4 +1,6 @@
 ---
+import "@fontsource-variable/hanken-grotesk";
+import "@fontsource-variable/jetbrains-mono";
 import "../styles/global.css";
 import { localeConfig, type Locale, type PublicRoute } from "../i18n/config";
 import { getTranslations } from "../i18n/ui";
@@ -42,6 +44,14 @@ const alternateLinks = getAlternateLinks(site, route);
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/og.jpg", site).toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ultrspeak app, Home screen" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={new URL("/og.jpg", site).toString()} />
     <meta property="og:locale" content={localeConfig[locale].htmlLang.replace("-", "_")} />
     {
       alternateLinks
@@ -59,14 +69,6 @@ const alternateLinks = getAlternateLinks(site, route);
         <link rel="alternate" hreflang={link.hreflang} href={link.href} />
       ))
     }
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-
   </head>
   <body>
     <slot />
@@ -89,6 +91,28 @@ const alternateLinks = getAlternateLinks(site, route);
         revealElements.forEach((element) => io.observe(element));
       } else {
         revealElements.forEach((element) => element.classList.add("in"));
+      }
+
+      // Pause looping waveform animations while offscreen
+      const waveformHosts = new Set<Element>();
+      document
+        .querySelectorAll(".wave-bar")
+        .forEach((bar) => {
+          if (bar.parentElement) waveformHosts.add(bar.parentElement);
+        });
+      if ("IntersectionObserver" in window) {
+        const waveformObserver = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              entry.target.classList.toggle(
+                "waveform-paused",
+                !entry.isIntersecting,
+              );
+            }
+          },
+          { rootMargin: "64px 0px 64px 0px" },
+        );
+        waveformHosts.forEach((host) => waveformObserver.observe(host));
       }
 
       document

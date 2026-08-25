@@ -3,7 +3,7 @@ import type { Locale } from "./config";
 export const en = {
   meta: {
     home: {
-      title: "ultrspeak — Your words, ready at the cursor.",
+      title: "ultrspeak — Private, Offline Voice Dictation for Mac and Windows",
       description:
         "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
     },
@@ -33,7 +33,7 @@ export const en = {
     language: "Choose language",
   },
   hero: {
-    eyebrow: "Private voice dictation for Mac and Windows",
+    eyebrow: "Private, offline voice dictation for Mac and Windows",
     title: "Your words,",
     titleAccent: "ready at the cursor.",
     body: "Hold one key and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
@@ -101,6 +101,32 @@ export const en = {
     ],
     hold: "Hold Space to dictate",
   },
+  comparison: {
+    eyebrow: "Local vs cloud",
+    title: "Your voice doesn't need a server.",
+    intro:
+      "ultrspeak transcribes with models running on your machine. That changes a few things compared with dictation that sends your audio elsewhere:",
+    columnsUs: "ultrspeak",
+    columnsCloud: "Cloud dictation",
+    rows: [
+      {
+        label: "Where audio goes",
+        us: "Never leaves your device",
+        cloud: "Uploaded for processing",
+      },
+      {
+        label: "Works offline",
+        us: "Yes, fully",
+        cloud: "No",
+      },
+      {
+        label: "Free words every week",
+        us: "8,000, no account needed",
+        cloud: "Trial credits, account required",
+      },
+    ],
+    note: "The comparison describes typical cloud dictation services, not any specific product.",
+  },
   how: {
     title: "Three seconds, start to finish.",
     live: "Live transcript preview",
@@ -137,11 +163,11 @@ export const en = {
       "Global hold-to-talk shortcut",
       "Up to 8,000 words per week",
     ],
-    popular: "Most popular",
-    proIntro: "Unlimited, for daily drivers.",
-    perYear: "USD / year",
+    proIntro: "Unlimited, for daily drivers.",    perYear: "USD / year",
     monthly: "about $1.62 per month, billed annually",
     upgrade: "Sign in to upgrade",
+    accountPortalNote:
+      "You'll sign in at accounts.ultrclick.com — the ultrspeak account portal.",
     paidFeatures: [
       "Everything in Free",
       "Unlimited dictation",
@@ -182,10 +208,11 @@ export const en = {
     ],
   },
   footer: {
-    title: "Your voice stays on your device.",
-    titleAccent: "Your words land at the cursor.",
+    title: "Your voice stays on your device,",
+    titleAccent: "your words land where you type.",
     intro:
       "Try it free on Mac and Windows, with English and Mandarin dictation.",
+    requirements: "Mac: Apple M1 or newer, macOS 13+ · Windows 11",
     downloadMac: "Download for Mac",
     downloadWindows: "Download for Windows",
     recommended: "Recommended",
@@ -357,7 +384,7 @@ export type Translation = TranslationShape<typeof en>;
 export const zhTW: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 用說的，寫得更清楚。",
+      title: "ultrspeak — 私密離線語音輸入，Mac 與 Windows 適用",
       description:
         "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
     },
@@ -387,7 +414,7 @@ export const zhTW: Translation = {
     language: "選擇語言",
   },
   hero: {
-    eyebrow: "Mac 與 Windows 的裝置端語音輸入",
+    eyebrow: "Mac 與 Windows 的私密離線語音輸入",
     title: "用說的，",
     titleAccent: "寫得更清楚。",
     body: "按住一個鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
@@ -449,6 +476,19 @@ export const zhTW: Translation = {
     ],
     hold: "按住空白鍵開始語音輸入",
   },
+  comparison: {
+    eyebrow: "本機與雲端",
+    title: "你的聲音不需要伺服器。",
+    intro: "ultrspeak 用你電腦上的模型進行轉錄。與把音訊送到別處處理的語音輸入相比，這帶來幾個不同：",
+    columnsUs: "ultrspeak",
+    columnsCloud: "雲端語音輸入",
+    rows: [
+      { label: "音訊去向", us: "不會離開你的裝置", cloud: "上傳到伺服器處理" },
+      { label: "離線使用", us: "完整支援", cloud: "不支援" },
+      { label: "每週免費字詞", us: "8,000 字詞，無須帳戶", cloud: "試用額度，須註冊帳戶" },
+    ],
+    note: "此比較描述典型的雲端語音輸入服務，並非針對特定產品。",
+  },
   how: {
     title: "三秒鐘，從開口到完成。",
     live: "即時逐字稿預覽",
@@ -479,11 +519,11 @@ export const zhTW: Translation = {
     forever: "永久免費",
     downloadFree: "免費下載",
     freeFeatures: ["裝置端轉錄", "英文與中文", "全域按住說話快速鍵", "每週可免費輸入 8,000 字詞"],
-    popular: "最受歡迎",
     proIntro: "為每天大量使用的人提供無限額度。",
     perYear: "美元／年",
     monthly: "約每月 1.62 美元，按年計費",
     upgrade: "登入並升級",
+    accountPortalNote: "你將前往 accounts.ultrclick.com 登入——那是 ultrspeak 的帳戶入口網站。",
     paidFeatures: ["免費版全部功能", "無限語音輸入", "所有書寫模式", "自訂詞彙", "可搜尋的歷史記錄"],
     checkout: "安全結帳由 Stripe 代管。你可以從帳戶管理或取消訂閱。",
   },
@@ -517,9 +557,10 @@ export const zhTW: Translation = {
     ],
   },
   footer: {
-    title: "聲音留在你的裝置。",
-    titleAccent: "整理好的文字，直接送到游標位置。",
+    title: "聲音留在你的裝置，",
+    titleAccent: "文字送到你打字的地方。",
     intro: "Mac 與 Windows 皆可免費使用，支援英文與華語語音輸入。",
+    requirements: "Mac：Apple M1 或更新版本、macOS 13 以上 · Windows 11",
     downloadMac: "下載 Mac 版",
     downloadWindows: "下載 Windows 版",
     recommended: "推薦",
@@ -654,7 +695,7 @@ export const zhTW: Translation = {
 export const zhCN: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 直接说，写得更清楚。",
+      title: "ultrspeak — 私密离线语音输入，Mac 与 Windows 适用",
       description:
         "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
     },
@@ -672,7 +713,7 @@ export const zhCN: Translation = {
     language: "选择语言",
   },
   hero: {
-    eyebrow: "Mac 与 Windows 的本地语音输入",
+    eyebrow: "Mac 与 Windows 的私密离线语音输入",
     title: "直接说，",
     titleAccent: "写得更清楚。",
     body: "按住一个键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
@@ -719,6 +760,19 @@ export const zhCN: Translation = {
     ],
     hold: "按住空格键开始语音输入",
   },
+  comparison: {
+    eyebrow: "本地与云端",
+    title: "你的声音不需要服务器。",
+    intro: "ultrspeak 用你电脑上的模型完成转录。与把音频送到别处处理的语音输入相比，这带来几个不同：",
+    columnsUs: "ultrspeak",
+    columnsCloud: "云端语音输入",
+    rows: [
+      { label: "音频去向", us: "不会离开你的设备", cloud: "上传到服务器处理" },
+      { label: "离线使用", us: "完整支持", cloud: "不支持" },
+      { label: "每周免费字词", us: "8,000 字词，无需账户", cloud: "试用额度，需注册账户" },
+    ],
+    note: "此比较描述典型的云端语音输入服务，并非针对特定产品。",
+  },
   how: {
     title: "三秒钟，从开口到完成。",
     live: "实时转录预览",
@@ -737,11 +791,11 @@ export const zhCN: Translation = {
     forever: "永久免费",
     downloadFree: "免费下载",
     freeFeatures: ["设备端转录", "英文与中文", "全局按住说话快捷键", "每周可免费输入 8,000 字词"],
-    popular: "最受欢迎",
     proIntro: "为每天大量使用的人提供无限额度。",
     perYear: "美元／年",
     monthly: "约每月 1.62 美元，按年计费",
     upgrade: "登录并升级",
+    accountPortalNote: "你将前往 accounts.ultrclick.com 登录——那是 ultrspeak 的账户门户。",
     paidFeatures: ["免费版全部功能", "无限语音输入", "所有写作模式", "自定义词汇", "可搜索的历史记录"],
     checkout: "安全结账由 Stripe 托管。你可以从账户管理或取消订阅。",
   },
@@ -757,9 +811,10 @@ export const zhCN: Translation = {
     ],
   },
   footer: {
-    title: "声音留在你的设备。",
-    titleAccent: "整理好的文字，直接送到光标位置。",
+    title: "声音留在你的设备，",
+    titleAccent: "文字送到你打字的地方。",
     intro: "Mac 与 Windows 均可免费使用，支持英语和普通话语音输入。",
+    requirements: "Mac：Apple M1 或更新版本、macOS 13 及以上 · Windows 11",
     downloadMac: "下载 Mac 版",
     downloadWindows: "下载 Windows 版",
     recommended: "推荐",
@@ -838,7 +893,7 @@ export const zhCN: Translation = {
 export const ja: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 話すだけで、伝わる文章に。",
+      title: "ultrspeak — プライベートでオフラインの音声入力、Mac・Windows 対応",
       description:
         "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
     },
@@ -856,7 +911,7 @@ export const ja: Translation = {
     language: "言語を選択",
   },
   hero: {
-    eyebrow: "Mac・Windows 向けオンデバイス音声入力",
+    eyebrow: "Mac・Windows 向けプライベートなオフライン音声入力",
     title: "話すだけで、",
     titleAccent: "伝わる文章に。",
     body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
@@ -903,6 +958,20 @@ export const ja: Translation = {
     ],
     hold: "Space を押して音声入力",
   },
+  comparison: {
+    eyebrow: "ローカルとクラウド",
+    title: "声にサーバーは要りません。",
+    intro:
+      "ultrspeak はお使いのマシン上のモデルで文字起こしします。音声を外部に送るクラウド音声入力との違いです：",
+    columnsUs: "ultrspeak",
+    columnsCloud: "クラウド音声入力",
+    rows: [
+      { label: "音声の行き先", us: "デバイスの外へ出ません", cloud: "サーバーへアップロード" },
+      { label: "オフライン対応", us: "完全対応", cloud: "非対応" },
+      { label: "毎週の無料文字数", us: "8,000語・アカウント不要", cloud: "トライアル枠・アカウント必須" },
+    ],
+    note: "この比較は一般的なクラウド音声入力サービスを念頭にした説明で、特定製品への言及ではありません。",
+  },
   how: {
     title: "話し始めて3秒で完了。",
     live: "リアルタイム文字起こし",
@@ -921,11 +990,12 @@ export const ja: Translation = {
     forever: "ずっと無料",
     downloadFree: "無料でダウンロード",
     freeFeatures: ["オンデバイス文字起こし", "英語・中国語", "グローバル長押しショートカット", "週8,000語まで無料"],
-    popular: "一番人気",
     proIntro: "毎日使う方に、無制限で。",
     perYear: "USD／年",
     monthly: "月額換算 約1.62ドル、年払い",
     upgrade: "ログインしてアップグレード",
+    accountPortalNote:
+      "ログインページ（accounts.ultrclick.com）は ultrspeak のアカウントポータルです。",
     paidFeatures: ["無料版の全機能", "無制限の音声入力", "すべての書き方モード", "カスタム語彙", "検索できる履歴"],
     checkout: "安全な決済は Stripe がホストします。サブスクリプションの管理・解約はアカウントから行えます。",
   },
@@ -941,9 +1011,10 @@ export const ja: Translation = {
     ],
   },
   footer: {
-    title: "音声は端末の中に。",
-    titleAccent: "整った文章は、書いている場所へ。",
+    title: "音声は端末の中に、",
+    titleAccent: "文章はいつも入力する場所へ。",
     intro: "Mac・Windows で無料で始められます。音声入力は英語・中国語（普通話）に対応。",
+    requirements: "Mac：Apple M1 以降・macOS 13 以上 ／ Windows 11",
     downloadMac: "Mac 版をダウンロード",
     downloadWindows: "Windows 版をダウンロード",
     recommended: "おすすめ",

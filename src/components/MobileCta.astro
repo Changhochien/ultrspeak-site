@@ -1,0 +1,105 @@
+---
+import type { Locale } from "../i18n/config";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<div data-mobile-cta-spacer class="h-20 md:hidden" aria-hidden="true"></div>
+
+<div
+  data-mobile-cta
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 backdrop-blur-xl transition-transform duration-300 ease-out motion-reduce:transition-none will-change-transform md:hidden"
+  style="transform:translateY(100%);padding-bottom:max(0.75rem,env(safe-area-inset-bottom))"
+>
+  <div class="px-4 pt-3">
+    <a
+      href="#download"
+      data-mobile-download
+      data-default-label={t.hero.download}
+      data-macos-label={t.footer.downloadMac}
+      data-windows-label={t.footer.downloadWindows}
+      class="flex min-h-12 w-full items-center justify-center rounded-full bg-amber px-6 py-3 text-base font-semibold text-ink-strong shadow-[0_4px_18px_-4px_oklch(0.785_0.15_72/0.6)]"
+    >
+      <span data-mobile-download-label>{t.hero.download}</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  import {
+    detectDownloadPlatform,
+    getDownloadHref,
+  } from "../scripts/platform-download";
+
+  type NavigatorWithUserAgentData = Navigator & {
+    readonly userAgentData?: { readonly platform?: string };
+  };
+
+  const cta = document.querySelector<HTMLElement>("[data-mobile-cta]");
+  const hero = document.querySelector<HTMLElement>("[data-home-hero]");
+  const downloadSection = document.getElementById("download");
+
+  if (cta) {
+    const anchor = cta.querySelector<HTMLAnchorElement>(
+      "[data-mobile-download]",
+    );
+    const label = anchor?.querySelector<HTMLElement>(
+      "[data-mobile-download-label]",
+    );
+
+    if (anchor && label) {
+      const browserNavigator = navigator as NavigatorWithUserAgentData;
+      const platform = detectDownloadPlatform({
+        userAgent: browserNavigator.userAgent,
+        platform: browserNavigator.platform,
+        userAgentDataPlatform: browserNavigator.userAgentData?.platform,
+        maxTouchPoints: browserNavigator.maxTouchPoints,
+      });
+      const href = getDownloadHref(platform, `mobile_cta_${platform}`);
+
+      if (href && platform !== "other") {
+        const labelByPlatform = {
+          macos: anchor.dataset.macosLabel,
+          windows: anchor.dataset.windowsLabel,
+        };
+        anchor.href = href;
+        label.textContent =
+          labelByPlatform[platform] ?? anchor.dataset.defaultLabel ?? "";
+      }
+    }
+
+    let pastHero = !hero;
+    let downloadInView = false;
+
+    const applyVisibility = () => {
+      cta.style.transform =
+        pastHero && !downloadInView ? "translateY(0)" : "translateY(100%)";
+    };
+
+    if (hero && "IntersectionObserver" in window) {
+      new IntersectionObserver(
+        ([entry]) => {
+          pastHero = !(entry?.isIntersecting ?? true);
+          applyVisibility();
+        },
+        { rootMargin: "-96px 0px 0px 0px" },
+      ).observe(hero);
+    }
+
+    if (downloadSection && "IntersectionObserver" in window) {
+      new IntersectionObserver(
+        ([entry]) => {
+          downloadInView = entry?.isIntersecting ?? false;
+          applyVisibility();
+        },
+        { threshold: 0.1 },
+      ).observe(downloadSection);
+    }
+  }
+</script>

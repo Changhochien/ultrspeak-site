@@ -127,3 +127,26 @@ const links = [
     </div>
   </nav>
 </header>
+
+<script>
+  // Close the language dropdown on Escape or outside pointer press.
+  const menu = document.querySelector<HTMLDetailsElement>(".language-menu");
+  if (menu) {
+    const summary = menu.querySelector("summary");
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.open) return;
+      event.stopPropagation();
+      menu.open = false;
+      if (document.activeElement instanceof Node && menu.contains(document.activeElement)) {
+        summary?.focus();
+      }
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+      if (!menu.open) return;
+      if (event.target instanceof Node && menu.contains(event.target)) return;
+      menu.open = false;
+    });
+  }
+</script>

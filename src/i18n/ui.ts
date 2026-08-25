@@ -3,7 +3,7 @@ import type { Locale } from "./config";
 export const en = {
   meta: {
     home: {
-      title: "ultrspeak — Your words, ready at the cursor.",
+      title: "ultrspeak — Private, Offline Voice Dictation for Mac and Windows",
       description:
         "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
     },
@@ -33,7 +33,7 @@ export const en = {
     language: "Choose language",
   },
   hero: {
-    eyebrow: "Private voice dictation for Mac and Windows",
+    eyebrow: "Private, offline voice dictation for Mac and Windows",
     title: "Your words,",
     titleAccent: "ready at the cursor.",
     body: "Hold one key and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
@@ -357,7 +357,7 @@ export type Translation = TranslationShape<typeof en>;
 export const zhTW: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 用說的，寫得更清楚。",
+      title: "ultrspeak — 私密離線語音輸入，Mac 與 Windows 適用",
       description:
         "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
     },
@@ -387,7 +387,7 @@ export const zhTW: Translation = {
     language: "選擇語言",
   },
   hero: {
-    eyebrow: "Mac 與 Windows 的裝置端語音輸入",
+    eyebrow: "Mac 與 Windows 的私密離線語音輸入",
     title: "用說的，",
     titleAccent: "寫得更清楚。",
     body: "按住一個鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
@@ -654,7 +654,7 @@ export const zhTW: Translation = {
 export const zhCN: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 直接说，写得更清楚。",
+      title: "ultrspeak — 私密离线语音输入，Mac 与 Windows 适用",
       description:
         "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
     },
@@ -672,7 +672,7 @@ export const zhCN: Translation = {
     language: "选择语言",
   },
   hero: {
-    eyebrow: "Mac 与 Windows 的本地语音输入",
+    eyebrow: "Mac 与 Windows 的私密离线语音输入",
     title: "直接说，",
     titleAccent: "写得更清楚。",
     body: "按住一个键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
@@ -838,7 +838,7 @@ export const zhCN: Translation = {
 export const ja: Translation = {
   meta: {
     home: {
-      title: "ultrspeak — 話すだけで、伝わる文章に。",
+      title: "ultrspeak — プライベートでオフラインの音声入力、Mac・Windows 対応",
       description:
         "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
     },
@@ -856,7 +856,7 @@ export const ja: Translation = {
     language: "言語を選択",
   },
   hero: {
-    eyebrow: "Mac・Windows 向けオンデバイス音声入力",
+    eyebrow: "Mac・Windows 向けプライベートなオフライン音声入力",
     title: "話すだけで、",
     titleAccent: "伝わる文章に。",
     body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",

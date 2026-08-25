@@ -1,0 +1,66 @@
+---
+import type { Locale } from "../i18n/config";
+import { getAbsoluteLocalizedUrl } from "../i18n/utils";
+import { getTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const site = Astro.site ?? new URL("https://ultrspeak.com");
+const homeUrl = getAbsoluteLocalizedUrl(site, locale, "home");
+
+// Price mirrors the pricing section (Free / Pro US$19.49 per year).
+const softwareApplication = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "ultrspeak",
+  url: homeUrl.toString(),
+  operatingSystem: "macOS, Windows",
+  applicationCategory: "UtilitiesApplication",
+  description: t.meta.home.description,
+  offers: [
+    {
+      "@type": "Offer",
+      name: t.pricing.free,
+      price: "0",
+      priceCurrency: "USD",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro",
+      price: "19.49",
+      priceCurrency: "USD",
+    },
+  ],
+};
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: t.faq.items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
+const toJsonLd = (data: object) =>
+  JSON.stringify(data).replace(/</g, "\\u003c");
+---
+
+<script
+  type="application/ld+json"
+  set:html={toJsonLd(softwareApplication)}
+  is:inline
+/>
+<script
+  type="application/ld+json"
+  set:html={toJsonLd(faqPage)}
+  is:inline
+/>

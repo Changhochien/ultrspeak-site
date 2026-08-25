@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import {
   defaultLocale,
@@ -14,6 +15,7 @@ const localePaths = locales.map(
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ultrspeak.com',
+  integrations: [sitemap()],
   i18n: {
     defaultLocale: localeConfig[defaultLocale].path || defaultLocale,
     locales: localePaths,

@@ -92,19 +92,19 @@ describe("translation dictionaries", () => {
     } as const;
     const metadataByLocale = {
       en: [
-        "ultrspeak — Your words, ready at the cursor.",
+        "ultrspeak — Private, Offline Voice Dictation for Mac and Windows",
         "Private voice dictation for Mac and Windows. Turn English or Mandarin speech into clear text at your cursor, on-device and offline.",
       ],
       "zh-TW": [
-        "ultrspeak — 用說的，寫得更清楚。",
+        "ultrspeak — 私密離線語音輸入，Mac 與 Windows 適用",
         "適用於 Mac 與 Windows 的裝置端語音輸入。支援英文與華語，離線也能將語音整理成清楚文字，直接輸入游標所在位置。",
       ],
       "zh-CN": [
-        "ultrspeak — 直接说，写得更清楚。",
+        "ultrspeak — 私密离线语音输入，Mac 与 Windows 适用",
         "适用于 Mac 与 Windows 的本地语音输入。支持英语和普通话，离线也能将语音整理成清晰文字，直接输入光标所在位置。",
       ],
       ja: [
-        "ultrspeak — 話すだけで、伝わる文章に。",
+        "ultrspeak — プライベートでオフラインの音声入力、Mac・Windows 対応",
         "Mac・Windows向けのオンデバイス音声入力。英語と中国語（普通話）の音声をカーソル位置で整った文章に。オフラインでも使えます。",
       ],
     } as const;

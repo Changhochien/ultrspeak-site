@@ -36,7 +36,7 @@ export const en = {
     eyebrow: "Private, offline voice dictation for Mac and Windows",
     title: "Your words,",
     titleAccent: "ready at the cursor.",
-    body: "Hold one key and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
+    body: "Hold your shortcut and speak. ultrspeak turns your voice into clean, formatted text in the app where you're writing—on your device, offline, without uploading your voice.",
     download: "Download",
     seeItWork: "See it work",
     imageAlt: "ultrspeak app, Home screen",
@@ -70,7 +70,7 @@ export const en = {
         body: "Transcription runs on your device with local models. There is no cloud processing and no audio or text upload. ultrspeak works on a plane, in a meeting, anywhere, and your voice stays yours.",
       },
       {
-        title: "Hold a key, keep your flow",
+        title: "Hold your shortcut, keep your flow",
         body: "One global shortcut works across supported text inputs in the apps you use. The text lands where your cursor already is.",
       },
       {
@@ -93,13 +93,13 @@ export const en = {
     eyebrow: "Works across your workflow",
     title: "Use your voice in the apps where you write.",
     intro:
-      "ultrspeak is one keystroke away across common desktop apps. No integrations to set up, no plugins, no copy and paste.",
+      "ultrspeak is always one shortcut away across common desktop apps. No integrations to set up, no plugins, no copy and paste.",
     apps: [
       ["Slack", "Mail", "Notes", "Cursor", "VS Code", "Notion"],
       ["Messages", "Safari", "Chrome", "Obsidian", "Linear"],
       ["Gmail", "Figma", "Terminal", "Docs", "Discord"],
     ],
-    hold: "Hold Space to dictate",
+    hold: "Hold Option+Space to dictate",
   },
   comparison: {
     eyebrow: "Local vs cloud",
@@ -417,7 +417,7 @@ export const zhTW: Translation = {
     eyebrow: "Mac 與 Windows 的私密離線語音輸入",
     title: "用說的，",
     titleAccent: "寫得更清楚。",
-    body: "按住一個鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
+    body: "按住你的快速鍵，直接說出想法。ultrspeak 會在你的裝置上整理成清楚、格式完整的文字，直接輸入游標所在位置。語音不用上傳，沒有網路也能使用。",
     download: "下載",
     seeItWork: "看看如何運作",
     imageAlt: "ultrspeak 應用程式主畫面",
@@ -446,7 +446,7 @@ export const zhTW: Translation = {
         body: "轉錄由本機模型在你的裝置上完成。不使用雲端處理，也不上傳音訊或文字。無論在飛機上、會議中或任何地方，ultrspeak 都能運作，你的聲音始終屬於你。",
       },
       {
-        title: "按住按鍵，不打斷思緒",
+        title: "按住快速鍵，不打斷思緒",
         body: "一組全域快速鍵可在常用應用程式的支援文字欄位中使用，整理好的文字會直接出現在游標位置。",
       },
       {
@@ -474,7 +474,7 @@ export const zhTW: Translation = {
       ["訊息", "Safari", "Chrome", "Obsidian", "Linear"],
       ["Gmail", "Figma", "終端機", "文件", "Discord"],
     ],
-    hold: "按住空白鍵開始語音輸入",
+    hold: "按住 Option+Space 開始語音輸入",
   },
   comparison: {
     eyebrow: "本機與雲端",
@@ -717,7 +717,7 @@ export const zhCN: Translation = {
     eyebrow: "Mac 与 Windows 的私密离线语音输入",
     title: "直接说，",
     titleAccent: "写得更清楚。",
-    body: "按住一个键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
+    body: "按住你的快捷键，直接说出想法。ultrspeak 会在你的设备上整理成清晰、格式完整的文字，直接输入光标所在位置。语音无需上传，没有网络也能使用。",
     download: "下载",
     seeItWork: "看看如何工作",
     imageAlt: "ultrspeak 应用程序主界面",
@@ -742,7 +742,7 @@ export const zhCN: Translation = {
     title: "就像把脑中的想法直接说出来。",
     cards: [
       { title: "声音不会离开你的电脑", body: "转录由本地模型在你的设备上完成。不使用云端处理，也不上传音频或文字。无论在飞机上、会议中还是任何地方，ultrspeak 都能工作，你的声音始终属于你。" },
-      { title: "按住按键，不打断思路", body: "一组全局快捷键可在常用应用程序支持的文本框中使用，整理好的文字会直接出现在光标位置。" },
+      { title: "按住快捷键，不打断思路", body: "一组全局快捷键可在常用应用程序支持的文本框中使用，整理好的文字会直接出现在光标位置。" },
       { title: "懂得你的用词", body: "只要教它一次人名、术语和产品名称，自定义词汇每次都能正确呈现。" },
       { title: "英文与中文", body: "英文与中文各有专用识别路径，并能自动回退，让中英混合语音依然准确。" },
       { title: "说过的内容都不会丢失", body: "每次语音输入都保存在本地并可搜索。你可以查找、复制或重复使用，也能随时清除。" },
@@ -759,7 +759,7 @@ export const zhCN: Translation = {
       ["信息", "Safari", "Chrome", "Obsidian", "Linear"],
       ["Gmail", "Figma", "终端", "文档", "Discord"],
     ],
-    hold: "按住空格键开始语音输入",
+    hold: "按住 Option+Space 开始语音输入",
   },
   comparison: {
     eyebrow: "本地与云端",
@@ -915,7 +915,7 @@ export const ja: Translation = {
     eyebrow: "Mac・Windows 向けプライベートなオフライン音声入力",
     title: "話すだけで、",
     titleAccent: "伝わる文章に。",
-    body: "キーを1つ押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
+    body: "ショートカットを押しながら話すだけ。ultrspeak が音声を端末上で整った文章に変え、使っているアプリへ直接入力します。音声のアップロードは不要。オフラインでも使えます。",
     download: "ダウンロード",
     seeItWork: "動作を見る",
     imageAlt: "ultrspeak アプリのホーム画面",
@@ -940,7 +940,7 @@ export const ja: Translation = {
     title: "考えたまま話すだけの心地よさ。",
     cards: [
       { title: "声はコンピューターの外へ出ません", body: "ローカルモデルにより、お使いのデバイス上で処理します。クラウド処理は行わず、音声や文章をアップロードしません。飛行機でも会議でもどこでも使え、声はずっとあなたのものです。" },
-      { title: "キー1つで、流れを止めない", body: "1つのグローバルショートカットが、普段使うアプリの対応テキスト欄で動作します。整った文章が現在のカーソル位置に入ります。" },
+      { title: "ショートカットで、流れを止めない", body: "1つのグローバルショートカットが、普段使うアプリの対応テキスト欄で動作します。整った文章が現在のカーソル位置に入ります。" },
       { title: "あなたの言葉を覚えます", body: "人名、専門用語、製品名を一度登録するだけ。カスタム語彙が毎回正しく入力されます。" },
       { title: "英語と中国語", body: "英語と中国語には専用の認識経路があり、言語が混ざった音声も自動フォールバックで正確に処理します。" },
       { title: "話した内容を見失いません", body: "すべての音声入力はローカルに保存され、検索できます。検索、コピー、再利用ができ、いつでも消去できます。" },
@@ -951,13 +951,13 @@ export const ja: Translation = {
   integrations: {
     eyebrow: "いつもの作業にそのまま",
     title: "普段使うアプリで、声から文章へ。",
-    intro: "ultrspeak は、多くの一般的なデスクトップアプリでキー1つですぐ使えます。連携設定もプラグインも、コピー＆ペーストも不要です。",
+    intro: "ultrspeak は、多くの一般的なデスクトップアプリでショートカットですぐ使えます。連携設定もプラグインも、コピー＆ペーストも不要です。",
     apps: [
       ["Slack", "メール", "メモ", "Cursor", "VS Code", "Notion"],
       ["メッセージ", "Safari", "Chrome", "Obsidian", "Linear"],
       ["Gmail", "Figma", "ターミナル", "ドキュメント", "Discord"],
     ],
-    hold: "Space を押して音声入力",
+    hold: "Option+Space を押して音声入力",
   },
   comparison: {
     eyebrow: "ローカルとクラウド",

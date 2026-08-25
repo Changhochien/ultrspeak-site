@@ -78,7 +78,7 @@ export const en = {
         body: "Teach it names, jargon, and product terms once. Your custom vocabulary lands right the first time, every time.",
       },
       {
-        title: "English and Chinese",
+        title: "English and Mandarin",
         body: "Dedicated routing for Mandarin alongside English, with automatic fallback so mixed-language speech stays accurate.",
       },
       {
@@ -159,7 +159,7 @@ export const en = {
     downloadFree: "Download free",
     freeFeatures: [
       "On-device transcription",
-      "English & Chinese",
+      "English & Mandarin",
       "Global hold-to-talk shortcut",
       "Up to 8,000 words per week",
     ],
@@ -208,7 +208,7 @@ export const en = {
     ],
   },
   footer: {
-    title: "Your voice stays on your device,",
+    title: "Your voice stays on your device —",
     titleAccent: "your words land where you type.",
     intro:
       "Try it free on Mac and Windows, with English and Mandarin dictation.",
@@ -251,7 +251,7 @@ export const en = {
     copyError: "Copy did not work. Select the draft and copy it manually.",
     preferEmail: "Prefer email? Reach us directly at",
     refund:
-      ". For refunds, email within 14 days of purchase from your checkout address.",
+      ". For refunds, email hello@ultrspeak.com within 14 days of purchase from your checkout address.",
   },
   privacy: {
     heading: "Privacy",
@@ -594,7 +594,8 @@ export const zhTW: Translation = {
     copySuccess: "草稿已複製。請寄至 hello@ultrspeak.com。",
     copyError: "無法自動複製。請選取草稿並手動複製。",
     preferEmail: "偏好使用電子郵件？請直接寄信至",
-    refund: "。如需退款，請在購買後 14 天內使用結帳時的電子郵件地址來信。",
+    refund:
+      "。如需退款，請於購買後 14 天內寄信至 hello@ultrspeak.com，並使用結帳時的電子郵件地址。",
   },
   privacy: {
     heading: "隱私權",
@@ -848,7 +849,7 @@ export const zhCN: Translation = {
     copySuccess: "草稿已复制。请发送至 hello@ultrspeak.com。",
     copyError: "无法自动复制。请选中草稿并手动复制。",
     preferEmail: "更喜欢电子邮件？请直接发送至",
-    refund: "。如需退款，请在购买后 14 天内使用结账时的电子邮件地址来信。",
+    refund: "。如需退款，请在购买后 14 天内发送邮件至 hello@ultrspeak.com，并使用结账时的电子邮件地址。",
   },
   privacy: {
     heading: "隐私",
@@ -1048,7 +1049,7 @@ export const ja: Translation = {
     copySuccess: "下書きをコピーしました。hello@ultrspeak.com へお送りください。",
     copyError: "コピーできませんでした。下書きを選択して手動でコピーしてください。",
     preferEmail: "メールでのお問い合わせは",
-    refund: "まで直接ご連絡ください。返金をご希望の場合は、購入後14日以内に決済時のメールアドレスからお送りください。",
+    refund: "まで直接ご連絡ください。返金をご希望の場合は、hello@ultrspeak.com 宛に、購入後14日以内に決済時のメールアドレスからお送りください。",
   },
   privacy: {
     heading: "プライバシー",

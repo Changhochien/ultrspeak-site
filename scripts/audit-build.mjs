@@ -170,7 +170,7 @@ const homepagePositioning = new Map([
       title: "Your words,",
       titleAccent: "ready at the cursor.",
       pricingAllowance: "Up to 8,000 words per week",
-      pricingLanguage: "English & Chinese",
+      pricingLanguage: "English & Mandarin",
       pricingAnnual: "USD / year",
       formerAllowance:
         /2,000|\b8,000\s+words?\s+(?:a|per|each|every)\s+day\b/iu,
